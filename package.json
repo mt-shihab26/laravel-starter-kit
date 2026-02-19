@@ -3,11 +3,11 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "vite build",
-        "build:ssr": "vite build && vite build --ssr",
-        "dev": "vite",
-        "lint": "tsc --noEmit && eslint . --fix",
-        "format": "prettier --write resources/"
+        "build": "bun x --bun vite build",
+        "build:ssr": "bun x --bun vite build && bun x --bun vite build --ssr",
+        "dev": "bun x --bun vite",
+        "lint": "bun x --bun tsc --noEmit && bun x --bun eslint . --fix",
+        "format": "bun x --bun prettier --write resources/"
     },
     "devDependencies": {
         "@eslint/js": "^9.19.0",
@@ -16,11 +16,10 @@
         "babel-plugin-react-compiler": "^1.0.0",
         "eslint": "^9.17.0",
         "eslint-config-prettier": "^10.0.1",
-        "eslint-import-resolver-typescript": "^4.4.4",
-        "eslint-plugin-import": "^2.32.0",
         "eslint-plugin-react": "^7.37.3",
         "eslint-plugin-react-hooks": "^7.0.0",
         "prettier": "^3.4.2",
+        "prettier-plugin-organize-imports": "^4.3.0",
         "prettier-plugin-tailwindcss": "^0.6.11",
         "typescript-eslint": "^8.23.0"
     },
