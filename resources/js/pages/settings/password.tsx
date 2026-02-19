@@ -1,4 +1,3 @@
-import PasswordController from '@/actions/App/Http/Controllers/Settings/PasswordController';
 import Heading from '@/components/heading';
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
@@ -6,7 +5,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
-import { edit } from '@/routes/user-password';
 import type { BreadcrumbItem } from '@/types';
 import { Transition } from '@headlessui/react';
 import { Form, Head } from '@inertiajs/react';
@@ -15,7 +13,7 @@ import { useRef } from 'react';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Password settings',
-        href: edit().url,
+        href: route('user-password.edit'),
     },
 ];
 
@@ -38,7 +36,8 @@ export default function Password() {
                     />
 
                     <Form
-                        {...PasswordController.update.form()}
+                        action={route('user-password.update')}
+                        method="put"
                         options={{
                             preserveScroll: true,
                         }}
