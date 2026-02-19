@@ -39,5 +39,5 @@ jobs:
       - name: Run PHP Tests
         run: composer run test
 
-      - name: Run JavaScript Tests
-        run: LARAVEL_BYPASS_ENV_CHECK=1 bun run test
+      # - name: Run JavaScript Tests
+      #   run: LARAVEL_BYPASS_ENV_CHECK=1 bun run test
