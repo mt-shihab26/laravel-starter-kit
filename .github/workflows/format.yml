@@ -30,7 +30,7 @@ jobs:
           bun install
 
       - name: Generate Definitions
-        run: php artisan wayfinder:generate
+        run: php artisan wayfinder:generate --with-form
 
       - name: Run PHP Lint
         run: composer run lint
