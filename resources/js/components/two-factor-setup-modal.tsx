@@ -15,7 +15,6 @@ import {
 import { useAppearance } from '@/hooks/use-appearance';
 import { useClipboard } from '@/hooks/use-clipboard';
 import { OTP_MAX_LENGTH } from '@/hooks/use-two-factor-auth';
-import { confirm } from '@/routes/two-factor';
 import { Form } from '@inertiajs/react';
 import { REGEXP_ONLY_DIGITS } from 'input-otp';
 import { Check, Copy, ScanLine } from 'lucide-react';
@@ -156,7 +155,8 @@ function TwoFactorVerificationStep({
 
     return (
         <Form
-            {...confirm.form()}
+            action={route('two-factor.confirm')}
+            method="post"
             onSuccess={() => onClose()}
             resetOnError
             resetOnSuccess

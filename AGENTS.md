@@ -14,7 +14,6 @@ This application is a Laravel application and its main Laravel ecosystems packag
 - laravel/fortify (FORTIFY) - v1
 - laravel/framework (LARAVEL) - v12
 - laravel/prompts (PROMPTS) - v0
-- laravel/wayfinder (WAYFINDER) - v0
 - tightenco/ziggy (ZIGGY) - v2
 - larastan/larastan (LARASTAN) - v3
 - laravel/boost (BOOST) - v2
@@ -27,7 +26,6 @@ This application is a Laravel application and its main Laravel ecosystems packag
 - @inertiajs/react (INERTIA) - v2
 - react (REACT) - v19
 - tailwindcss (TAILWINDCSS) - v4
-- @laravel/vite-plugin-wayfinder (WAYFINDER) - v0
 - eslint (ESLINT) - v9
 - prettier (PRETTIER) - v3
 
@@ -35,7 +33,6 @@ This application is a Laravel application and its main Laravel ecosystems packag
 
 This project has domain-specific skills available. You MUST activate the relevant skill whenever you work in that domain—don't wait until you're stuck.
 
-- `wayfinder-development` — Activates whenever referencing backend routes in frontend components. Use when importing from @/actions or @/routes, calling Laravel routes from TypeScript, or working with Wayfinder route functions.
 - `pest-testing` — Tests applications using the Pest 4 PHP framework. Activates when writing tests, creating unit or feature tests, adding assertions, testing Livewire components, browser testing, debugging test failures, working with datasets or mocking; or when the user mentions test, spec, TDD, expects, assertion, coverage, or needs to verify functionality works.
 - `inertia-react-development` — Develops Inertia.js v2 React client-side applications. Activates when creating React pages, forms, or navigation; using &lt;Link&gt;, &lt;Form&gt;, useForm, or router; working with deferred props, prefetching, or polling; or when user mentions React with Inertia, React pages, React forms, or React navigation.
 - `tailwindcss-development` — Styles applications using Tailwind CSS v4 utilities. Activates when adding styles, restyling components, working with gradients, spacing, layout, flex, grid, responsive design, dark mode, colors, typography, or borders; or when the user mentions CSS, styling, classes, Tailwind, restyle, hero section, cards, buttons, or any visual/UI changes.
@@ -248,18 +245,6 @@ protected function isAccessible(User $user, ?string $path = null): bool
 ### Models
 
 - Casts can and likely should be set in a `casts()` method on a model rather than the `$casts` property. Follow existing conventions from other models.
-
-=== wayfinder/core rules ===
-
-# Laravel Wayfinder
-
-Wayfinder generates TypeScript functions for Laravel routes. Import from `@/actions/` (controllers) or `@/routes/` (named routes).
-
-- IMPORTANT: Activate `wayfinder-development` skill whenever referencing backend routes in frontend components.
-- Invokable Controllers: `import StorePost from '@/actions/.../StorePostController'; StorePost()`.
-- Parameter Binding: Detects route keys (`{post:slug}`) — `show({ slug: "my-post" })`.
-- Query Merging: `show(1, { mergeQuery: { page: 2, sort: null } })` merges with current URL, `null` removes params.
-- Inertia: Use `.form()` with `<Form>` component or `form.submit(store())` with useForm.
 
 === pint/core rules ===
 

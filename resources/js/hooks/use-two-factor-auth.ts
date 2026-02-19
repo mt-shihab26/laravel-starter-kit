@@ -1,4 +1,3 @@
-import { qrCode, recoveryCodes, secretKey } from '@/routes/two-factor';
 import type { TwoFactorSecretKey, TwoFactorSetupData } from '@/types';
 import { useCallback, useMemo, useState } from 'react';
 
@@ -43,7 +42,9 @@ export const useTwoFactorAuth = (): UseTwoFactorAuthReturn => {
 
     const fetchQrCode = useCallback(async (): Promise<void> => {
         try {
-            const { svg } = await fetchJson<TwoFactorSetupData>(qrCode.url());
+            const { svg } = await fetchJson<TwoFactorSetupData>(
+                route('two-factor.qr-code'),
+            );
             setQrCodeSvg(svg);
         } catch {
             setErrors((prev) => [...prev, 'Failed to fetch QR code']);
@@ -54,7 +55,7 @@ export const useTwoFactorAuth = (): UseTwoFactorAuthReturn => {
     const fetchSetupKey = useCallback(async (): Promise<void> => {
         try {
             const { secretKey: key } = await fetchJson<TwoFactorSecretKey>(
-                secretKey.url(),
+                route('two-factor.secret-key'),
             );
             setManualSetupKey(key);
         } catch {
@@ -76,7 +77,9 @@ export const useTwoFactorAuth = (): UseTwoFactorAuthReturn => {
     const fetchRecoveryCodes = useCallback(async (): Promise<void> => {
         try {
             clearErrors();
-            const codes = await fetchJson<string[]>(recoveryCodes.url());
+            const codes = await fetchJson<string[]>(
+                route('two-factor.recovery-codes'),
+            );
             setRecoveryCodesList(codes);
         } catch {
             setErrors((prev) => [...prev, 'Failed to fetch recovery codes']);

@@ -1,4 +1,3 @@
-import ProfileController from '@/actions/App/Http/Controllers/Settings/ProfileController';
 import Heading from '@/components/heading';
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
@@ -55,7 +54,8 @@ export default function DeleteUser() {
                         </DialogDescription>
 
                         <Form
-                            {...ProfileController.destroy.form()}
+                            action={route('profile.destroy')}
+                            method="delete"
                             options={{
                                 preserveScroll: true,
                             }}
