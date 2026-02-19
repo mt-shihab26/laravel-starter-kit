@@ -1,5 +1,7 @@
 import type { Auth } from '@/types/auth';
 
+import { route as routeFn } from 'ziggy-js';
+
 declare module '@inertiajs/core' {
     export interface InertiaConfig {
         sharedPageProps: {
@@ -9,4 +11,8 @@ declare module '@inertiajs/core' {
             [key: string]: unknown;
         };
     }
+}
+
+declare global {
+    var route: typeof routeFn;
 }
