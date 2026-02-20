@@ -47,84 +47,82 @@ export const UpdateAvatar = () => {
                 }}
                 className="space-y-6"
             >
-                <div className="grid gap-2">
-                    <div className="relative inline-flex self-start">
-                        <Avatar className="size-50 text-4xl">
-                            <AvatarImage src={displayAvatar} alt={user.name} />
-                            <AvatarFallback>
-                                {formatInitials(user.name)}
-                            </AvatarFallback>
-                        </Avatar>
+                <div className="relative inline-flex self-start">
+                    <Avatar className="size-50 text-4xl">
+                        <AvatarImage src={displayAvatar} alt={user.name} />
+                        <AvatarFallback>
+                            {formatInitials(user.name)}
+                        </AvatarFallback>
+                    </Avatar>
 
-                        <div className="absolute right-1 bottom-1 flex gap-1">
+                    <div className="absolute right-1 bottom-1 flex gap-1">
+                        <Button
+                            type="button"
+                            variant="outline"
+                            size="icon"
+                            className="size-8 rounded-full shadow-sm"
+                            onClick={() => fileInputRef.current?.click()}
+                        >
+                            <Pencil className="size-4" />
+                            <span className="sr-only">Change avatar</span>
+                        </Button>
+
+                        {user.avatar && !avatarPreview && (
                             <Button
                                 type="button"
                                 variant="outline"
                                 size="icon"
                                 className="size-8 rounded-full shadow-sm"
-                                onClick={() => fileInputRef.current?.click()}
-                            >
-                                <Pencil className="size-4" />
-                                <span className="sr-only">Change avatar</span>
-                            </Button>
-
-                            {user.avatar && !avatarPreview && (
-                                <Button
-                                    type="button"
-                                    variant="outline"
-                                    size="icon"
-                                    className="size-8 rounded-full shadow-sm"
-                                    onClick={() => {
-                                        router.delete(
-                                            route('profile.avatar.destroy'),
-                                            {
-                                                preserveScroll: true,
-                                                onSuccess: () => {
-                                                    setAvatarPreview(null);
-                                                    if (fileInputRef.current) {
-                                                        fileInputRef.current.value =
-                                                            '';
-                                                    }
-                                                },
+                                onClick={() => {
+                                    router.delete(
+                                        route('profile.avatar.destroy'),
+                                        {
+                                            preserveScroll: true,
+                                            onSuccess: () => {
+                                                setAvatarPreview(null);
+                                                if (fileInputRef.current) {
+                                                    fileInputRef.current.value =
+                                                        '';
+                                                }
                                             },
-                                        );
-                                    }}
-                                >
-                                    <Trash2 className="size-4" />
-                                    <span className="sr-only">
-                                        Remove avatar
-                                    </span>
-                                </Button>
-                            )}
-                        </div>
-
-                        <input
-                            ref={fileInputRef}
-                            type="file"
-                            accept="image/*"
-                            className="hidden"
-                            onChange={(
-                                e: React.ChangeEvent<HTMLInputElement>,
-                            ) => {
-                                const file = e.target.files?.[0];
-                                if (file) {
-                                    setData('avatar', file);
-                                    const reader = new FileReader();
-                                    reader.onload = (event) => {
-                                        setAvatarPreview(
-                                            event.target?.result as string,
-                                        );
-                                    };
-                                    reader.readAsDataURL(file);
-                                }
-                            }}
-                        />
+                                        },
+                                    );
+                                }}
+                            >
+                                <Trash2 className="size-4" />
+                                <span className="sr-only">Remove avatar</span>
+                            </Button>
+                        )}
                     </div>
 
-                    <InputError message={errors.avatar} />
+                    <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                                setData('avatar', file);
+                                const reader = new FileReader();
+                                reader.onload = (event) => {
+                                    setAvatarPreview(
+                                        event.target?.result as string,
+                                    );
+                                };
+                                reader.readAsDataURL(file);
+                            }
+                        }}
+                    />
                 </div>
 
-                {avatarPreview && <Button disabled={processing}>Upload</Button>}
+                <InputError message={errors.avatar} />
+
+                {avatarPreview && (
+                    <Button type="submit" disabled={processing}>
+                        Save
+                    </Button>
+                )}
             </form>
         </div>
     );
