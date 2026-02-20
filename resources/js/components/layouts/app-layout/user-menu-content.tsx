@@ -35,7 +35,6 @@ export const UserMenuContent = ({ user }: { user: TUser }) => {
                     <Link
                         className="block w-full cursor-pointer"
                         href={route('profile.edit')}
-                        prefetch
                         onClick={cleanup}
                     >
                         <Settings className="mr-2" />

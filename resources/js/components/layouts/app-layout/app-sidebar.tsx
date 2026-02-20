@@ -28,7 +28,7 @@ export const AppSidebar = () => {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <Link href={route('dashboard')} prefetch>
+                            <Link href={route('dashboard')}>
                                 <AppLogo />
                             </Link>
                         </SidebarMenuButton>

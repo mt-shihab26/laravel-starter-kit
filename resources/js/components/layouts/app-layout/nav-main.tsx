@@ -24,7 +24,7 @@ export const NavMain = ({ items = [] }: { items: TNavItem[] }) => {
                             isActive={isCurrentUrl(item)}
                             tooltip={{ children: item.title }}
                         >
-                            <Link href={toUrl(item)} prefetch>
+                            <Link href={toUrl(item)}>
                                 {item.icon && <item.icon />}
                                 <span>{item.title}</span>
                             </Link>
