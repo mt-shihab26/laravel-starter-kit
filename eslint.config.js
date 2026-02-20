@@ -39,6 +39,7 @@ export default [
                     fixStyle: 'separate-type-imports',
                 },
             ],
+            'no-constant-binary-expression': 'off',
         },
     },
     {
