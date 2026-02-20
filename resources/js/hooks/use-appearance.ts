@@ -1,15 +1,11 @@
 import { useCallback, useMemo, useSyncExternalStore } from 'react';
 
-export type TResolvedAppearance = 'light' | 'dark';
+type TResolvedAppearance = 'light' | 'dark';
+
 export type TAppearance = TResolvedAppearance | 'system';
 
-export type TUseAppearanceReturn = {
-    readonly appearance: TAppearance;
-    readonly resolvedAppearance: TResolvedAppearance;
-    readonly updateAppearance: (mode: TAppearance) => void;
-};
-
 const listeners = new Set<() => void>();
+
 let currentAppearance: TAppearance = 'system';
 
 const prefersDark = (): boolean => {
@@ -59,7 +55,7 @@ const mediaQuery = (): MediaQueryList | null => {
 
 const handleSystemThemeChange = (): void => applyTheme(currentAppearance);
 
-export function initializeTheme(): void {
+export const initializeTheme = () => {
     if (typeof window === 'undefined') return;
 
     if (!localStorage.getItem('appearance')) {
@@ -72,9 +68,9 @@ export function initializeTheme(): void {
 
     // Set up system theme change listener
     mediaQuery()?.addEventListener('change', handleSystemThemeChange);
-}
+};
 
-export function useAppearance(): TUseAppearanceReturn {
+export const useAppearance = () => {
     const appearance: TAppearance = useSyncExternalStore(
         subscribe,
         () => currentAppearance,
@@ -99,5 +95,9 @@ export function useAppearance(): TUseAppearanceReturn {
         notify();
     }, []);
 
-    return { appearance, resolvedAppearance, updateAppearance } as const;
-}
+    return {
+        appearance,
+        resolvedAppearance,
+        updateAppearance,
+    };
+};

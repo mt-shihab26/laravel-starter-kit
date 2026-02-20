@@ -19,6 +19,8 @@ const TwoFactor = ({
     requiresConfirmation?: boolean;
     twoFactorEnabled?: boolean;
 }) => {
+    const [showSetupModal, setShowSetupModal] = useState<boolean>(false);
+
     const {
         qrCodeSvg,
         hasSetupData,
@@ -29,8 +31,6 @@ const TwoFactor = ({
         fetchRecoveryCodes,
         errors,
     } = useTwoFactorAuth();
-
-    const [showSetupModal, setShowSetupModal] = useState<boolean>(false);
 
     return (
         <AppLayout

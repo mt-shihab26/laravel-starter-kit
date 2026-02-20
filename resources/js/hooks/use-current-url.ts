@@ -3,32 +3,16 @@ import type { InertiaLinkProps } from '@inertiajs/react';
 import { toUrl } from '@/lib/utils';
 import { usePage } from '@inertiajs/react';
 
-type TIsCurrentUrlFn = (
-    urlToCheck: NonNullable<InertiaLinkProps['href']>,
-    currentUrl?: string,
-) => boolean;
-
-type TWhenCurrentUrlFn = <TIfTrue, TIfFalse = null>(
-    urlToCheck: NonNullable<InertiaLinkProps['href']>,
-    ifTrue: TIfTrue,
-    ifFalse?: TIfFalse,
-) => TIfTrue | TIfFalse;
-
-type TUseCurrentUrlReturn = {
-    currentUrl: string;
-    isCurrentUrl: TIsCurrentUrlFn;
-    whenCurrentUrl: TWhenCurrentUrlFn;
-};
-
-export function useCurrentUrl(): TUseCurrentUrlReturn {
+export const useCurrentUrl = () => {
     const page = usePage();
-    const currentUrlPath = new URL(page.url, window?.location.origin).pathname;
 
-    const isCurrentUrl: TIsCurrentUrlFn = (
+    const currentUrl = new URL(page.url, window?.location.origin).pathname;
+
+    const isCurrentUrl = (
         urlToCheck: NonNullable<InertiaLinkProps['href']>,
         currentUrl?: string,
     ) => {
-        const urlToCompare = currentUrl ?? currentUrlPath;
+        const urlToCompare = currentUrl ?? currentUrl;
         const urlString = toUrl(urlToCheck);
 
         if (!urlString.startsWith('http')) {
@@ -43,7 +27,7 @@ export function useCurrentUrl(): TUseCurrentUrlReturn {
         }
     };
 
-    const whenCurrentUrl: TWhenCurrentUrlFn = <TIfTrue, TIfFalse = null>(
+    const whenCurrentUrl = <TIfTrue, TIfFalse = null>(
         urlToCheck: NonNullable<InertiaLinkProps['href']>,
         ifTrue: TIfTrue,
         ifFalse: TIfFalse = null as TIfFalse,
@@ -52,8 +36,8 @@ export function useCurrentUrl(): TUseCurrentUrlReturn {
     };
 
     return {
-        currentUrl: currentUrlPath,
+        currentUrl,
         isCurrentUrl,
         whenCurrentUrl,
     };
-}
+};

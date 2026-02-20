@@ -1,14 +1,9 @@
-// Credit: https://usehooks-ts.com/
 import { useCallback, useState } from 'react';
 
-type TCopiedValue = string | null;
-type TCopyFn = (text: string) => Promise<boolean>;
-type TUseClipboardReturn = [TCopiedValue, TCopyFn];
+export const useClipboard = () => {
+    const [copiedText, setCopiedText] = useState<string | null>(null);
 
-export function useClipboard(): TUseClipboardReturn {
-    const [copiedText, setCopiedText] = useState<TCopiedValue>(null);
-
-    const copy: TCopyFn = useCallback(async (text) => {
+    const copy = useCallback(async (text: string) => {
         if (!navigator?.clipboard) {
             console.warn('Clipboard not supported');
 
@@ -29,4 +24,4 @@ export function useClipboard(): TUseClipboardReturn {
     }, []);
 
     return [copiedText, copy];
-}
+};

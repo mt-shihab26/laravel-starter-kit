@@ -9,7 +9,7 @@ import {
     SidebarMenuItem,
     useSidebar,
 } from '@/components/ui/sidebar';
-import { useIsMobile } from '@/hooks/use-mobile';
+import { useIsMobile } from '@/hooks/use-is-mobile';
 import { usePage } from '@inertiajs/react';
 import { ChevronsUpDown } from 'lucide-react';
 import { UserInfo } from './user-info';
@@ -18,7 +18,7 @@ import { UserMenuContent } from './user-menu-content';
 export function NavUser() {
     const { auth } = usePage().props;
     const { state } = useSidebar();
-    const isMobile = useIsMobile();
+    const { isMobile } = useIsMobile();
 
     return (
         <SidebarMenu>

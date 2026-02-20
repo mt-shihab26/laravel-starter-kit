@@ -4,7 +4,7 @@ import { SettingsLayout } from '@/components/layouts/settings-layout';
 
 import { AppearanceTabs } from '@/components/screens/settings/appearance/appearance-tabs';
 
-export default function Appearance() {
+const Appearance = () => {
     return (
         <AppLayout
             title="Appearance settings"
@@ -29,4 +29,6 @@ export default function Appearance() {
             </SettingsLayout>
         </AppLayout>
     );
-}
+};
+
+export default Appearance;

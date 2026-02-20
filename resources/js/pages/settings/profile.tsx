@@ -1,4 +1,4 @@
-import { usePage } from '@inertiajs/react';
+import { useAuth } from '@/hooks/use-auth';
 
 import { Heading } from '@/components/elements/heading';
 import { InputError } from '@/components/elements/input-error';
@@ -19,7 +19,7 @@ const Profile = ({
     mustVerifyEmail: boolean;
     status?: string;
 }) => {
-    const { auth } = usePage().props;
+    const { user } = useAuth();
 
     return (
         <AppLayout
@@ -57,7 +57,7 @@ const Profile = ({
                                     <Input
                                         id="name"
                                         className="mt-1 block w-full"
-                                        defaultValue={auth.user.name}
+                                        defaultValue={user.name}
                                         name="name"
                                         required
                                         autoComplete="name"
@@ -77,7 +77,7 @@ const Profile = ({
                                         id="email"
                                         type="email"
                                         className="mt-1 block w-full"
-                                        defaultValue={auth.user.email}
+                                        defaultValue={user.email}
                                         name="email"
                                         required
                                         autoComplete="username"
@@ -91,7 +91,7 @@ const Profile = ({
                                 </div>
 
                                 {mustVerifyEmail &&
-                                    auth.user.email_verified_at === null && (
+                                    user.email_verified_at === null && (
                                         <div>
                                             <p className="-mt-4 text-sm text-muted-foreground">
                                                 Your email address is

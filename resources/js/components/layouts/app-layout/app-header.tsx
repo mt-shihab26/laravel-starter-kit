@@ -28,7 +28,7 @@ import {
     TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { useCurrentUrl } from '@/hooks/use-current-url';
-import { useInitials } from '@/hooks/use-initials';
+import { formatInitials } from '@/lib/formats';
 import { cn, toUrl } from '@/lib/utils';
 import { Link, usePage } from '@inertiajs/react';
 import { BookOpen, Folder, LayoutGrid, Menu, Search } from 'lucide-react';
@@ -67,8 +67,8 @@ export function AppHeader({
 }) {
     const page = usePage();
     const { auth } = page.props;
-    const getInitials = useInitials();
     const { isCurrentUrl, whenCurrentUrl } = useCurrentUrl();
+
     return (
         <>
             <div className="border-b border-sidebar-border/80">
@@ -227,7 +227,7 @@ export function AppHeader({
                                             alt={auth.user.name}
                                         />
                                         <AvatarFallback className="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
-                                            {getInitials(auth.user.name)}
+                                            {formatInitials(auth.user.name)}
                                         </AvatarFallback>
                                     </Avatar>
                                 </Button>
