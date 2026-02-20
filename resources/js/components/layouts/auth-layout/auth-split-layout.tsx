@@ -1,13 +1,18 @@
-import { AppLogoIcon } from '@/components/elements/app-logo-icon';
+import type { ReactNode } from 'react';
 
-import type { AuthLayoutProps } from '@/types';
+import { AppLogoIcon } from '@/components/elements/app-logo-icon';
 import { Link, usePage } from '@inertiajs/react';
 
 export function AuthSplitLayout({
     children,
     title,
     description,
-}: AuthLayoutProps) {
+}: {
+    children?: ReactNode;
+    name?: string;
+    title?: string;
+    description?: string;
+}) {
     const { name } = usePage().props;
 
     return (

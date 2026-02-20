@@ -1,3 +1,5 @@
+import type { TBreadcrumb, TNavItem } from '@/types/utils';
+
 import { AppLogoIcon } from '@/components/elements/app-logo-icon';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -28,18 +30,13 @@ import {
 import { useCurrentUrl } from '@/hooks/use-current-url';
 import { useInitials } from '@/hooks/use-initials';
 import { cn, toUrl } from '@/lib/utils';
-import type { BreadcrumbItem, NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import { BookOpen, Folder, LayoutGrid, Menu, Search } from 'lucide-react';
 import { AppLogo } from './app-logo';
 import { Breadcrumbs } from './breadcrumbs';
 import { UserMenuContent } from './user-menu-content';
 
-type Props = {
-    breadcrumbs?: BreadcrumbItem[];
-};
-
-const mainNavItems: NavItem[] = [
+const mainNavItems: TNavItem[] = [
     {
         title: 'Dashboard',
         href: route('dashboard'),
@@ -47,7 +44,7 @@ const mainNavItems: NavItem[] = [
     },
 ];
 
-const rightNavItems: NavItem[] = [
+const rightNavItems: TNavItem[] = [
     {
         title: 'Repository',
         href: 'https://github.com/laravel/react-starter-kit',
@@ -63,7 +60,11 @@ const rightNavItems: NavItem[] = [
 const activeItemStyles =
     'text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100';
 
-export function AppHeader({ breadcrumbs = [] }: Props) {
+export function AppHeader({
+    breadcrumbs = [],
+}: {
+    breadcrumbs?: TBreadcrumb[];
+}) {
     const page = usePage();
     const { auth } = page.props;
     const getInitials = useInitials();

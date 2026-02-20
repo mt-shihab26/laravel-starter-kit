@@ -1,12 +1,18 @@
+import type { ReactNode } from 'react';
+
 import { AppLogoIcon } from '@/components/elements/app-logo-icon';
-import type { AuthLayoutProps } from '@/types';
 import { Link } from '@inertiajs/react';
 
 export function AuthSimpleLayout({
     children,
     title,
     description,
-}: AuthLayoutProps) {
+}: {
+    children?: ReactNode;
+    name?: string;
+    title?: string;
+    description?: string;
+}) {
     return (
         <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-background p-6 md:p-10">
             <div className="w-full max-w-sm">

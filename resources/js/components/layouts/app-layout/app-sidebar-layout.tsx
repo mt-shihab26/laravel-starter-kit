@@ -1,4 +1,6 @@
-import type { AppLayoutProps } from '@/types';
+import type { TBreadcrumb } from '@/types/utils';
+import type { ReactNode } from 'react';
+
 import { AppContent } from './app-content';
 import { AppShell } from './app-shell';
 import { AppSidebar } from './app-sidebar';
@@ -7,7 +9,10 @@ import { AppSidebarHeader } from './app-sidebar-header';
 export function AppSidebarLayout({
     children,
     breadcrumbs = [],
-}: AppLayoutProps) {
+}: {
+    children: ReactNode;
+    breadcrumbs?: TBreadcrumb[];
+}) {
     return (
         <AppShell variant="sidebar">
             <AppSidebar />

@@ -1,3 +1,5 @@
+import type { TUser } from '@/types/models';
+
 import {
     DropdownMenuGroup,
     DropdownMenuItem,
@@ -5,13 +7,12 @@ import {
     DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
 import { useMobileNavigation } from '@/hooks/use-mobile-navigation';
-import type { User } from '@/types';
 import { Link, router } from '@inertiajs/react';
 import { LogOut, Settings } from 'lucide-react';
 import { UserInfo } from './user-info';
 
 type Props = {
-    user: User;
+    user: TUser;
 };
 
 export function UserMenuContent({ user }: Props) {
