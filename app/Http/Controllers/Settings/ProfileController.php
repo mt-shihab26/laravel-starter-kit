@@ -16,8 +16,10 @@ class ProfileController extends Controller
      */
     public function edit(Request $request)
     {
+        $user = $request->user();
+
         return inertia('settings/profile', [
-            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+            'mustVerifyEmail' => $user instanceof MustVerifyEmail,
             'status' => $request->session()->get('status'),
         ]);
     }
@@ -34,6 +36,30 @@ class ProfileController extends Controller
         }
 
         $request->user()->save();
+
+        return redirect()->route('profile.edit');
+    }
+
+    /**
+     * Update the user's avatar.
+     */
+    public function updateAvatar(Request $request)
+    {
+        $request->validate([
+            'avatar' => ['required', 'image', 'max:2048'],
+        ]);
+
+        $request->user()->addMediaFromRequest('avatar')->toMediaCollection('avatar');
+
+        return redirect()->route('profile.edit');
+    }
+
+    /**
+     * Delete the user's avatar.
+     */
+    public function destroyAvatar(Request $request)
+    {
+        $request->user()->clearMediaCollection('avatar');
 
         return redirect()->route('profile.edit');
     }

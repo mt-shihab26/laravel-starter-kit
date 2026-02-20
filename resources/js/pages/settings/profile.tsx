@@ -11,6 +11,7 @@ import { Transition } from '@headlessui/react';
 import { Form, Link } from '@inertiajs/react';
 
 import { DeleteUser } from '@/components/screens/settings/profile/delete-user';
+import { UpdateAvatar } from '@/components/screens/settings/profile/update-avatar';
 
 const Profile = ({
     mustVerifyEmail,
@@ -34,6 +35,8 @@ const Profile = ({
             <h1 className="sr-only">Profile Settings</h1>
 
             <SettingsLayout>
+                <UpdateAvatar />
+
                 <div className="space-y-6">
                     <Heading
                         variant="small"
