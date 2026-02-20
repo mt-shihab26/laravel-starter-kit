@@ -76,7 +76,9 @@ export const UpdateAvatar = () => {
                                 className="size-8 rounded-full shadow-sm"
                                 onClick={() => {
                                     router.delete(
-                                        route('settings.profile.avatar.destroy'),
+                                        route(
+                                            'settings.profile.avatar.destroy',
+                                        ),
                                         {
                                             preserveScroll: true,
                                             onSuccess: () => {
