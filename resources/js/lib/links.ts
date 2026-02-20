@@ -1,6 +1,14 @@
-import type { TNavItem } from '@/types/utils';
+import {
+    BookOpen,
+    Folder,
+    LayoutGrid,
+    LockIcon,
+    PaletteIcon,
+    ShieldCheckIcon,
+    UserIcon,
+} from 'lucide-react';
 
-import { BookOpen, Folder, LayoutGrid } from 'lucide-react';
+import type { TNavItem } from '@/types/utils';
 
 export const mainNavItems: TNavItem[] = [
     {
@@ -27,21 +35,21 @@ export const settingsNavItems: TNavItem[] = [
     {
         title: 'Profile',
         route: 'profile.edit',
-        icon: null,
+        icon: UserIcon,
     },
     {
         title: 'Password',
         route: 'user-password.edit',
-        icon: null,
+        icon: LockIcon,
     },
     {
         title: 'Two-Factor Auth',
         route: 'two-factor.show',
-        icon: null,
+        icon: ShieldCheckIcon,
     },
     {
         title: 'Appearance',
         route: 'appearance.edit',
-        icon: null,
+        icon: PaletteIcon,
     },
 ];
