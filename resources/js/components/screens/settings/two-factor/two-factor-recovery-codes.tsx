@@ -1,5 +1,3 @@
-import { AlertError } from '@/components/elements/alert-error';
-import { Button } from '@/components/ui/button';
 import {
     Card,
     CardContent,
@@ -7,21 +5,23 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card';
-import { Form } from '@inertiajs/react';
-import { Eye, EyeOff, LockKeyhole, RefreshCw } from 'lucide-react';
+
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-type Props = {
-    recoveryCodesList: string[];
-    fetchRecoveryCodes: () => Promise<void>;
-    errors: string[];
-};
+import { AlertError } from '@/components/elements/alert-error';
+import { Button } from '@/components/ui/button';
+import { Form } from '@inertiajs/react';
+import { Eye, EyeOff, LockKeyhole, RefreshCw } from 'lucide-react';
 
-export function TwoFactorRecoveryCodes({
+export const TwoFactorRecoveryCodes = ({
     recoveryCodesList,
     fetchRecoveryCodes,
     errors,
-}: Props) {
+}: {
+    recoveryCodesList: string[];
+    fetchRecoveryCodes: () => Promise<void>;
+    errors: string[];
+}) => {
     const [codesAreVisible, setCodesAreVisible] = useState<boolean>(false);
     const codesSectionRef = useRef<HTMLDivElement | null>(null);
     const canRegenerateCodes = recoveryCodesList.length > 0 && codesAreVisible;
@@ -163,4 +163,4 @@ export function TwoFactorRecoveryCodes({
             </CardContent>
         </Card>
     );
-}
+};

@@ -7,10 +7,10 @@ import { cn } from '@/lib/utils';
 
 import { Monitor, Moon, Sun } from 'lucide-react';
 
-export function AppearanceTabs({
-    className = '',
+export const AppearanceTabs = ({
+    className,
     ...props
-}: HTMLAttributes<HTMLDivElement>) {
+}: HTMLAttributes<HTMLDivElement>) => {
     const { appearance, updateAppearance } = useAppearance();
 
     const tabs: { value: TAppearance; icon: LucideIcon; label: string }[] = [
@@ -44,4 +44,4 @@ export function AppearanceTabs({
             ))}
         </div>
     );
-}
+};
