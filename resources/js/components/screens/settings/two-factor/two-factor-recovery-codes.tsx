@@ -1,3 +1,4 @@
+import { AlertError } from '@/components/elements/alert-error';
 import { Button } from '@/components/ui/button';
 import {
     Card,
@@ -9,7 +10,6 @@ import {
 import { Form } from '@inertiajs/react';
 import { Eye, EyeOff, LockKeyhole, RefreshCw } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import AlertError from './alert-error';
 
 type Props = {
     recoveryCodesList: string[];
@@ -17,7 +17,7 @@ type Props = {
     errors: string[];
 };
 
-export default function TwoFactorRecoveryCodes({
+export function TwoFactorRecoveryCodes({
     recoveryCodesList,
     fetchRecoveryCodes,
     errors,

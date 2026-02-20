@@ -1,16 +1,16 @@
 import { useCallback, useMemo, useSyncExternalStore } from 'react';
 
-export type ResolvedAppearance = 'light' | 'dark';
-export type Appearance = ResolvedAppearance | 'system';
+export type TResolvedAppearance = 'light' | 'dark';
+export type TAppearance = TResolvedAppearance | 'system';
 
-export type UseAppearanceReturn = {
-    readonly appearance: Appearance;
-    readonly resolvedAppearance: ResolvedAppearance;
-    readonly updateAppearance: (mode: Appearance) => void;
+export type TUseAppearanceReturn = {
+    readonly appearance: TAppearance;
+    readonly resolvedAppearance: TResolvedAppearance;
+    readonly updateAppearance: (mode: TAppearance) => void;
 };
 
 const listeners = new Set<() => void>();
-let currentAppearance: Appearance = 'system';
+let currentAppearance: TAppearance = 'system';
 
 const prefersDark = (): boolean => {
     if (typeof window === 'undefined') return false;
@@ -24,17 +24,17 @@ const setCookie = (name: string, value: string, days = 365): void => {
     document.cookie = `${name}=${value};path=/;max-age=${maxAge};SameSite=Lax`;
 };
 
-const getStoredAppearance = (): Appearance => {
+const getStoredAppearance = (): TAppearance => {
     if (typeof window === 'undefined') return 'system';
 
-    return (localStorage.getItem('appearance') as Appearance) || 'system';
+    return (localStorage.getItem('appearance') as TAppearance) || 'system';
 };
 
-const isDarkMode = (appearance: Appearance): boolean => {
+const isDarkMode = (appearance: TAppearance): boolean => {
     return appearance === 'dark' || (appearance === 'system' && prefersDark());
 };
 
-const applyTheme = (appearance: Appearance): void => {
+const applyTheme = (appearance: TAppearance): void => {
     if (typeof document === 'undefined') return;
 
     const isDark = isDarkMode(appearance);
@@ -74,19 +74,19 @@ export function initializeTheme(): void {
     mediaQuery()?.addEventListener('change', handleSystemThemeChange);
 }
 
-export function useAppearance(): UseAppearanceReturn {
-    const appearance: Appearance = useSyncExternalStore(
+export function useAppearance(): TUseAppearanceReturn {
+    const appearance: TAppearance = useSyncExternalStore(
         subscribe,
         () => currentAppearance,
         () => 'system',
     );
 
-    const resolvedAppearance: ResolvedAppearance = useMemo(
+    const resolvedAppearance: TResolvedAppearance = useMemo(
         () => (isDarkMode(appearance) ? 'dark' : 'light'),
         [appearance],
     );
 
-    const updateAppearance = useCallback((mode: Appearance): void => {
+    const updateAppearance = useCallback((mode: TAppearance): void => {
         currentAppearance = mode;
 
         // Store in localStorage for client-side persistence...

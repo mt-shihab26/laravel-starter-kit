@@ -1,4 +1,5 @@
-import AppLogoIcon from '@/components/app-logo-icon';
+import { AppLogoIcon } from '@/components/elements/app-logo-icon';
+
 import type { AuthLayoutProps } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 

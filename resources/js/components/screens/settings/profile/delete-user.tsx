@@ -1,5 +1,5 @@
-import Heading from '@/components/heading';
-import InputError from '@/components/input-error';
+import { Heading } from '@/components/elements/heading';
+import { InputError } from '@/components/elements/input-error';
 import { Button } from '@/components/ui/button';
 import {
     Dialog,
@@ -15,7 +15,7 @@ import { Label } from '@/components/ui/label';
 import { Form } from '@inertiajs/react';
 import { useRef } from 'react';
 
-export default function DeleteUser() {
+export function DeleteUser() {
     const passwordInput = useRef<HTMLInputElement>(null);
 
     return (

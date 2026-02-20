@@ -1,9 +1,9 @@
-import InputError from '@/components/input-error';
+import { InputError } from '@/components/elements/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
-import AuthLayout from '@/layouts/auth-layout';
+import { AuthLayout } from '@/components/layouts/auth-layout';
 import { Form, Head } from '@inertiajs/react';
 
 export default function ConfirmPassword() {
