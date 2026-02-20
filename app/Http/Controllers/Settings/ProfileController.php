@@ -12,6 +12,14 @@ use Illuminate\Support\Facades\Auth;
 class ProfileController extends Controller
 {
     /**
+     * Redirect to the user's profile settings page.
+     */
+    public function redirect()
+    {
+        return redirect()->route('settings.profile.edit');
+    }
+
+    /**
      * Show the user's profile settings page.
      */
     public function edit(Request $request)
@@ -37,7 +45,7 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return redirect()->route('profile.edit');
+        return redirect()->route('settings.profile.edit');
     }
 
     /**
@@ -51,7 +59,7 @@ class ProfileController extends Controller
 
         $request->user()->addMediaFromRequest('avatar')->toMediaCollection('avatar');
 
-        return redirect()->route('profile.edit');
+        return redirect()->route('settings.profile.edit');
     }
 
     /**
@@ -61,7 +69,7 @@ class ProfileController extends Controller
     {
         $request->user()->clearMediaCollection('avatar');
 
-        return redirect()->route('profile.edit');
+        return redirect()->route('settings.profile.edit');
     }
 
     /**

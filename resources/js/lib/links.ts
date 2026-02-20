@@ -28,22 +28,22 @@ export const secondNavItems: TNavItem[] = [
 export const settingsNavItems: TNavItem[] = [
     {
         title: 'Profile',
-        route: 'profile.edit',
+        route: 'settings.profile.edit',
         icon: UserIcon,
     },
     {
         title: 'Password',
-        route: 'user-password.edit',
+        route: 'settings.password.edit',
         icon: LockIcon,
     },
     {
         title: 'Two-Factor Auth',
-        route: 'two-factor.show',
+        route: 'settings.two-factor.show',
         icon: ShieldCheckIcon,
     },
     {
         title: 'Appearance',
-        route: 'appearance.edit',
+        route: 'settings.appearance.edit',
         icon: PaletteIcon,
     },
 ];

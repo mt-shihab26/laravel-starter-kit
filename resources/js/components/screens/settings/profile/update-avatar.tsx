@@ -36,7 +36,7 @@ export const UpdateAvatar = () => {
             <form
                 onSubmit={(e) => {
                     e.preventDefault();
-                    post(route('profile.avatar.update'), {
+                    post(route('settings.profile.avatar.update'), {
                         preserveScroll: true,
                         onSuccess: () => {
                             setAvatarPreview(null);
@@ -76,7 +76,9 @@ export const UpdateAvatar = () => {
                                 className="size-8 rounded-full shadow-sm"
                                 onClick={() => {
                                     router.delete(
-                                        route('profile.avatar.destroy'),
+                                        route(
+                                            'settings.profile.avatar.destroy',
+                                        ),
                                         {
                                             preserveScroll: true,
                                             onSuccess: () => {

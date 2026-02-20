@@ -1,31 +1,36 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Settings\AppearanceController;
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\Settings\TwoFactorAuthenticationController;
 use Illuminate\Support\Facades\Route;
-use Laravel\Fortify\Features;
 
-Route::get('/', fn () => inertia('welcome', ['canRegister' => Features::enabled(Features::registration())]))->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/dashboard', fn () => inertia('dashboard'))->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware(['auth'])->group(function () {
-    Route::redirect('/settings', '/settings/profile')->name('settings');
-
-    Route::get('/settings/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/settings/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::post('/settings/profile/avatar', [ProfileController::class, 'updateAvatar'])->name('profile.avatar.update');
-    Route::delete('/settings/profile/avatar', [ProfileController::class, 'destroyAvatar'])->name('profile.avatar.destroy');
+Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 });
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::delete('/settings/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::prefix('/settings')->middleware(['auth'])->group(function () {
+    Route::get('/', [ProfileController::class, 'redirect'])->name('settings');
 
-    Route::get('/settings/password', [PasswordController::class, 'edit'])->name('user-password.edit');
-    Route::put('/settings/password', [PasswordController::class, 'update'])->middleware('throttle:6,1')->name('user-password.update');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('settings.profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('settings.profile.update');
 
-    Route::get('/settings/two-factor', [TwoFactorAuthenticationController::class, 'show'])->name('two-factor.show');
+    Route::post('/profile/avatar', [ProfileController::class, 'updateAvatar'])->name('settings.profile.avatar.update');
+    Route::delete('/profile/avatar', [ProfileController::class, 'destroyAvatar'])->name('settings.profile.avatar.destroy');
 
-    Route::get('/settings/appearance', fn () => inertia('settings/appearance'))->name('appearance.edit');
+    Route::middleware(['verified'])->group(function () {
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('settings.profile.destroy');
+
+        Route::get('/password', [PasswordController::class, 'edit'])->name('settings.password.edit');
+        Route::put('/password', [PasswordController::class, 'update'])->middleware('throttle:6,1')->name('settings.password.update');
+
+        Route::get('/two-factor', [TwoFactorAuthenticationController::class, 'show'])->name('settings.two-factor.show');
+
+        Route::get('/appearance', [AppearanceController::class, 'edit'])->name('settings.appearance.edit');
+    });
 });
