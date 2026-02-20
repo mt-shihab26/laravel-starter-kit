@@ -30,3 +30,7 @@ Starts the Laravel server, queue worker, log viewer, and Vite dev server concurr
 ```bash
 composer run test
 ```
+
+```bash
+bun run test
+```
