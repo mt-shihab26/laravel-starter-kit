@@ -5,7 +5,7 @@
     "scripts": {
         "build": "bun x --bun vite build",
         "build:ssr": "bun x --bun vite build && bun x --bun vite build --ssr",
-        "dev": "bun x --bun vite",
+        "dev": "vite",
         "lint": "bun x --bun tsc --noEmit && bun x --bun eslint . --fix",
         "format": "bun x --bun prettier --write resources/"
     },

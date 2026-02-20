@@ -1,6 +1,6 @@
 import type { TAuth } from '@/types/auth';
-
 import type { route as routeFn } from 'ziggy-js';
+import type { TUser } from './models';
 
 type TAuth = {
     user: TUser;

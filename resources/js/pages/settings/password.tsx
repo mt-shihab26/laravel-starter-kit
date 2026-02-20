@@ -2,12 +2,11 @@ import { useRef } from 'react';
 
 import { Heading } from '@/components/elements/heading';
 import { InputError } from '@/components/elements/input-error';
+import { SubmitButton } from '@/components/elements/submit-button';
 import { AppLayout } from '@/components/layouts/app-layout';
 import { SettingsLayout } from '@/components/layouts/settings-layout';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Transition } from '@headlessui/react';
 import { Form } from '@inertiajs/react';
 
 const Password = () => {
@@ -116,26 +115,13 @@ const Password = () => {
                                     />
                                 </div>
 
-                                <div className="flex items-center gap-4">
-                                    <Button
-                                        disabled={processing}
-                                        data-test="update-password-button"
-                                    >
-                                        Save password
-                                    </Button>
-
-                                    <Transition
-                                        show={recentlySuccessful}
-                                        enter="transition ease-in-out"
-                                        enterFrom="opacity-0"
-                                        leave="transition ease-in-out"
-                                        leaveTo="opacity-0"
-                                    >
-                                        <p className="text-sm text-neutral-600">
-                                            Saved
-                                        </p>
-                                    </Transition>
-                                </div>
+                                <SubmitButton
+                                    loading={processing}
+                                    recentlySuccessful={recentlySuccessful}
+                                    data-test="update-password-button"
+                                >
+                                    Save password
+                                </SubmitButton>
                             </>
                         )}
                     </Form>

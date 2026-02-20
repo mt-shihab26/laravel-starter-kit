@@ -2,15 +2,15 @@ import { useAuth } from '@/hooks/use-auth';
 
 import { Heading } from '@/components/elements/heading';
 import { InputError } from '@/components/elements/input-error';
+import { SubmitButton } from '@/components/elements/submit-button';
 import { AppLayout } from '@/components/layouts/app-layout';
 import { SettingsLayout } from '@/components/layouts/settings-layout';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Transition } from '@headlessui/react';
 import { Form, Link } from '@inertiajs/react';
 
 import { DeleteUser } from '@/components/screens/settings/profile/delete-user';
+import { UpdateAvatar } from '@/components/screens/settings/profile/update-avatar';
 
 const Profile = ({
     mustVerifyEmail,
@@ -34,6 +34,8 @@ const Profile = ({
             <h1 className="sr-only">Profile Settings</h1>
 
             <SettingsLayout>
+                <UpdateAvatar />
+
                 <div className="space-y-6">
                     <Heading
                         variant="small"
@@ -119,26 +121,11 @@ const Profile = ({
                                         </div>
                                     )}
 
-                                <div className="flex items-center gap-4">
-                                    <Button
-                                        disabled={processing}
-                                        data-test="update-profile-button"
-                                    >
-                                        Save
-                                    </Button>
-
-                                    <Transition
-                                        show={recentlySuccessful}
-                                        enter="transition ease-in-out"
-                                        enterFrom="opacity-0"
-                                        leave="transition ease-in-out"
-                                        leaveTo="opacity-0"
-                                    >
-                                        <p className="text-sm text-neutral-600">
-                                            Saved
-                                        </p>
-                                    </Transition>
-                                </div>
+                                <SubmitButton
+                                    loading={processing}
+                                    recentlySuccessful={recentlySuccessful}
+                                    data-test="update-profile-button"
+                                />
                             </>
                         )}
                     </Form>
