@@ -4,7 +4,7 @@ import { AppShell } from './app-shell';
 import { AppSidebar } from './app-sidebar';
 import { AppSidebarHeader } from './app-sidebar-header';
 
-export default function AppSidebarLayout({
+export function AppSidebarLayout({
     children,
     breadcrumbs = [],
 }: AppLayoutProps) {

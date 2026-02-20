@@ -2,7 +2,7 @@ import { AppLogoIcon } from '@/components/elements/app-logo-icon';
 import type { AuthLayoutProps } from '@/types';
 import { Link } from '@inertiajs/react';
 
-export default function AuthSimpleLayout({
+export function AuthSimpleLayout({
     children,
     title,
     description,

@@ -3,7 +3,7 @@ import { AppLogoIcon } from '@/components/elements/app-logo-icon';
 import type { AuthLayoutProps } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 
-export default function AuthSplitLayout({
+export function AuthSplitLayout({
     children,
     title,
     description,

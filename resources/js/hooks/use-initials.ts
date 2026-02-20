@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 
-export type GetInitialsFn = (fullName: string) => string;
+type TGetInitialsFn = (fullName: string) => string;
 
-export function useInitials(): GetInitialsFn {
+export function useInitials(): TGetInitialsFn {
     return useCallback((fullName: string): string => {
         const names = fullName.trim().split(' ');
 

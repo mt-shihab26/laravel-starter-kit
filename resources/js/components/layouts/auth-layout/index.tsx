@@ -1,4 +1,4 @@
-import AuthLayoutTemplate from './auth-simple-layout';
+import { AuthSimpleLayout } from './auth-simple-layout';
 
 export function AuthLayout({
     children,
@@ -11,8 +11,8 @@ export function AuthLayout({
     description: string;
 }) {
     return (
-        <AuthLayoutTemplate title={title} description={description} {...props}>
+        <AuthSimpleLayout title={title} description={description} {...props}>
             {children}
-        </AuthLayoutTemplate>
+        </AuthSimpleLayout>
     );
 }

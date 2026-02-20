@@ -1,7 +1,8 @@
 import type { TwoFactorSecretKey, TwoFactorSetupData } from '@/types';
+
 import { useCallback, useMemo, useState } from 'react';
 
-export type UseTwoFactorAuthReturn = {
+type TUseTwoFactorAuthReturn = {
     qrCodeSvg: string | null;
     manualSetupKey: string | null;
     recoveryCodesList: string[];
@@ -29,7 +30,7 @@ const fetchJson = async <T>(url: string): Promise<T> => {
     return response.json();
 };
 
-export const useTwoFactorAuth = (): UseTwoFactorAuthReturn => {
+export const useTwoFactorAuth = (): TUseTwoFactorAuthReturn => {
     const [qrCodeSvg, setQrCodeSvg] = useState<string | null>(null);
     const [manualSetupKey, setManualSetupKey] = useState<string | null>(null);
     const [recoveryCodesList, setRecoveryCodesList] = useState<string[]>([]);
