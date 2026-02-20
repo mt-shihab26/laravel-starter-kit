@@ -2,16 +2,14 @@ import { TextLink } from '@/components/elements/text-link';
 import { AuthLayout } from '@/components/layouts/auth-layout';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
-import { Form, Head } from '@inertiajs/react';
+import { Form } from '@inertiajs/react';
 
-export default function VerifyEmail({ status }: { status?: string }) {
+const VerifyEmail = ({ status }: { status?: string }) => {
     return (
         <AuthLayout
             title="Verify email"
             description="Please verify your email address by clicking on the link we just emailed to you."
         >
-            <Head title="Email verification" />
-
             {status === 'verification-link-sent' && (
                 <div className="mb-4 text-center text-sm font-medium text-green-600">
                     A new verification link has been sent to the email address
@@ -42,4 +40,6 @@ export default function VerifyEmail({ status }: { status?: string }) {
             </Form>
         </AuthLayout>
     );
-}
+};
+
+export default VerifyEmail;

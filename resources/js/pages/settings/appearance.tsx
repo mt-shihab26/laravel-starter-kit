@@ -1,13 +1,13 @@
 import { Heading } from '@/components/elements/heading';
 import { AppLayout } from '@/components/layouts/app-layout';
 import { SettingsLayout } from '@/components/layouts/settings-layout';
-import { Head } from '@inertiajs/react';
 
 import { AppearanceTabs } from '@/components/screens/settings/appearance/appearance-tabs';
 
 export default function Appearance() {
     return (
         <AppLayout
+            title="Appearance settings"
             breadcrumbs={[
                 {
                     title: 'Appearance settings',
@@ -15,8 +15,6 @@ export default function Appearance() {
                 },
             ]}
         >
-            <Head title="Appearance settings" />
-
             <h1 className="sr-only">Appearance Settings</h1>
 
             <SettingsLayout>

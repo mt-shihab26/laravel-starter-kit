@@ -6,21 +6,19 @@ import { AppLayout } from '@/components/layouts/app-layout';
 import { SettingsLayout } from '@/components/layouts/settings-layout';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Form, Head } from '@inertiajs/react';
+import { Form } from '@inertiajs/react';
 import { ShieldBan, ShieldCheck } from 'lucide-react';
 
 import { TwoFactorRecoveryCodes } from '@/components/screens/settings/two-factor/two-factor-recovery-codes';
 import { TwoFactorSetupModal } from '@/components/screens/settings/two-factor/two-factor-setup-modal';
 
-type Props = {
-    requiresConfirmation?: boolean;
-    twoFactorEnabled?: boolean;
-};
-
-export default function TwoFactor({
+const TwoFactor = ({
     requiresConfirmation = false,
     twoFactorEnabled = false,
-}: Props) {
+}: {
+    requiresConfirmation?: boolean;
+    twoFactorEnabled?: boolean;
+}) => {
     const {
         qrCodeSvg,
         hasSetupData,
@@ -31,10 +29,12 @@ export default function TwoFactor({
         fetchRecoveryCodes,
         errors,
     } = useTwoFactorAuth();
+
     const [showSetupModal, setShowSetupModal] = useState<boolean>(false);
 
     return (
         <AppLayout
+            title="Two-Factor Authentication"
             breadcrumbs={[
                 {
                     title: 'Two-Factor Authentication',
@@ -42,8 +42,6 @@ export default function TwoFactor({
                 },
             ]}
         >
-            <Head title="Two-Factor Authentication" />
-
             <h1 className="sr-only">Two-Factor Authentication Settings</h1>
 
             <SettingsLayout>
@@ -142,4 +140,6 @@ export default function TwoFactor({
             </SettingsLayout>
         </AppLayout>
     );
-}
+};
+
+export default TwoFactor;

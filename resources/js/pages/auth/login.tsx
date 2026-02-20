@@ -6,26 +6,22 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
-import { Form, Head } from '@inertiajs/react';
+import { Form } from '@inertiajs/react';
 
-type Props = {
-    status?: string;
-    canResetPassword: boolean;
-    canRegister: boolean;
-};
-
-export default function Login({
+const Login = ({
     status,
     canResetPassword,
     canRegister,
-}: Props) {
+}: {
+    status?: string;
+    canResetPassword: boolean;
+    canRegister: boolean;
+}) => {
     return (
         <AuthLayout
             title="Log in to your account"
             description="Enter your email and password below to log in"
         >
-            <Head title="Log in" />
-
             <Form
                 action={route('login.store')}
                 method="post"
@@ -115,4 +111,6 @@ export default function Login({
             )}
         </AuthLayout>
     );
-}
+};
+
+export default Login;

@@ -8,14 +8,15 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Transition } from '@headlessui/react';
-import { Form, Head } from '@inertiajs/react';
+import { Form } from '@inertiajs/react';
 
-export default function Password() {
+const Password = () => {
     const passwordInput = useRef<HTMLInputElement>(null);
     const currentPasswordInput = useRef<HTMLInputElement>(null);
 
     return (
         <AppLayout
+            title="Password settings"
             breadcrumbs={[
                 {
                     title: 'Password settings',
@@ -23,8 +24,6 @@ export default function Password() {
                 },
             ]}
         >
-            <Head title="Password settings" />
-
             <h1 className="sr-only">Password Settings</h1>
 
             <SettingsLayout>
@@ -144,4 +143,6 @@ export default function Password() {
             </SettingsLayout>
         </AppLayout>
     );
-}
+};
+
+export default Password;

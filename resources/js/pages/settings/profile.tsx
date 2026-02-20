@@ -1,3 +1,5 @@
+import { usePage } from '@inertiajs/react';
+
 import { Heading } from '@/components/elements/heading';
 import { InputError } from '@/components/elements/input-error';
 import { AppLayout } from '@/components/layouts/app-layout';
@@ -6,21 +8,22 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Transition } from '@headlessui/react';
-import { Form, Head, Link, usePage } from '@inertiajs/react';
+import { Form, Link } from '@inertiajs/react';
 
 import { DeleteUser } from '@/components/screens/settings/profile/delete-user';
 
-export default function Profile({
+const Profile = ({
     mustVerifyEmail,
     status,
 }: {
     mustVerifyEmail: boolean;
     status?: string;
-}) {
+}) => {
     const { auth } = usePage().props;
 
     return (
         <AppLayout
+            title="Profile settings"
             breadcrumbs={[
                 {
                     title: 'Profile settings',
@@ -28,8 +31,6 @@ export default function Profile({
                 },
             ]}
         >
-            <Head title="Profile settings" />
-
             <h1 className="sr-only">Profile Settings</h1>
 
             <SettingsLayout>
@@ -147,4 +148,6 @@ export default function Profile({
             </SettingsLayout>
         </AppLayout>
     );
-}
+};
+
+export default Profile;

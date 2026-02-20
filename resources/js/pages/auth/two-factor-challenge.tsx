@@ -1,18 +1,21 @@
-import { InputError } from '@/components/elements/input-error';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import {
     InputOTP,
     InputOTPGroup,
     InputOTPSlot,
 } from '@/components/ui/input-otp';
-import { OTP_MAX_LENGTH } from '@/hooks/use-two-factor-auth';
-import { AuthLayout } from '@/components/layouts/auth-layout';
-import { Form, Head } from '@inertiajs/react';
-import { REGEXP_ONLY_DIGITS } from 'input-otp';
+
 import { useMemo, useState } from 'react';
 
-export default function TwoFactorChallenge() {
+import { InputError } from '@/components/elements/input-error';
+import { AuthLayout } from '@/components/layouts/auth-layout';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Form } from '@inertiajs/react';
+
+import { OTP_MAX_LENGTH } from '@/hooks/use-two-factor-auth';
+import { REGEXP_ONLY_DIGITS } from 'input-otp';
+
+const TwoFactorChallenge = () => {
     const [showRecoveryInput, setShowRecoveryInput] = useState<boolean>(false);
     const [code, setCode] = useState<string>('');
 
@@ -49,8 +52,6 @@ export default function TwoFactorChallenge() {
             title={authConfigContent.title}
             description={authConfigContent.description}
         >
-            <Head title="Two-Factor Authentication" />
-
             <div className="space-y-6">
                 <Form
                     action={route('two-factor.login.store')}
@@ -128,4 +129,6 @@ export default function TwoFactorChallenge() {
             </div>
         </AuthLayout>
     );
-}
+};
+
+export default TwoFactorChallenge;

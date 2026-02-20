@@ -5,15 +5,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
-import { Form, Head } from '@inertiajs/react';
+import { Form } from '@inertiajs/react';
 
-export default function Register() {
+const Register = () => {
     return (
         <AuthLayout
             title="Create an account"
             description="Enter your details below to create your account"
         >
-            <Head title="Register" />
             <Form
                 action={route('register.store')}
                 method="post"
@@ -110,4 +109,6 @@ export default function Register() {
             </Form>
         </AuthLayout>
     );
-}
+};
+
+export default Register;
