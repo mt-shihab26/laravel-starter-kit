@@ -22,3 +22,26 @@ export const secondNavItems: TNavItem[] = [
         icon: BookOpen,
     },
 ];
+
+export const settingsNavItems: TNavItem[] = [
+    {
+        title: 'Profile',
+        route: 'profile.edit',
+        icon: null,
+    },
+    {
+        title: 'Password',
+        route: 'user-password.edit',
+        icon: null,
+    },
+    {
+        title: 'Two-Factor Auth',
+        route: 'two-factor.show',
+        icon: null,
+    },
+    {
+        title: 'Appearance',
+        route: 'appearance.edit',
+        icon: null,
+    },
+];

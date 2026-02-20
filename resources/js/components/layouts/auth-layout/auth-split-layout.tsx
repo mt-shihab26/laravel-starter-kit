@@ -1,9 +1,11 @@
 import type { ReactNode } from 'react';
 
-import { AppLogoIcon } from '@/components/elements/app-logo-icon';
-import { Link, usePage } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 
-export function AuthSplitLayout({
+import { AppLogoIcon } from '@/components/elements/app-logo-icon';
+import { Link } from '@inertiajs/react';
+
+export const AuthSplitLayout = ({
     children,
     title,
     description,
@@ -12,7 +14,7 @@ export function AuthSplitLayout({
     name?: string;
     title?: string;
     description?: string;
-}) {
+}) => {
     const { name } = usePage().props;
 
     return (
@@ -28,7 +30,7 @@ export function AuthSplitLayout({
                 </Link>
             </div>
             <div className="w-full lg:p-8">
-                <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+                <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-87.5">
                     <Link
                         href={route('home')}
                         className="relative z-20 flex items-center justify-center lg:hidden"
@@ -46,4 +48,4 @@ export function AuthSplitLayout({
             </div>
         </div>
     );
-}
+};

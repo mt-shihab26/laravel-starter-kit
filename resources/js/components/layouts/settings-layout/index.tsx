@@ -1,6 +1,6 @@
-import type { TNavItem } from '@/types/utils';
-import type { PropsWithChildren } from 'react';
+import type { ReactNode } from 'react';
 
+import { settingsNavItems } from '@/lib/links';
 import { cn, isCurrentUrl, toUrl } from '@/lib/utils';
 
 import { Heading } from '@/components/elements/heading';
@@ -8,35 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Link } from '@inertiajs/react';
 
-const sidebarNavItems: TNavItem[] = [
-    {
-        title: 'Profile',
-        route: route('profile.edit'),
-        icon: null,
-    },
-    {
-        title: 'Password',
-        route: route('user-password.edit'),
-        icon: null,
-    },
-    {
-        title: 'Two-Factor Auth',
-        route: route('two-factor.show'),
-        icon: null,
-    },
-    {
-        title: 'Appearance',
-        route: route('appearance.edit'),
-        icon: null,
-    },
-];
-
-export function SettingsLayout({ children }: PropsWithChildren) {
-    // When server-side rendering, we only render the layout on the client...
-    if (typeof window === 'undefined') {
-        return null;
-    }
-
+export const SettingsLayout = ({ children }: { children: ReactNode }) => {
     return (
         <div className="px-4 py-6">
             <Heading
@@ -50,7 +22,7 @@ export function SettingsLayout({ children }: PropsWithChildren) {
                         className="flex flex-col space-y-1 space-x-0"
                         aria-label="Settings"
                     >
-                        {sidebarNavItems.map((item, index) => (
+                        {settingsNavItems.map((item, index) => (
                             <Button
                                 key={`${toUrl(item)}-${index}`}
                                 size="sm"
@@ -81,4 +53,4 @@ export function SettingsLayout({ children }: PropsWithChildren) {
             </div>
         </div>
     );
-}
+};
