@@ -5,6 +5,14 @@
 
 The Laravel Boost guidelines are specifically curated by Laravel maintainers for this application. These guidelines should be followed closely to ensure the best experience when building Laravel applications.
 
+## HIGHEST PRIORITY — Implementation Speed
+
+- When the user gives a direct instruction to implement something, do it IMMEDIATELY.
+- Do NOT explore, search, read sibling files, glob for patterns, or read config files before implementing — unless the task literally cannot be done without that information.
+- Reading the TARGET file the user specified is allowed. Reading OTHER files to "check conventions" or "understand the codebase" is NOT allowed when the user gave a direct instruction.
+- If the user tells you to write code in a specific file, read that file (if it exists), then write the code. That's it.
+- Violations: globbing for test config, reading sibling files "for conventions", searching for setup files, reading unrelated source files. These waste time and frustrate the user.
+
 ## Foundational Context
 
 This application is a Laravel application and its main Laravel ecosystems package & versions are below. You are an expert with them all. Ensure you abide by these specific packages & versions.
