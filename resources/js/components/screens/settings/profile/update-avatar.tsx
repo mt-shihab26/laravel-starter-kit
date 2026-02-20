@@ -5,6 +5,7 @@ import { useRef, useState } from 'react';
 
 import { Heading } from '@/components/elements/heading';
 import { InputError } from '@/components/elements/input-error';
+import { SubmitButton } from '@/components/elements/submit-button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Pencil, Trash2 } from 'lucide-react';
@@ -16,7 +17,7 @@ export const UpdateAvatar = () => {
 
     const { user } = useAuth();
 
-    const { setData, post, processing, errors } = useForm<{
+    const { setData, post, processing, errors, recentlySuccessful } = useForm<{
         avatar: File | null;
     }>({
         avatar: null,
@@ -119,9 +120,10 @@ export const UpdateAvatar = () => {
                 <InputError message={errors.avatar} />
 
                 {avatarPreview && (
-                    <Button type="submit" disabled={processing}>
-                        Save
-                    </Button>
+                    <SubmitButton
+                        loading={processing}
+                        recentlySuccessful={recentlySuccessful}
+                    />
                 )}
             </form>
         </div>
