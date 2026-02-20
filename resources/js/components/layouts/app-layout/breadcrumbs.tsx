@@ -6,6 +6,7 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
+import { toUrl } from '@/lib/utils';
 
 import type { TBreadcrumb } from '@/types/utils';
 
@@ -23,23 +24,24 @@ export const Breadcrumbs = ({
                 <Breadcrumb>
                     <BreadcrumbList>
                         {breadcrumbs.map((item, index) => {
-                            const isLast = index === breadcrumbs.length - 1;
+                            const href = toUrl(item);
+                            const last = index === breadcrumbs.length - 1;
                             return (
                                 <Fragment key={index}>
                                     <BreadcrumbItem>
-                                        {isLast ? (
+                                        {!href ? (
                                             <BreadcrumbPage>
                                                 {item.title}
                                             </BreadcrumbPage>
                                         ) : (
                                             <BreadcrumbLink asChild>
-                                                <Link href={item.href}>
+                                                <Link href={toUrl(item)}>
                                                     {item.title}
                                                 </Link>
                                             </BreadcrumbLink>
                                         )}
                                     </BreadcrumbItem>
-                                    {!isLast && <BreadcrumbSeparator />}
+                                    {!last && <BreadcrumbSeparator />}
                                 </Fragment>
                             );
                         })}

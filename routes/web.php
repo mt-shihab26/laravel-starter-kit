@@ -11,7 +11,7 @@ Route::get('/', fn () => inertia('welcome', ['canRegister' => Features::enabled(
 Route::get('/dashboard', fn () => inertia('dashboard'))->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
-    Route::redirect('/settings', '/settings/profile');
+    Route::redirect('/settings', '/settings/profile')->name('settings');
 
     Route::get('/settings/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/settings/profile', [ProfileController::class, 'update'])->name('profile.update');

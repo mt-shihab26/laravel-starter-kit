@@ -7,17 +7,17 @@ import { AppSidebarLayout } from './app-sidebar-layout';
 
 export const AppLayout = ({
     title,
+    breadcrumbs = [],
     children,
-    breadcrumbs,
 }: {
     title: string;
-    children: ReactNode;
     breadcrumbs?: TBreadcrumb[];
+    children: ReactNode;
 }) => {
     return (
         <>
             <Head title={title} />
-            <AppSidebarLayout breadcrumbs={breadcrumbs}>
+            <AppSidebarLayout breadcrumbs={[...breadcrumbs, { title }]}>
                 {children}
             </AppSidebarLayout>
         </>
