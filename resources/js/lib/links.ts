@@ -1,5 +1,4 @@
 import {
-    BookOpen,
     Folder,
     LayoutGrid,
     LockIcon,
@@ -21,13 +20,8 @@ export const mainNavItems: TNavItem[] = [
 export const secondNavItems: TNavItem[] = [
     {
         title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
+        href: 'https://github.com/mt-shihab26/laravel-starter-kit',
         icon: Folder,
-    },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#react',
-        icon: BookOpen,
     },
 ];
 
