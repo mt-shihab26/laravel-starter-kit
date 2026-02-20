@@ -1,35 +1,36 @@
-import DeleteUser from '@/components/delete-user';
-import Heading from '@/components/heading';
-import InputError from '@/components/input-error';
+import { useAuth } from '@/hooks/use-auth';
+
+import { Heading } from '@/components/elements/heading';
+import { InputError } from '@/components/elements/input-error';
+import { AppLayout } from '@/components/layouts/app-layout';
+import { SettingsLayout } from '@/components/layouts/settings-layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import AppLayout from '@/layouts/app-layout';
-import SettingsLayout from '@/layouts/settings/layout';
-import type { BreadcrumbItem } from '@/types';
 import { Transition } from '@headlessui/react';
-import { Form, Head, Link, usePage } from '@inertiajs/react';
+import { Form, Link } from '@inertiajs/react';
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Profile settings',
-        href: route('profile.edit'),
-    },
-];
+import { DeleteUser } from '@/components/screens/settings/profile/delete-user';
 
-export default function Profile({
+const Profile = ({
     mustVerifyEmail,
     status,
 }: {
     mustVerifyEmail: boolean;
     status?: string;
-}) {
-    const { auth } = usePage().props;
+}) => {
+    const { user } = useAuth();
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Profile settings" />
-
+        <AppLayout
+            title="Profile settings"
+            breadcrumbs={[
+                {
+                    title: 'Profile settings',
+                    href: route('profile.edit'),
+                },
+            ]}
+        >
             <h1 className="sr-only">Profile Settings</h1>
 
             <SettingsLayout>
@@ -56,7 +57,7 @@ export default function Profile({
                                     <Input
                                         id="name"
                                         className="mt-1 block w-full"
-                                        defaultValue={auth.user.name}
+                                        defaultValue={user.name}
                                         name="name"
                                         required
                                         autoComplete="name"
@@ -76,7 +77,7 @@ export default function Profile({
                                         id="email"
                                         type="email"
                                         className="mt-1 block w-full"
-                                        defaultValue={auth.user.email}
+                                        defaultValue={user.email}
                                         name="email"
                                         required
                                         autoComplete="username"
@@ -90,7 +91,7 @@ export default function Profile({
                                 </div>
 
                                 {mustVerifyEmail &&
-                                    auth.user.email_verified_at === null && (
+                                    user.email_verified_at === null && (
                                         <div>
                                             <p className="-mt-4 text-sm text-muted-foreground">
                                                 Your email address is
@@ -147,4 +148,6 @@ export default function Profile({
             </SettingsLayout>
         </AppLayout>
     );
-}
+};
+
+export default Profile;

@@ -1,30 +1,29 @@
-import Heading from '@/components/heading';
-import InputError from '@/components/input-error';
+import { useRef } from 'react';
+
+import { Heading } from '@/components/elements/heading';
+import { InputError } from '@/components/elements/input-error';
+import { AppLayout } from '@/components/layouts/app-layout';
+import { SettingsLayout } from '@/components/layouts/settings-layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import AppLayout from '@/layouts/app-layout';
-import SettingsLayout from '@/layouts/settings/layout';
-import type { BreadcrumbItem } from '@/types';
 import { Transition } from '@headlessui/react';
-import { Form, Head } from '@inertiajs/react';
-import { useRef } from 'react';
+import { Form } from '@inertiajs/react';
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Password settings',
-        href: route('user-password.edit'),
-    },
-];
-
-export default function Password() {
+const Password = () => {
     const passwordInput = useRef<HTMLInputElement>(null);
     const currentPasswordInput = useRef<HTMLInputElement>(null);
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Password settings" />
-
+        <AppLayout
+            title="Password settings"
+            breadcrumbs={[
+                {
+                    title: 'Password settings',
+                    href: route('user-password.edit'),
+                },
+            ]}
+        >
             <h1 className="sr-only">Password Settings</h1>
 
             <SettingsLayout>
@@ -144,4 +143,6 @@ export default function Password() {
             </SettingsLayout>
         </AppLayout>
     );
-}
+};
+
+export default Password;

@@ -1,7 +1,15 @@
-import type { TwoFactorSecretKey, TwoFactorSetupData } from '@/types';
 import { useCallback, useMemo, useState } from 'react';
 
-export type UseTwoFactorAuthReturn = {
+type TTwoFactorSecretKey = {
+    secretKey: string;
+};
+
+type TTwoFactorSetupData = {
+    svg: string;
+    url: string;
+};
+
+type TUseTwoFactorAuthReturn = {
     qrCodeSvg: string | null;
     manualSetupKey: string | null;
     recoveryCodesList: string[];
@@ -29,7 +37,7 @@ const fetchJson = async <T>(url: string): Promise<T> => {
     return response.json();
 };
 
-export const useTwoFactorAuth = (): UseTwoFactorAuthReturn => {
+export const useTwoFactorAuth = (): TUseTwoFactorAuthReturn => {
     const [qrCodeSvg, setQrCodeSvg] = useState<string | null>(null);
     const [manualSetupKey, setManualSetupKey] = useState<string | null>(null);
     const [recoveryCodesList, setRecoveryCodesList] = useState<string[]>([]);
@@ -42,7 +50,7 @@ export const useTwoFactorAuth = (): UseTwoFactorAuthReturn => {
 
     const fetchQrCode = useCallback(async (): Promise<void> => {
         try {
-            const { svg } = await fetchJson<TwoFactorSetupData>(
+            const { svg } = await fetchJson<TTwoFactorSetupData>(
                 route('two-factor.qr-code'),
             );
             setQrCodeSvg(svg);
@@ -54,7 +62,7 @@ export const useTwoFactorAuth = (): UseTwoFactorAuthReturn => {
 
     const fetchSetupKey = useCallback(async (): Promise<void> => {
         try {
-            const { secretKey: key } = await fetchJson<TwoFactorSecretKey>(
+            const { secretKey: key } = await fetchJson<TTwoFactorSecretKey>(
                 route('two-factor.secret-key'),
             );
             setManualSetupKey(key);
