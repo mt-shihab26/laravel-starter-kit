@@ -6,6 +6,7 @@ use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 
@@ -26,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->configureDefaults();
         $this->configureModels();
+        $this->configureAsserts();
     }
 
     /**
@@ -63,5 +65,14 @@ class AppServiceProvider extends ServiceProvider
 
         // Automatically eager-load relationships when accessed, eliminating N+1 query problems.
         Model::automaticallyEagerLoadRelationships();
+    }
+
+    /**
+     * Configure frontend asset bundling and prefetching strategy.
+     */
+    protected function configureAsserts(): void
+    {
+        // Preload JS chunks (3 at a time) after initial page load so subsequent navigations are instant.
+        Vite::prefetch(concurrency: 3);
     }
 }
