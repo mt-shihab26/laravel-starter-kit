@@ -6,6 +6,7 @@ My Laravel + Inertia + React Starter Kit
 
 - PHP 8.5+
 - Composer
+- Node.js
 - Bun
 
 ## Installation
