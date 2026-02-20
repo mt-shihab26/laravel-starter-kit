@@ -17,6 +17,17 @@ export const isCurrentUrl = (navItem: TNavItem): boolean => {
         return route().current(navItem.route);
     }
 
-    const href = window?.location.href;
-    return false;
+    if (!navItem.href) {
+        return false;
+    }
+
+    const currentUrl = window?.location.href;
+
+    if (!currentUrl) {
+        return false;
+    }
+
+    const targetUrl = new URL(navItem.href, currentUrl);
+
+    return currentUrl === targetUrl.href;
 };

@@ -1,11 +1,11 @@
 import type { TNavItem } from '@/types/utils';
 import type { PropsWithChildren } from 'react';
 
+import { cn, isCurrentUrl, toUrl } from '@/lib/utils';
+
 import { Heading } from '@/components/elements/heading';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { useCurrentUrl } from '@/hooks/use-current-url';
-import { cn, toUrl } from '@/lib/utils';
 import { Link } from '@inertiajs/react';
 
 const sidebarNavItems: TNavItem[] = [
@@ -32,8 +32,6 @@ const sidebarNavItems: TNavItem[] = [
 ];
 
 export function SettingsLayout({ children }: PropsWithChildren) {
-    const { isCurrentUrl } = useCurrentUrl();
-
     // When server-side rendering, we only render the layout on the client...
     if (typeof window === 'undefined') {
         return null;
@@ -54,12 +52,12 @@ export function SettingsLayout({ children }: PropsWithChildren) {
                     >
                         {sidebarNavItems.map((item, index) => (
                             <Button
-                                key={`${toUrl(item.route)}-${index}`}
+                                key={`${toUrl(item)}-${index}`}
                                 size="sm"
                                 variant="ghost"
                                 asChild
                                 className={cn('w-full justify-start', {
-                                    'bg-muted': isCurrentUrl(item.route),
+                                    'bg-muted': isCurrentUrl(item),
                                 })}
                             >
                                 <Link href={item.route}>

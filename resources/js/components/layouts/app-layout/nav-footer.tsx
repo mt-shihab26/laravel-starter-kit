@@ -11,13 +11,13 @@ import type { ComponentPropsWithoutRef } from 'react';
 
 import { toUrl } from '@/lib/utils';
 
-export function NavFooter({
+export const NavFooter = ({
     items,
     className,
     ...props
 }: ComponentPropsWithoutRef<typeof SidebarGroup> & {
     items: TNavItem[];
-}) {
+}) => {
     return (
         <SidebarGroup
             {...props}
@@ -32,7 +32,7 @@ export function NavFooter({
                                 className="text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100"
                             >
                                 <a
-                                    href={toUrl(item.route)}
+                                    href={toUrl(item)}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
@@ -48,4 +48,4 @@ export function NavFooter({
             </SidebarGroupContent>
         </SidebarGroup>
     );
-}
+};

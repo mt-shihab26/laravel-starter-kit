@@ -4,13 +4,13 @@ import { formatInitials } from '@/lib/formats';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
-export function UserInfo({
+export const UserInfo = ({
     user,
     showEmail = false,
 }: {
     user: TUser;
     showEmail?: boolean;
-}) {
+}) => {
     return (
         <>
             <Avatar className="h-8 w-8 overflow-hidden rounded-full">
@@ -29,4 +29,4 @@ export function UserInfo({
             </div>
         </>
     );
-}
+};

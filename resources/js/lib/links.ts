@@ -10,7 +10,7 @@ export const mainNavItems: TNavItem[] = [
     },
 ];
 
-export const rightNavItems: TNavItem[] = [
+export const secondNavItems: TNavItem[] = [
     {
         title: 'Repository',
         href: 'https://github.com/laravel/react-starter-kit',

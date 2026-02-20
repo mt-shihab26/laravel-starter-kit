@@ -1,21 +1,20 @@
-import type { TUser } from '@/types/models';
-
 import {
     DropdownMenuGroup,
     DropdownMenuItem,
     DropdownMenuLabel,
     DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
+
+import type { TUser } from '@/types/models';
+
 import { useMobileNavigation } from '@/hooks/use-mobile-navigation';
-import { Link, router } from '@inertiajs/react';
+import { router } from '@inertiajs/react';
+
+import { Link } from '@inertiajs/react';
 import { LogOut, Settings } from 'lucide-react';
 import { UserInfo } from './user-info';
 
-type Props = {
-    user: TUser;
-};
-
-export function UserMenuContent({ user }: Props) {
+export const UserMenuContent = ({ user }: { user: TUser }) => {
     const { cleanup } = useMobileNavigation();
 
     const handleLogout = () => {
@@ -59,4 +58,4 @@ export function UserMenuContent({ user }: Props) {
             </DropdownMenuItem>
         </>
     );
-}
+};

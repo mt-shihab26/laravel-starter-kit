@@ -3,20 +3,23 @@ import {
     DropdownMenuContent,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+
 import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
-    useSidebar,
 } from '@/components/ui/sidebar';
+
+import { useSidebar } from '@/components/ui/sidebar';
+import { useAuth } from '@/hooks/use-auth';
 import { useIsMobile } from '@/hooks/use-is-mobile';
-import { usePage } from '@inertiajs/react';
+
 import { ChevronsUpDown } from 'lucide-react';
 import { UserInfo } from './user-info';
 import { UserMenuContent } from './user-menu-content';
 
-export function NavUser() {
-    const { auth } = usePage().props;
+export const NavUser = () => {
+    const { user } = useAuth();
     const { state } = useSidebar();
     const { isMobile } = useIsMobile();
 
@@ -30,7 +33,7 @@ export function NavUser() {
                             className="group text-sidebar-accent-foreground data-[state=open]:bg-sidebar-accent"
                             data-test="sidebar-menu-button"
                         >
-                            <UserInfo user={auth.user} />
+                            <UserInfo user={user} />
                             <ChevronsUpDown className="ml-auto size-4" />
                         </SidebarMenuButton>
                     </DropdownMenuTrigger>
@@ -45,10 +48,10 @@ export function NavUser() {
                                   : 'bottom'
                         }
                     >
-                        <UserMenuContent user={auth.user} />
+                        <UserMenuContent user={user} />
                     </DropdownMenuContent>
                 </DropdownMenu>
             </SidebarMenuItem>
         </SidebarMenu>
     );
-}
+};

@@ -1,9 +1,13 @@
 import { useCallback, useState } from 'react';
 
-export const useClipboard = () => {
-    const [copiedText, setCopiedText] = useState<string | null>(null);
+type TCopiedValue = string | null;
+type TCopyFn = (text: string) => Promise<boolean>;
+type TUseClipboardReturn = [TCopiedValue, TCopyFn];
 
-    const copy = useCallback(async (text: string) => {
+export const useClipboard = (): TUseClipboardReturn => {
+    const [copiedText, setCopiedText] = useState<TCopiedValue>(null);
+
+    const copy: TCopyFn = useCallback(async (text) => {
         if (!navigator?.clipboard) {
             console.warn('Clipboard not supported');
 

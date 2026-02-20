@@ -8,37 +8,15 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 
-import type { TNavItem } from '@/types/utils';
+import { mainNavItems, secondNavItems } from '@/lib/links';
 
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid } from 'lucide-react';
 import { AppLogo } from './app-logo';
 import { NavFooter } from './nav-footer';
 import { NavMain } from './nav-main';
 import { NavUser } from './nav-user';
 
-const mainNavItems: TNavItem[] = [
-    {
-        title: 'Dashboard',
-        route: route('dashboard'),
-        icon: LayoutGrid,
-    },
-];
-
-const footerNavItems: TNavItem[] = [
-    {
-        title: 'Repository',
-        route: 'https://github.com/laravel/react-starter-kit',
-        icon: Folder,
-    },
-    {
-        title: 'Documentation',
-        route: 'https://laravel.com/docs/starter-kits#react',
-        icon: BookOpen,
-    },
-];
-
-export function AppSidebar() {
+export const AppSidebar = () => {
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>
@@ -58,9 +36,9 @@ export function AppSidebar() {
             </SidebarContent>
 
             <SidebarFooter>
-                <NavFooter items={footerNavItems} className="mt-auto" />
+                <NavFooter items={secondNavItems} className="mt-auto" />
                 <NavUser />
             </SidebarFooter>
         </Sidebar>
     );
-}
+};

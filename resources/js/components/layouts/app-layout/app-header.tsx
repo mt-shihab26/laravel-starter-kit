@@ -30,7 +30,7 @@ import type { TBreadcrumb } from '@/types/utils';
 import { navigationMenuTriggerStyle } from '@/components/ui/navigation-menu';
 import { useAuth } from '@/hooks/use-auth';
 import { formatInitials } from '@/lib/formats';
-import { mainNavItems, rightNavItems } from '@/lib/links';
+import { mainNavItems, secondNavItems } from '@/lib/links';
 import { cn, isCurrentUrl, toUrl } from '@/lib/utils';
 
 import { AppLogoIcon } from '@/components/elements/app-logo-icon';
@@ -93,7 +93,7 @@ export const AppHeader = ({
                                         </div>
 
                                         <div className="flex flex-col space-y-4">
-                                            {rightNavItems.map((item) => (
+                                            {secondNavItems.map((item) => (
                                                 <a
                                                     key={item.title}
                                                     href={toUrl(item)}
@@ -166,7 +166,7 @@ export const AppHeader = ({
                                 <Search className="size-5! opacity-80 group-hover:opacity-100" />
                             </Button>
                             <div className="ml-1 hidden gap-1 lg:flex">
-                                {rightNavItems.map((item) => (
+                                {secondNavItems.map((item) => (
                                     <TooltipProvider
                                         key={item.title}
                                         delayDuration={0}

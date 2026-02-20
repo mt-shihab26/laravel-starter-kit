@@ -12,7 +12,11 @@ import type { TBreadcrumb } from '@/types/utils';
 import { Link } from '@inertiajs/react';
 import { Fragment } from 'react';
 
-export function Breadcrumbs({ breadcrumbs }: { breadcrumbs: TBreadcrumb[] }) {
+export const Breadcrumbs = ({
+    breadcrumbs,
+}: {
+    breadcrumbs: TBreadcrumb[];
+}) => {
     return (
         <>
             {breadcrumbs.length > 0 && (
@@ -44,4 +48,4 @@ export function Breadcrumbs({ breadcrumbs }: { breadcrumbs: TBreadcrumb[] }) {
             )}
         </>
     );
-}
+};

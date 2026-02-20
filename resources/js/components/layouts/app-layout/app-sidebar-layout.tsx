@@ -6,13 +6,13 @@ import { AppShell } from './app-shell';
 import { AppSidebar } from './app-sidebar';
 import { AppSidebarHeader } from './app-sidebar-header';
 
-export function AppSidebarLayout({
+export const AppSidebarLayout = ({
     children,
     breadcrumbs = [],
 }: {
     children: ReactNode;
     breadcrumbs?: TBreadcrumb[];
-}) {
+}) => {
     return (
         <AppShell variant="sidebar">
             <AppSidebar />
@@ -22,4 +22,4 @@ export function AppSidebarLayout({
             </AppContent>
         </AppShell>
     );
-}
+};

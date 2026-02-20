@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 
 import { Head } from '@inertiajs/react';
 
-import { AppHeaderLayout } from './app-header-layout';
+import { AppSidebarLayout } from './app-sidebar-layout';
 
 export const AppLayout = ({
     title,
@@ -17,9 +17,9 @@ export const AppLayout = ({
     return (
         <>
             <Head title={title} />
-            <AppHeaderLayout breadcrumbs={breadcrumbs}>
+            <AppSidebarLayout breadcrumbs={breadcrumbs}>
                 {children}
-            </AppHeaderLayout>
+            </AppSidebarLayout>
         </>
     );
 };

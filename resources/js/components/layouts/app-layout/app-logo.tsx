@@ -1,6 +1,6 @@
 import { AppLogoIcon } from '@/components/elements/app-logo-icon';
 
-export function AppLogo() {
+export const AppLogo = () => {
     return (
         <>
             <div className="flex aspect-square size-8 items-center justify-center rounded-md bg-sidebar-primary text-sidebar-primary-foreground">
@@ -13,4 +13,4 @@ export function AppLogo() {
             </div>
         </>
     );
-}
+};
