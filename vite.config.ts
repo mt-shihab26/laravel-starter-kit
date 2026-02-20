@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import { defineConfig } from 'vite';
 
 import tailwindcss from '@tailwindcss/vite';
@@ -20,5 +21,9 @@ export default defineConfig({
     ],
     esbuild: {
         jsx: 'automatic',
+    },
+    test: {
+        environment: 'jsdom',
+        include: ['resources/js/tests/**/*.test.{ts,tsx}'],
     },
 });

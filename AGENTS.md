@@ -61,6 +61,10 @@ This project has domain-specific skills available. You MUST activate the relevan
 
 - You must only create documentation files if explicitly requested by the user.
 
+## Implementation Speed
+
+- When the user gives a direct instruction to implement something, do it immediately. Do not waste time exploring or reading surrounding files unless strictly necessary to complete the task. Just implement what was asked.
+
 ## Replies
 
 - Be concise in your explanations - focus on what's important rather than explaining obvious details.
