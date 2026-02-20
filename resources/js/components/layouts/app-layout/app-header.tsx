@@ -1,19 +1,22 @@
-import type { TBreadcrumb, TNavItem } from '@/types/utils';
-
-import { AppLogoIcon } from '@/components/elements/app-logo-icon';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+
 import {
     NavigationMenu,
     NavigationMenuItem,
     NavigationMenuList,
-    navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
+
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from '@/components/ui/tooltip';
+
 import {
     Sheet,
     SheetContent,
@@ -21,53 +24,30 @@ import {
     SheetTitle,
     SheetTrigger,
 } from '@/components/ui/sheet';
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { useCurrentUrl } from '@/hooks/use-current-url';
+
+import type { TBreadcrumb } from '@/types/utils';
+
+import { navigationMenuTriggerStyle } from '@/components/ui/navigation-menu';
+import { useAuth } from '@/hooks/use-auth';
 import { formatInitials } from '@/lib/formats';
-import { cn, toUrl } from '@/lib/utils';
-import { Link, usePage } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, Menu, Search } from 'lucide-react';
+import { mainNavItems, rightNavItems } from '@/lib/links';
+import { cn, isCurrentUrl, toUrl } from '@/lib/utils';
+
+import { AppLogoIcon } from '@/components/elements/app-logo-icon';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
+import { Link } from '@inertiajs/react';
+import { Menu, Search } from 'lucide-react';
 import { AppLogo } from './app-logo';
 import { Breadcrumbs } from './breadcrumbs';
 import { UserMenuContent } from './user-menu-content';
 
-const mainNavItems: TNavItem[] = [
-    {
-        title: 'Dashboard',
-        href: route('dashboard'),
-        icon: LayoutGrid,
-    },
-];
-
-const rightNavItems: TNavItem[] = [
-    {
-        title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
-        icon: Folder,
-    },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#react',
-        icon: BookOpen,
-    },
-];
-
-const activeItemStyles =
-    'text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100';
-
-export function AppHeader({
+export const AppHeader = ({
     breadcrumbs = [],
 }: {
     breadcrumbs?: TBreadcrumb[];
-}) {
-    const page = usePage();
-    const { auth } = page.props;
-    const { isCurrentUrl, whenCurrentUrl } = useCurrentUrl();
+}) => {
+    const { user } = useAuth();
 
     return (
         <>
@@ -80,7 +60,7 @@ export function AppHeader({
                                 <Button
                                     variant="ghost"
                                     size="icon"
-                                    className="mr-2 h-[34px] w-[34px]"
+                                    className="mr-2 size-8.5"
                                 >
                                     <Menu className="h-5 w-5" />
                                 </Button>
@@ -101,7 +81,7 @@ export function AppHeader({
                                             {mainNavItems.map((item) => (
                                                 <Link
                                                     key={item.title}
-                                                    href={item.href}
+                                                    href={toUrl(item)}
                                                     className="flex items-center space-x-2 font-medium"
                                                 >
                                                     {item.icon && (
@@ -116,7 +96,7 @@ export function AppHeader({
                                             {rightNavItems.map((item) => (
                                                 <a
                                                     key={item.title}
-                                                    href={toUrl(item.href)}
+                                                    href={toUrl(item)}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     className="flex items-center space-x-2 font-medium"
@@ -152,14 +132,14 @@ export function AppHeader({
                                         className="relative flex h-full items-center"
                                     >
                                         <Link
-                                            href={item.href}
+                                            href={toUrl(item)}
                                             className={cn(
-                                                navigationMenuTriggerStyle(),
-                                                whenCurrentUrl(
-                                                    item.href,
-                                                    activeItemStyles,
-                                                ),
                                                 'h-9 cursor-pointer px-3',
+                                                navigationMenuTriggerStyle(),
+                                                {
+                                                    'text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100':
+                                                        isCurrentUrl(item),
+                                                },
                                             )}
                                         >
                                             {item.icon && (
@@ -167,7 +147,7 @@ export function AppHeader({
                                             )}
                                             {item.title}
                                         </Link>
-                                        {isCurrentUrl(item.href) && (
+                                        {isCurrentUrl(item) && (
                                             <div className="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white"></div>
                                         )}
                                     </NavigationMenuItem>
@@ -183,7 +163,7 @@ export function AppHeader({
                                 size="icon"
                                 className="group h-9 w-9 cursor-pointer"
                             >
-                                <Search className="!size-5 opacity-80 group-hover:opacity-100" />
+                                <Search className="size-5! opacity-80 group-hover:opacity-100" />
                             </Button>
                             <div className="ml-1 hidden gap-1 lg:flex">
                                 {rightNavItems.map((item) => (
@@ -194,7 +174,7 @@ export function AppHeader({
                                         <Tooltip>
                                             <TooltipTrigger>
                                                 <a
-                                                    href={toUrl(item.href)}
+                                                    href={toUrl(item)}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     className="group inline-flex h-9 w-9 items-center justify-center rounded-md bg-transparent p-0 text-sm font-medium text-accent-foreground ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
@@ -223,17 +203,17 @@ export function AppHeader({
                                 >
                                     <Avatar className="size-8 overflow-hidden rounded-full">
                                         <AvatarImage
-                                            src={auth.user.avatar}
-                                            alt={auth.user.name}
+                                            src={user.avatar}
+                                            alt={user.name}
                                         />
                                         <AvatarFallback className="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
-                                            {formatInitials(auth.user.name)}
+                                            {formatInitials(user.name)}
                                         </AvatarFallback>
                                     </Avatar>
                                 </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent className="w-56" align="end">
-                                <UserMenuContent user={auth.user} />
+                                <UserMenuContent user={user} />
                             </DropdownMenuContent>
                         </DropdownMenu>
                     </div>
@@ -248,4 +228,4 @@ export function AppHeader({
             )}
         </>
     );
-}
+};

@@ -20,7 +20,7 @@ import { NavUser } from './nav-user';
 const mainNavItems: TNavItem[] = [
     {
         title: 'Dashboard',
-        href: route('dashboard'),
+        route: route('dashboard'),
         icon: LayoutGrid,
     },
 ];
@@ -28,12 +28,12 @@ const mainNavItems: TNavItem[] = [
 const footerNavItems: TNavItem[] = [
     {
         title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
+        route: 'https://github.com/laravel/react-starter-kit',
         icon: Folder,
     },
     {
         title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#react',
+        route: 'https://laravel.com/docs/starter-kits#react',
         icon: BookOpen,
     },
 ];

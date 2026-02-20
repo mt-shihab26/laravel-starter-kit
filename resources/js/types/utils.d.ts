@@ -1,4 +1,3 @@
-import type { InertiaLinkProps } from '@inertiajs/react';
 import type { LucideIcon } from 'lucide-react';
 
 export type TBreadcrumb = {
@@ -8,7 +7,7 @@ export type TBreadcrumb = {
 
 export type TNavItem = {
     title: string;
-    href: NonNullable<InertiaLinkProps['href']>;
+    route?: string;
+    href?: string;
     icon?: LucideIcon | null;
-    isActive?: boolean;
 };

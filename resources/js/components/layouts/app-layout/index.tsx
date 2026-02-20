@@ -2,7 +2,8 @@ import type { TBreadcrumb } from '@/types/utils';
 import type { ReactNode } from 'react';
 
 import { Head } from '@inertiajs/react';
-import { AppSidebarLayout } from './app-sidebar-layout';
+
+import { AppHeaderLayout } from './app-header-layout';
 
 export const AppLayout = ({
     title,
@@ -16,9 +17,9 @@ export const AppLayout = ({
     return (
         <>
             <Head title={title} />
-            <AppSidebarLayout breadcrumbs={breadcrumbs}>
+            <AppHeaderLayout breadcrumbs={breadcrumbs}>
                 {children}
-            </AppSidebarLayout>
+            </AppHeaderLayout>
         </>
     );
 };

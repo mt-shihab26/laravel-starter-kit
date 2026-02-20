@@ -11,22 +11,22 @@ import { Link } from '@inertiajs/react';
 const sidebarNavItems: TNavItem[] = [
     {
         title: 'Profile',
-        href: route('profile.edit'),
+        route: route('profile.edit'),
         icon: null,
     },
     {
         title: 'Password',
-        href: route('user-password.edit'),
+        route: route('user-password.edit'),
         icon: null,
     },
     {
         title: 'Two-Factor Auth',
-        href: route('two-factor.show'),
+        route: route('two-factor.show'),
         icon: null,
     },
     {
         title: 'Appearance',
-        href: route('appearance.edit'),
+        route: route('appearance.edit'),
         icon: null,
     },
 ];
@@ -54,15 +54,15 @@ export function SettingsLayout({ children }: PropsWithChildren) {
                     >
                         {sidebarNavItems.map((item, index) => (
                             <Button
-                                key={`${toUrl(item.href)}-${index}`}
+                                key={`${toUrl(item.route)}-${index}`}
                                 size="sm"
                                 variant="ghost"
                                 asChild
                                 className={cn('w-full justify-start', {
-                                    'bg-muted': isCurrentUrl(item.href),
+                                    'bg-muted': isCurrentUrl(item.route),
                                 })}
                             >
-                                <Link href={item.href}>
+                                <Link href={item.route}>
                                     {item.icon && (
                                         <item.icon className="h-4 w-4" />
                                     )}

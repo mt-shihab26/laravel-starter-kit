@@ -1,11 +1,14 @@
+import type { ComponentProps } from 'react';
+
 import { SidebarInset } from '@/components/ui/sidebar';
-import * as React from 'react';
 
-type Props = React.ComponentProps<'main'> & {
+export const AppContent = ({
+    variant = 'header',
+    children,
+    ...props
+}: ComponentProps<'main'> & {
     variant?: 'header' | 'sidebar';
-};
-
-export function AppContent({ variant = 'header', children, ...props }: Props) {
+}) => {
     if (variant === 'sidebar') {
         return <SidebarInset {...props}>{children}</SidebarInset>;
     }
@@ -18,4 +21,4 @@ export function AppContent({ variant = 'header', children, ...props }: Props) {
             {children}
         </main>
     );
-}
+};

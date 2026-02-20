@@ -5,16 +5,13 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
+import { isCurrentUrl } from '@/lib/utils';
 
 import type { TNavItem } from '@/types/utils';
-
-import { useCurrentUrl } from '@/hooks/use-current-url';
 
 import { Link } from '@inertiajs/react';
 
 export function NavMain({ items = [] }: { items: TNavItem[] }) {
-    const { isCurrentUrl } = useCurrentUrl();
-
     return (
         <SidebarGroup className="px-2 py-0">
             <SidebarGroupLabel>Platform</SidebarGroupLabel>
@@ -23,10 +20,10 @@ export function NavMain({ items = [] }: { items: TNavItem[] }) {
                     <SidebarMenuItem key={item.title}>
                         <SidebarMenuButton
                             asChild
-                            isActive={isCurrentUrl(item.href)}
+                            isActive={isCurrentUrl(item)}
                             tooltip={{ children: item.title }}
                         >
-                            <Link href={item.href} prefetch>
+                            <Link href={item.route} prefetch>
                                 {item.icon && <item.icon />}
                                 <span>{item.title}</span>
                             </Link>
