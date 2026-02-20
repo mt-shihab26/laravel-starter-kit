@@ -4,15 +4,13 @@ namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\PasswordUpdateRequest;
-use Illuminate\Http\RedirectResponse;
-use Inertia\Response;
 
 class PasswordController extends Controller
 {
     /**
      * Show the user's password settings page.
      */
-    public function edit(): Response
+    public function edit()
     {
         return inertia('settings/password');
     }
@@ -20,12 +18,12 @@ class PasswordController extends Controller
     /**
      * Update the user's password.
      */
-    public function update(PasswordUpdateRequest $request): RedirectResponse
+    public function update(PasswordUpdateRequest $request)
     {
         $request->user()->update([
             'password' => $request->password,
         ]);
 
-        return back();
+        return redirect()->back();
     }
 }
