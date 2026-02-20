@@ -24,12 +24,7 @@ const Profile = ({
     return (
         <AppLayout
             title="Profile settings"
-            breadcrumbs={[
-                {
-                    title: 'Profile settings',
-                    href: route('profile.edit'),
-                },
-            ]}
+            breadcrumbs={[{ title: 'Settings', route: 'settings' }]}
         >
             <h1 className="sr-only">Profile Settings</h1>
 

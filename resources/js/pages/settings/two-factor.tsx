@@ -35,12 +35,7 @@ const TwoFactor = ({
     return (
         <AppLayout
             title="Two-Factor Authentication"
-            breadcrumbs={[
-                {
-                    title: 'Two-Factor Authentication',
-                    href: route('two-factor.show'),
-                },
-            ]}
+            breadcrumbs={[{ title: 'Settings', route: 'settings' }]}
         >
             <h1 className="sr-only">Two-Factor Authentication Settings</h1>
 

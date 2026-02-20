@@ -8,12 +8,7 @@ const Appearance = () => {
     return (
         <AppLayout
             title="Appearance settings"
-            breadcrumbs={[
-                {
-                    title: 'Appearance settings',
-                    href: route('appearance.edit'),
-                },
-            ]}
+            breadcrumbs={[{ title: 'Settings', route: 'settings' }]}
         >
             <h1 className="sr-only">Appearance Settings</h1>
 

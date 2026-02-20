@@ -2,7 +2,8 @@ import type { LucideIcon } from 'lucide-react';
 
 export type TBreadcrumb = {
     title: string;
-    href: string;
+    route?: string;
+    href?: string;
 };
 
 export type TNavItem = {

@@ -16,12 +16,7 @@ const Password = () => {
     return (
         <AppLayout
             title="Password settings"
-            breadcrumbs={[
-                {
-                    title: 'Password settings',
-                    href: route('user-password.edit'),
-                },
-            ]}
+            breadcrumbs={[{ title: 'Settings', route: 'settings' }]}
         >
             <h1 className="sr-only">Password Settings</h1>
 

@@ -1,4 +1,3 @@
-import type { TNavItem } from '@/types/utils';
 import type { ClassValue } from 'clsx';
 
 import { clsx } from 'clsx';
@@ -8,16 +7,19 @@ export const cn = (...inputs: ClassValue[]) => {
     return twMerge(clsx(inputs));
 };
 
-export const toUrl = (navItem: TNavItem): string => {
-    return navItem.route ? route(navItem.route) : navItem.href || '';
+export const toUrl = (item: { route?: string; href?: string }): string => {
+    return item.route ? route(item.route) : item.href || '';
 };
 
-export const isCurrentUrl = (navItem: TNavItem): boolean => {
-    if (navItem.route) {
-        return route().current(navItem.route);
+export const isCurrentUrl = (item: {
+    route?: string;
+    href?: string;
+}): boolean => {
+    if (item.route) {
+        return route().current(item.route);
     }
 
-    if (!navItem.href) {
+    if (!item.href) {
         return false;
     }
 
@@ -27,7 +29,7 @@ export const isCurrentUrl = (navItem: TNavItem): boolean => {
         return false;
     }
 
-    const targetUrl = new URL(navItem.href, currentUrl);
+    const targetUrl = new URL(item.href, currentUrl);
 
     return currentUrl === targetUrl.href;
 };
