@@ -4,6 +4,8 @@ use App\Models\User;
 use Inertia\Testing\AssertableInertia as Assert;
 use Laravel\Fortify\Features;
 
+use function Pest\Laravel\actingAs;
+
 test('two factor settings page can be rendered', function () {
     if (! Features::canManageTwoFactorAuthentication()) {
         $this->markTestSkipped('Two-factor authentication is not enabled.');
@@ -16,7 +18,7 @@ test('two factor settings page can be rendered', function () {
 
     $user = User::factory()->create();
 
-    $this->actingAs($user)
+    actingAs($user)
         ->withSession(['auth.password_confirmed_at' => time()])
         ->get(route('two-factor.show'))
         ->assertInertia(fn (Assert $page) => $page
@@ -37,7 +39,7 @@ test('two factor settings page requires password confirmation when enabled', fun
         'confirmPassword' => true,
     ]);
 
-    $response = $this->actingAs($user)
+    $response = actingAs($user)
         ->get(route('two-factor.show'));
 
     $response->assertRedirect(route('password.confirm'));
@@ -55,7 +57,7 @@ test('two factor settings page does not requires password confirmation when disa
         'confirmPassword' => false,
     ]);
 
-    $this->actingAs($user)
+    actingAs($user)
         ->get(route('two-factor.show'))
         ->assertOk()
         ->assertInertia(fn (Assert $page) => $page
@@ -72,7 +74,7 @@ test('two factor settings page returns forbidden response when two factor is dis
 
     $user = User::factory()->create();
 
-    $this->actingAs($user)
+    actingAs($user)
         ->withSession(['auth.password_confirmed_at' => time()])
         ->get(route('two-factor.show'))
         ->assertForbidden();
