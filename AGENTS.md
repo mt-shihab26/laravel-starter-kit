@@ -25,9 +25,9 @@ This application is a Laravel application and its main Laravel ecosystems packag
 - phpunit/phpunit (PHPUNIT) - v12
 - @inertiajs/react (INERTIA) - v2
 - react (REACT) - v19
-- tailwindcss (TAILWINDCSS) - v4
 - eslint (ESLINT) - v9
 - prettier (PRETTIER) - v3
+- tailwindcss (TAILWINDCSS) - v4
 
 ## Skills Activation
 

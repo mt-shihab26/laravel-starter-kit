@@ -1,6 +1,6 @@
-# closing-capital-group-application
+# laravel-starter-kit
 
-The Web Application for Closing Capital Group
+My Laravel + Inertia + React Starter Kit
 
 ## Requirements
 
