@@ -1,11 +1,12 @@
 import { useAuth } from '@/hooks/use-auth';
+import { formatInitials } from '@/lib/formats';
 import { router, useForm } from '@inertiajs/react';
 import { useRef, useState } from 'react';
 
 import { Heading } from '@/components/elements/heading';
 import { InputError } from '@/components/elements/input-error';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
 
 export const UpdateAvatar = () => {
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -20,7 +21,7 @@ export const UpdateAvatar = () => {
         avatar: null,
     });
 
-    const displayAvatar = avatarPreview || user.avatar || null;
+    const displayAvatar = avatarPreview || user.avatar || undefined;
 
     return (
         <div className="space-y-6">
@@ -46,20 +47,13 @@ export const UpdateAvatar = () => {
                 className="space-y-6"
             >
                 <div className="grid gap-2">
-                    <Label>Photo</Label>
-
                     <div className="flex items-center gap-4">
-                        {displayAvatar ? (
-                            <img
-                                src={displayAvatar}
-                                alt={user.name}
-                                className="size-16 rounded-full object-cover"
-                            />
-                        ) : (
-                            <div className="flex size-16 items-center justify-center rounded-full bg-muted text-xl font-medium text-muted-foreground">
-                                {user.name.charAt(0).toUpperCase()}
-                            </div>
-                        )}
+                        <Avatar className="size-50 text-xl">
+                            <AvatarImage src={displayAvatar} alt={user.name} />
+                            <AvatarFallback>
+                                {formatInitials(user.name)}
+                            </AvatarFallback>
+                        </Avatar>
 
                         <div className="flex gap-2">
                             <Button
