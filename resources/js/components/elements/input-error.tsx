@@ -1,17 +1,19 @@
 import { cn } from '@/lib/utils';
-import type { HTMLAttributes } from 'react';
 
-export function InputError({
+export const InputError = ({
+    className,
     message,
-    className = '',
-    ...props
-}: HTMLAttributes<HTMLParagraphElement> & { message?: string }) {
-    return message ? (
-        <p
-            {...props}
-            className={cn('text-sm text-red-600 dark:text-red-400', className)}
-        >
+}: {
+    className?: string;
+    message?: string;
+}) => {
+    if (!message) {
+        return null;
+    }
+
+    return (
+        <p className={cn('text-sm text-red-600 dark:text-red-400', className)}>
             {message}
         </p>
-    ) : null;
-}
+    );
+};

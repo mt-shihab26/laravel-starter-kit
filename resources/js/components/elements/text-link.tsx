@@ -1,10 +1,14 @@
-import { cn } from '@/lib/utils';
-import { Link } from '@inertiajs/react';
 import type { ComponentProps } from 'react';
 
-type Props = ComponentProps<typeof Link>;
+import { cn } from '@/lib/utils';
 
-export function TextLink({ className = '', children, ...props }: Props) {
+import { Link } from '@inertiajs/react';
+
+export const TextLink = ({
+    className,
+    children,
+    ...props
+}: ComponentProps<typeof Link>) => {
     return (
         <Link
             className={cn(
@@ -16,4 +20,4 @@ export function TextLink({ className = '', children, ...props }: Props) {
             {children}
         </Link>
     );
-}
+};
