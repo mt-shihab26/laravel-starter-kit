@@ -8,7 +8,8 @@
         "dev": "vite",
         "test": "bun x --bun vitest run",
         "lint": "bun x --bun tsc --noEmit && bun x --bun eslint . --fix",
-        "format": "bun x --bun prettier --write resources/"
+        "format": "bun x --bun prettier --write resources/",
+        "shadcn": "shadcn"
     },
     "dependencies": {
         "@headlessui/react": "^2.2.9",
@@ -54,6 +55,7 @@
         "prettier": "^3.8.1",
         "prettier-plugin-organize-imports": "^4.3.0",
         "prettier-plugin-tailwindcss": "^0.6.14",
+        "shadcn": "^3.8.5",
         "tailwindcss": "^4.2.0",
         "typescript": "^5.9.3",
         "typescript-eslint": "^8.56.0",
@@ -70,6 +72,7 @@
     },
     "trustedDependencies": [
         "esbuild",
+        "msw",
         "unrs-resolver"
     ]
 }
