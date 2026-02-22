@@ -1,22 +1,24 @@
-import type { TAuth } from '@/types/auth';
 import type { route as routeFn } from 'ziggy-js';
 import type { TUser } from './models';
-
-type TAuth = {
-    user: TUser;
-};
 
 declare module '@inertiajs/core' {
     export interface InertiaConfig {
         sharedPageProps: {
             name: string;
-            auth: TAuth;
             sidebarOpen: boolean;
-            [key: string]: unknown;
+            auth: {
+                user: TUser;
+            };
+            flash: {
+                info: string | null;
+                success: string | null;
+                error: string | null;
+            };
         };
     }
 }
 
 declare global {
     var route: typeof routeFn;
+    function dd(...args: unknown[]): unknown;
 }

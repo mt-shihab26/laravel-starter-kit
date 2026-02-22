@@ -45,7 +45,9 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return redirect()->route('settings.profile.edit');
+        return redirect()
+            ->route('settings.profile.edit')
+            ->with('success', 'Profile updated successfully.');
     }
 
     /**
@@ -59,7 +61,9 @@ class ProfileController extends Controller
 
         $request->user()->addMediaFromRequest('avatar')->toMediaCollection('avatar');
 
-        return redirect()->route('settings.profile.edit');
+        return redirect()
+            ->route('settings.profile.edit')
+            ->with('success', 'Avatar updated successfully.');
     }
 
     /**
@@ -69,7 +73,9 @@ class ProfileController extends Controller
     {
         $request->user()->clearMediaCollection('avatar');
 
-        return redirect()->route('settings.profile.edit');
+        return redirect()
+            ->route('settings.profile.edit')
+            ->with('success', 'Avatar removed successfully.');
     }
 
     /**
