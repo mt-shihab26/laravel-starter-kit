@@ -19,4 +19,5 @@ declare module '@inertiajs/core' {
 
 declare global {
     var route: typeof routeFn;
+    function dd(...args: unknown[]): unknown;
 }
