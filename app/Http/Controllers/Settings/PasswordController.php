@@ -24,6 +24,8 @@ class PasswordController extends Controller
             'password' => $request->password,
         ]);
 
-        return redirect()->back();
+        return redirect()
+            ->back()
+            ->with('success', 'Password updated successfully.');
     }
 }
