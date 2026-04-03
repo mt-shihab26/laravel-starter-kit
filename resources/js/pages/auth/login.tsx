@@ -1,11 +1,11 @@
 import { InputError } from '@/components/elements/input-error';
 import { TextLink } from '@/components/elements/text-link';
-import { AuthLayout } from '@/layouts/auth-layout';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
+import { AuthLayout } from '@/layouts/auth-layout';
 import { Form } from '@inertiajs/react';
 
 const Login = ({

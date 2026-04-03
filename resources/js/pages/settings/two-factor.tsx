@@ -2,9 +2,9 @@ import { useTwoFactorAuth } from '@/hooks/use-two-factor-auth';
 import { useState } from 'react';
 
 import { Heading } from '@/components/elements/heading';
-import { SettingsLayout } from '@/layouts/settings-layout';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { SettingsLayout } from '@/layouts/settings-layout';
 import { Form } from '@inertiajs/react';
 import { ShieldBan, ShieldCheck } from 'lucide-react';
 

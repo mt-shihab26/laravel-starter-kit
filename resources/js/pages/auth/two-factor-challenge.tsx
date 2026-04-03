@@ -7,9 +7,9 @@ import {
 import { useMemo, useState } from 'react';
 
 import { InputError } from '@/components/elements/input-error';
-import { AuthLayout } from '@/layouts/auth-layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { AuthLayout } from '@/layouts/auth-layout';
 import { Form } from '@inertiajs/react';
 
 import { OTP_MAX_LENGTH } from '@/hooks/use-two-factor-auth';

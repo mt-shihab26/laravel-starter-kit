@@ -3,9 +3,9 @@ import { useAuth } from '@/hooks/use-auth';
 import { Heading } from '@/components/elements/heading';
 import { InputError } from '@/components/elements/input-error';
 import { SubmitButton } from '@/components/elements/submit-button';
-import { SettingsLayout } from '@/layouts/settings-layout';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { SettingsLayout } from '@/layouts/settings-layout';
 import { Form, Link } from '@inertiajs/react';
 
 import { DeleteUser } from '@/screens/settings/profile/delete-user';

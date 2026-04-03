@@ -1,7 +1,7 @@
 import { TextLink } from '@/components/elements/text-link';
-import { AuthLayout } from '@/layouts/auth-layout';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
+import { AuthLayout } from '@/layouts/auth-layout';
 import { Form } from '@inertiajs/react';
 
 const VerifyEmail = ({ status }: { status?: string }) => {

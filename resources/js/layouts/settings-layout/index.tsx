@@ -5,9 +5,9 @@ import { settingsNavItems } from '@/lib/links';
 import { cn, isCurrentUrl, toUrl } from '@/lib/utils';
 
 import { Heading } from '@/components/elements/heading';
-import { AppLayout } from '@/layouts/app-layout';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { AppLayout } from '@/layouts/app-layout';
 import { Link } from '@inertiajs/react';
 
 export const SettingsLayout = ({
