@@ -1,8 +1,15 @@
+.git/*
 .agents/*
 .claude/*
 .codex/*
+node_modules/*
+public/*
 resources/views/mail/*
 .mcp.json
 AGENTS.md
 CLAUDE.md
 boost.json
+bun.lock
+composer.lock
+opencode.json
+tmp
