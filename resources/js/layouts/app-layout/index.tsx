@@ -1,7 +1,7 @@
 import type { TBreadcrumb } from '@/types/utils';
 import type { ReactNode } from 'react';
 
-import { RootLayout } from '@/components/layouts/root-layout';
+import { RootLayout } from '@/layouts/root-layout';
 import { Head } from '@inertiajs/react';
 import { AppSidebarLayout } from './app-sidebar-layout';
 

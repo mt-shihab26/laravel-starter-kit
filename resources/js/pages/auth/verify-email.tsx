@@ -1,5 +1,5 @@
 import { TextLink } from '@/components/elements/text-link';
-import { AuthLayout } from '@/components/layouts/auth-layout';
+import { AuthLayout } from '@/layouts/auth-layout';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import { Form } from '@inertiajs/react';

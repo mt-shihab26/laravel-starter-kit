@@ -1,5 +1,5 @@
 import { InputError } from '@/components/elements/input-error';
-import { AuthLayout } from '@/components/layouts/auth-layout';
+import { AuthLayout } from '@/layouts/auth-layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';

@@ -3,13 +3,13 @@ import { useAuth } from '@/hooks/use-auth';
 import { Heading } from '@/components/elements/heading';
 import { InputError } from '@/components/elements/input-error';
 import { SubmitButton } from '@/components/elements/submit-button';
-import { SettingsLayout } from '@/components/layouts/settings-layout';
+import { SettingsLayout } from '@/layouts/settings-layout';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Form, Link } from '@inertiajs/react';
 
-import { DeleteUser } from '@/components/screens/settings/profile/delete-user';
-import { UpdateAvatar } from '@/components/screens/settings/profile/update-avatar';
+import { DeleteUser } from '@/screens/settings/profile/delete-user';
+import { UpdateAvatar } from '@/screens/settings/profile/update-avatar';
 
 const Profile = ({
     mustVerifyEmail,

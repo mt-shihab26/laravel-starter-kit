@@ -2,14 +2,14 @@ import { useTwoFactorAuth } from '@/hooks/use-two-factor-auth';
 import { useState } from 'react';
 
 import { Heading } from '@/components/elements/heading';
-import { SettingsLayout } from '@/components/layouts/settings-layout';
+import { SettingsLayout } from '@/layouts/settings-layout';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Form } from '@inertiajs/react';
 import { ShieldBan, ShieldCheck } from 'lucide-react';
 
-import { TwoFactorRecoveryCodes } from '@/components/screens/settings/two-factor/two-factor-recovery-codes';
-import { TwoFactorSetupModal } from '@/components/screens/settings/two-factor/two-factor-setup-modal';
+import { TwoFactorRecoveryCodes } from '@/screens/settings/two-factor/two-factor-recovery-codes';
+import { TwoFactorSetupModal } from '@/screens/settings/two-factor/two-factor-setup-modal';
 
 const TwoFactor = ({
     requiresConfirmation = false,

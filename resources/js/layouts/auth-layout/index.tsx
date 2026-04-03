@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import { RootLayout } from '@/components/layouts/root-layout';
+import { RootLayout } from '@/layouts/root-layout';
 import { Head } from '@inertiajs/react';
 import { AuthSimpleLayout } from './auth-simple-layout';
 

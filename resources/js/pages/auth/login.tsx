@@ -1,6 +1,6 @@
 import { InputError } from '@/components/elements/input-error';
 import { TextLink } from '@/components/elements/text-link';
-import { AuthLayout } from '@/components/layouts/auth-layout';
+import { AuthLayout } from '@/layouts/auth-layout';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';

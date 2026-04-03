@@ -1,7 +1,7 @@
 import { Heading } from '@/components/elements/heading';
-import { SettingsLayout } from '@/components/layouts/settings-layout';
+import { SettingsLayout } from '@/layouts/settings-layout';
 
-import { AppearanceTabs } from '@/components/screens/settings/appearance/appearance-tabs';
+import { AppearanceTabs } from '@/screens/settings/appearance/appearance-tabs';
 
 const Appearance = () => {
     return (
