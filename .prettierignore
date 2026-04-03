@@ -1,3 +1,8 @@
 .agents/*
+.claude/*
+.codex/*
 resources/views/mail/*
+.mcp.json
 AGENTS.md
+CLAUDE.md
+boost.json

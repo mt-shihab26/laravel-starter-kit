@@ -3,12 +3,12 @@
     "private": true,
     "type": "module",
     "scripts": {
+        "dev": "vite",
         "build": "bun x --bun vite build",
         "build:ssr": "bun x --bun vite build && bun x --bun vite build --ssr",
-        "dev": "vite",
         "test": "bun x --bun vitest run",
         "lint": "bun x --bun tsc --noEmit && bun x --bun eslint . --fix",
-        "format": "bun x --bun prettier --write resources/",
+        "format": "bun x --bun prettier --write .",
         "shadcn": "shadcn"
     },
     "dependencies": {
