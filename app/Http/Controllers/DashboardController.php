@@ -27,7 +27,6 @@ class DashboardController extends Controller
                 'inviterName' => $invitation->inviter->name,
                 'team' => [
                     'name' => $invitation->team->name,
-                    'slug' => $invitation->team->slug,
                 ],
             ]);
 

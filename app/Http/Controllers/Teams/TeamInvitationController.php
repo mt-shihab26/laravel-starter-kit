@@ -8,7 +8,7 @@ use App\Http\Requests\Teams\CreateTeamInvitationRequest;
 use App\Http\Requests\Teams\RespondToTeamInvitationRequest;
 use App\Models\Team;
 use App\Models\TeamInvitation;
-use App\Notifications\Teams\TeamInvitation as TeamInvitationNotification;
+use App\Notifications\TeamInvitation as TeamInvitationNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -36,7 +36,7 @@ class TeamInvitationController extends Controller
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Invitation sent.')]);
 
-        return to_route('teams.edit', ['team' => $team->slug]);
+        return to_route('teams.edit', ['team' => $team->id]);
     }
 
     /**
@@ -52,7 +52,7 @@ class TeamInvitationController extends Controller
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Invitation cancelled.')]);
 
-        return to_route('teams.edit', ['team' => $team->slug]);
+        return to_route('teams.edit', ['team' => $team->id]);
     }
 
     /**

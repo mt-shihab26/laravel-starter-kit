@@ -40,7 +40,7 @@ class TeamController extends Controller
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Team created.')]);
 
-        return to_route('teams.edit', ['team' => $team->slug]);
+        return to_route('teams.edit', ['team' => $team->id]);
     }
 
     /**
@@ -54,7 +54,6 @@ class TeamController extends Controller
             'team' => [
                 'id' => $team->id,
                 'name' => $team->name,
-                'slug' => $team->slug,
                 'isPersonal' => $team->is_personal,
             ],
             'members' => $team->members()->get()->map(function (User $member) {
@@ -102,7 +101,7 @@ class TeamController extends Controller
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Team updated.')]);
 
-        return to_route('teams.edit', ['team' => $team->slug]);
+        return to_route('teams.edit', ['team' => $team->id]);
     }
 
     /**

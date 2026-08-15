@@ -32,25 +32,6 @@ test('teams can be created', function () {
     ]);
 });
 
-test('team slug uses next available suffix', function () {
-    $user = User::factory()->create();
-
-    Team::factory()->create(['name' => 'Acme', 'slug' => 'acme']);
-    Team::factory()->create(['name' => 'Acme One', 'slug' => 'acme-1']);
-    Team::factory()->create(['name' => 'Acme Ten', 'slug' => 'acme-10']);
-
-    $this
-        ->actingAs($user)
-        ->post(route('teams.store'), [
-            'name' => 'Acme',
-        ]);
-
-    $this->assertDatabaseHas('teams', [
-        'name' => 'Acme',
-        'slug' => 'acme-11',
-    ]);
-});
-
 test('the team edit page can be rendered', function () {
     $user = User::factory()->create();
     $team = Team::factory()->create();

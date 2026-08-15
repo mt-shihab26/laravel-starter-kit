@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Concerns\GeneratesUniqueTeamSlugs;
 use App\Enums\TeamRole;
 use Database\Factories\TeamFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -17,7 +16,6 @@ use Illuminate\Support\Carbon;
 /**
  * @property int $id
  * @property string $name
- * @property string $slug
  * @property bool $is_personal
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -26,31 +24,11 @@ use Illuminate\Support\Carbon;
  * @property-read Collection<int, Membership> $memberships
  * @property-read Collection<int, User> $members
  */
-#[Fillable(['name', 'slug', 'is_personal'])]
+#[Fillable(['name', 'is_personal'])]
 class Team extends Model
 {
     /** @use HasFactory<TeamFactory> */
-    use GeneratesUniqueTeamSlugs, HasFactory, SoftDeletes;
-
-    /**
-     * Bootstrap the model and its traits.
-     */
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::creating(function (Team $team) {
-            if (empty($team->slug)) {
-                $team->slug = static::generateUniqueTeamSlug($team->name);
-            }
-        });
-
-        static::updating(function (Team $team) {
-            if ($team->isDirty('name')) {
-                $team->slug = static::generateUniqueTeamSlug($team->name, $team->id);
-            }
-        });
-    }
+    use HasFactory, SoftDeletes;
 
     /**
      * Get the team owner.
@@ -105,13 +83,5 @@ class Team extends Model
         return [
             'is_personal' => 'boolean',
         ];
-    }
-
-    /**
-     * Get the route key for the model.
-     */
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
     }
 }
