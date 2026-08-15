@@ -2,7 +2,7 @@
 
 namespace App\Data;
 
-readonly class TeamPermissions
+class TeamPermissions
 {
     public function __construct(
         public bool $canUpdateTeam,

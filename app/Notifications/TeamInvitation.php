@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Notifications\Teams;
+namespace App\Notifications;
 
 use App\Models\TeamInvitation as TeamInvitationModel;
 use Illuminate\Bus\Queueable;

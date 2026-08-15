@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Actions\Fortify;
+namespace App\Actions\Auth;
 
 use App\Actions\Teams\CreateTeam;
-use App\Concerns\PasswordValidationRules;
-use App\Concerns\ProfileValidationRules;
+use App\Concerns\ValidationRules;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -12,12 +11,14 @@ use Laravel\Fortify\Contracts\CreatesNewUsers;
 
 class CreateNewUser implements CreatesNewUsers
 {
-    use PasswordValidationRules, ProfileValidationRules;
+    use ValidationRules;
 
-    public function __construct(private CreateTeam $createTeam)
-    {
-        //
-    }
+    /**
+     * Create a new action instance.
+     */
+    public function __construct(
+        private CreateTeam $createTeam
+    ) {}
 
     /**
      * Validate and create a newly registered user.
