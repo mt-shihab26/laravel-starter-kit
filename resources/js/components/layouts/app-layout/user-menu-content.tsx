@@ -1,15 +1,18 @@
-import { Link, router } from '@inertiajs/react';
-import { LogOut, Settings } from 'lucide-react';
 import {
     DropdownMenuGroup,
     DropdownMenuItem,
     DropdownMenuLabel,
     DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
-import { UserInfo } from '@/components/layouts/app-layout/user-info';
+
 import type { TUser } from '@/types/models';
 
+import { router } from '@inertiajs/react';
 import { useCallback } from 'react';
+
+import { Link } from '@inertiajs/react';
+import { LogOut, Settings } from 'lucide-react';
+import { UserInfo } from '@/components/layouts/app-layout/user-info';
 
 const useMobileNavigation = () => {
     return useCallback(() => {

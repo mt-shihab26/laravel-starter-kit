@@ -1,9 +1,3 @@
-import { Form } from '@inertiajs/react';
-import { useRef } from 'react';
-import { Heading } from '@/components/elements/heading';
-import { InputError } from '@/components/elements/input-error';
-import { PasswordInput } from '@/components/elements/password-input';
-import { Button } from '@/components/ui/button';
 import {
     Dialog,
     DialogClose,
@@ -13,6 +7,14 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/components/ui/dialog';
+
+import { useRef } from 'react';
+
+import { Form } from '@inertiajs/react';
+import { Heading } from '@/components/elements/heading';
+import { InputError } from '@/components/elements/input-error';
+import { PasswordInput } from '@/components/elements/password-input';
+import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 
 export const DeleteUser = () => {

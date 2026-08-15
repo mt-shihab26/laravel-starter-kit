@@ -1,10 +1,3 @@
-import { Form } from '@inertiajs/react';
-import { REGEXP_ONLY_DIGITS } from 'input-otp';
-import { Check, Copy, ScanLine } from 'lucide-react';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { AlertError } from '@/components/elements/alert-error';
-import { InputError } from '@/components/elements/input-error';
-import { Button } from '@/components/ui/button';
 import {
     Dialog,
     DialogContent,
@@ -12,14 +5,25 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
+
 import {
     InputOTP,
     InputOTPGroup,
     InputOTPSlot,
 } from '@/components/ui/input-otp';
-import { Spinner } from '@/components/ui/spinner';
+
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useAppearance } from '@/hooks/use-appearance';
 import { useClipboard } from '@/hooks/use-clipboard';
+
+import { Form } from '@inertiajs/react';
+import { Check, Copy, ScanLine } from 'lucide-react';
+import { AlertError } from '@/components/elements/alert-error';
+import { InputError } from '@/components/elements/input-error';
+import { Button } from '@/components/ui/button';
+import { Spinner } from '@/components/ui/spinner';
+
+import { REGEXP_ONLY_DIGITS } from 'input-otp';
 import { OTP_MAX_LENGTH } from '@/hooks/use-two-factor-auth';
 
 const GridScanIcon = () => {

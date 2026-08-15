@@ -1,8 +1,3 @@
-import { Form } from '@inertiajs/react';
-import type { ReactElement } from 'react';
-import { useState } from 'react';
-import { InputError } from '@/components/elements/input-error';
-import { Button } from '@/components/ui/button';
 import {
     Dialog,
     DialogClose,
@@ -13,6 +8,14 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/components/ui/dialog';
+
+import type { ReactElement } from 'react';
+
+import { useState } from 'react';
+
+import { Form } from '@inertiajs/react';
+import { InputError } from '@/components/elements/input-error';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 

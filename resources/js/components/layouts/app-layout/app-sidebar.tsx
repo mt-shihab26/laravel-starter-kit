@@ -1,11 +1,3 @@
-import { Link, usePage } from '@inertiajs/react';
-import { BookOpen, FolderGit2, LayoutGrid } from 'lucide-react';
-import { AppLogo } from '@/components/layouts/app-layout/app-logo';
-import type { TNavItem } from '@/types/utils';
-import { NavFooter } from '@/components/layouts/app-layout/nav-footer';
-import { NavMain } from '@/components/layouts/app-layout/nav-main';
-import { NavUser } from '@/components/layouts/app-layout/nav-user';
-import { TeamSwitcher } from '@/components/layouts/app-layout/team-switcher';
 import {
     Sidebar,
     SidebarContent,
@@ -15,6 +7,18 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
+
+import type { TNavItem } from '@/types/utils';
+
+import { usePage } from '@inertiajs/react';
+
+import { Link } from '@inertiajs/react';
+import { BookOpen, FolderGit2, LayoutGrid } from 'lucide-react';
+import { AppLogo } from '@/components/layouts/app-layout/app-logo';
+import { NavFooter } from '@/components/layouts/app-layout/nav-footer';
+import { NavMain } from '@/components/layouts/app-layout/nav-main';
+import { NavUser } from '@/components/layouts/app-layout/nav-user';
+import { TeamSwitcher } from '@/components/layouts/app-layout/team-switcher';
 
 export const AppSidebar = () => {
     const page = usePage();

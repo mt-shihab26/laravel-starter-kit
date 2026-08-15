@@ -1,4 +1,6 @@
-import { Head, Link, usePage } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
+
+import { Head, Link } from '@inertiajs/react';
 
 const Welcome = () => {
     const { user, currentTeam } = usePage().props.auth;

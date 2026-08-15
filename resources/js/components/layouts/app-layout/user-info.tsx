@@ -1,8 +1,8 @@
-import type { TUser } from '@/types/models';
+import type { TTeam, TUser } from '@/types/models';
+
+import { formatInitials } from '@/lib/formats';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { formatInitials } from '@/lib/formats';
-import type { TTeam } from '@/types/models';
 
 export const UserInfo = ({
     user,

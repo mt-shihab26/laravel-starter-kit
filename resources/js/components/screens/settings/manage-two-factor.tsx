@@ -1,11 +1,12 @@
+import { useEffect, useRef, useState } from 'react';
+import { useTwoFactorAuth } from '@/hooks/use-two-factor-auth';
+
 import { Form } from '@inertiajs/react';
 import { ShieldCheck } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
 import { Heading } from '@/components/elements/heading';
 import { TwoFactorRecoveryCodes } from '@/components/screens/settings/two-factor-recovery-codes';
 import { TwoFactorSetupModal } from '@/components/screens/settings/two-factor-setup-modal';
 import { Button } from '@/components/ui/button';
-import { useTwoFactorAuth } from '@/hooks/use-two-factor-auth';
 
 export type TManageTwoFactorProps = {
     canManageTwoFactor?: boolean;

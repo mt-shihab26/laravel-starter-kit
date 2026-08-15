@@ -1,6 +1,3 @@
-import { router } from '@inertiajs/react';
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
 import {
     Dialog,
     DialogClose,
@@ -10,7 +7,13 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
+
 import type { TTeam } from '@/types/models';
+
+import { router } from '@inertiajs/react';
+import { useState } from 'react';
+
+import { Button } from '@/components/ui/button';
 
 export const LeaveTeamModal = ({
     team,

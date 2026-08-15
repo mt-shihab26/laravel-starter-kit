@@ -1,7 +1,3 @@
-import { router, usePage } from '@inertiajs/react';
-import { Check, ChevronsUpDown, Plus, Users } from 'lucide-react';
-import { CreateTeamModal } from '@/components/layouts/app-layout/create-team-modal';
-import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -10,8 +6,15 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useIsMobile } from '@/hooks/use-is-mobile';
+
 import type { TTeam } from '@/types/models';
+
+import { router, usePage } from '@inertiajs/react';
+import { useIsMobile } from '@/hooks/use-is-mobile';
+
+import { Check, ChevronsUpDown, Plus, Users } from 'lucide-react';
+import { CreateTeamModal } from '@/components/layouts/app-layout/create-team-modal';
+import { Button } from '@/components/ui/button';
 
 export const TeamSwitcher = ({
     inHeader = false,

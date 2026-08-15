@@ -1,7 +1,10 @@
-import { usePage } from '@inertiajs/react';
 import type { ReactNode } from 'react';
+
+import { usePage } from '@inertiajs/react';
+
 import { SidebarProvider } from '@/components/ui/sidebar';
-export type TAppVariant = 'header' | 'sidebar';
+
+type TAppVariant = 'header' | 'sidebar';
 
 export const AppShell = ({
     children,

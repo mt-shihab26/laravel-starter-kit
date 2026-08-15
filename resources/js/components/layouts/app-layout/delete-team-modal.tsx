@@ -1,7 +1,3 @@
-import { Form } from '@inertiajs/react';
-import { useState } from 'react';
-import { InputError } from '@/components/elements/input-error';
-import { Button } from '@/components/ui/button';
 import {
     Dialog,
     DialogClose,
@@ -11,9 +7,16 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
+
+import type { TTeam } from '@/types/models';
+
+import { useState } from 'react';
+
+import { Form } from '@inertiajs/react';
+import { InputError } from '@/components/elements/input-error';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import type { TTeam } from '@/types/models';
 
 export const DeleteTeamModal = ({
     team,

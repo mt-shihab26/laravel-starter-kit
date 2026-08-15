@@ -1,10 +1,12 @@
-import { router } from '@inertiajs/react';
-import { KeyRound } from 'lucide-react';
-import { Heading } from '@/components/elements/heading';
 import {
     PasskeyItem,
     type TPasskey,
 } from '@/components/screens/settings/passkey-item';
+
+import { router } from '@inertiajs/react';
+
+import { KeyRound } from 'lucide-react';
+import { Heading } from '@/components/elements/heading';
 import { PasskeyRegistration } from '@/components/screens/settings/passkey-register';
 
 export type TManagePasskeysProps = {

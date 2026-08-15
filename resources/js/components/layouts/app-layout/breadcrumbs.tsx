@@ -1,5 +1,3 @@
-import { Link } from '@inertiajs/react';
-import { Fragment } from 'react';
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -8,7 +6,11 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
+
 import type { InertiaLinkProps } from '@inertiajs/react';
+
+import { Link } from '@inertiajs/react';
+import { Fragment } from 'react';
 
 export type TBreadcrumb = {
     title: string;

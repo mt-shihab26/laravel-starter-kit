@@ -1,23 +1,16 @@
-import { Link, usePage } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, Menu, Search } from 'lucide-react';
-import { AppLogo } from '@/components/layouts/app-layout/app-logo';
-import type { TNavItem } from '@/types/utils';
-import { AppLogoIcon } from '@/components/icons/app-logo-icon';
-import { Breadcrumbs } from '@/components/layouts/app-layout/breadcrumbs';
-import { TeamSwitcher } from '@/components/layouts/app-layout/team-switcher';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+
 import {
     NavigationMenu,
     NavigationMenuItem,
     NavigationMenuList,
     navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
+
 import {
     Sheet,
     SheetContent,
@@ -25,17 +18,31 @@ import {
     SheetTitle,
     SheetTrigger,
 } from '@/components/ui/sheet';
+
 import {
     Tooltip,
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { UserMenuContent } from '@/components/layouts/app-layout/user-menu-content';
+
+import type { TNavItem } from '@/types/utils';
+import type { TBreadcrumb } from '@/components/layouts/app-layout/breadcrumbs';
+
+import { usePage } from '@inertiajs/react';
 import { useCurrentUrl } from '@/hooks/use-current-url';
 import { formatInitials } from '@/lib/formats';
 import { cn, toUrl } from '@/lib/utils';
-import type { TBreadcrumb } from '@/components/layouts/app-layout/breadcrumbs';
+
+import { Link } from '@inertiajs/react';
+import { BookOpen, Folder, LayoutGrid, Menu, Search } from 'lucide-react';
+import { AppLogo } from '@/components/layouts/app-layout/app-logo';
+import { AppLogoIcon } from '@/components/icons/app-logo-icon';
+import { Breadcrumbs } from '@/components/layouts/app-layout/breadcrumbs';
+import { TeamSwitcher } from '@/components/layouts/app-layout/team-switcher';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
+import { UserMenuContent } from '@/components/layouts/app-layout/user-menu-content';
 
 const rightNavItems: TNavItem[] = [
     {

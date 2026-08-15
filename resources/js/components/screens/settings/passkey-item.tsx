@@ -1,6 +1,3 @@
-import { KeyRound, Trash2 } from 'lucide-react';
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
 import {
     Dialog,
     DialogClose,
@@ -10,6 +7,11 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/components/ui/dialog';
+
+import { useState } from 'react';
+
+import { KeyRound, Trash2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export type TPasskey = {
     id: number;

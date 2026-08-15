@@ -1,4 +1,3 @@
-import { Link } from '@inertiajs/react';
 import {
     SidebarGroup,
     SidebarGroupLabel,
@@ -6,8 +5,12 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { useCurrentUrl } from '@/hooks/use-current-url';
+
 import type { TNavItem } from '@/types/utils';
+
+import { useCurrentUrl } from '@/hooks/use-current-url';
+
+import { Link } from '@inertiajs/react';
 
 export const NavMain = ({ items = [] }: { items: TNavItem[] }) => {
     const { isCurrentUrl } = useCurrentUrl();

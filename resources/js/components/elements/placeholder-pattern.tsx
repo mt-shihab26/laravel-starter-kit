@@ -1,10 +1,10 @@
 import { useId } from 'react';
 
-interface PlaceholderPatternProps {
+export const PlaceholderPattern = ({
+    className,
+}: {
     className?: string;
-}
-
-export const PlaceholderPattern = ({ className }: PlaceholderPatternProps) => {
+}) => {
     const patternId = useId();
 
     return (
