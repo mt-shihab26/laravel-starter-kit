@@ -1,2 +1,30 @@
-resources/js/components/ui/*
 resources/views/mail/*
+
+# Build & dependency output
+node_modules/
+public/build/
+public/hot
+bootstrap/cache/
+storage/
+
+# Generated & vendor files
+/vendor/
+composer.lock
+bun.lock
+package-lock.json
+
+# Boost files
+.mcp.json
+boost.json
+AGENTS.md
+CLAUDE.md
+.claude/
+.agents/
+.codex/
+
+# Config & env
+*.env
+.env*
+*.min.js
+*.min.css
+

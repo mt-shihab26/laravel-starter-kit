@@ -1,0 +1,52 @@
+name: formats
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          tools: composer:v2
+          coverage: none
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '^1.3'
+
+      - name: Setup Application
+        run: composer run setup
+
+      - name: Lint PHP Code
+        run: composer run lint
+
+      - name: Format JavaScript Code
+        run: bun run lint
+
+      - name: Format PHP Code
+        run: composer run format
+
+      - name: Format JavaScript Code
+        run: bun run format
+
+      - name: Commit Changes
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: fix code style
+          commit_options: '--no-verify'
