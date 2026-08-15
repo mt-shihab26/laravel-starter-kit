@@ -14,7 +14,6 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Inertia\Inertia;
 use Inertia\Response;
 
 class TeamController extends Controller
@@ -26,7 +25,7 @@ class TeamController extends Controller
     {
         $user = $request->user();
 
-        return Inertia::render('teams/index', [
+        return inertia('teams/index', [
             'teams' => $user->toUserTeams(includeCurrent: true),
         ]);
     }
@@ -50,7 +49,7 @@ class TeamController extends Controller
     {
         $user = $request->user();
 
-        return Inertia::render('teams/edit', [
+        return inertia('teams/edit', [
             'team' => [
                 'id' => $team->id,
                 'name' => $team->name,
