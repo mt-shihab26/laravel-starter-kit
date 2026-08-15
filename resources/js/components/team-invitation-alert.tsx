@@ -1,9 +1,13 @@
 import { InfoIcon } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import type { TeamInvitationContext } from '@/types';
+
+export type TTeamInvitationContext = {
+    code: string;
+    teamName: string;
+};
 
 type Props = {
-    invitation: TeamInvitationContext;
+    invitation: TTeamInvitationContext;
     action: 'Log in' | 'Register';
 };
 

@@ -1,11 +1,11 @@
+import type { TBreadcrumb } from '@/components/breadcrumbs';
 import AppLayoutTemplate from '@/layouts/app/app-sidebar-layout';
-import type { BreadcrumbItem } from '@/types';
 
 export default function AppLayout({
     breadcrumbs = [],
     children,
 }: {
-    breadcrumbs?: BreadcrumbItem[];
+    breadcrumbs?: TBreadcrumb[];
     children: React.ReactNode;
 }) {
     return (

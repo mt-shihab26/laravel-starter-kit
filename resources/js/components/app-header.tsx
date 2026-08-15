@@ -1,6 +1,7 @@
 import { Link, usePage } from '@inertiajs/react';
 import { BookOpen, Folder, LayoutGrid, Menu, Search } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
+import type { TNavItem } from '@/types/utils';
 import AppLogoIcon from '@/components/app-logo-icon';
 import { Breadcrumbs } from '@/components/breadcrumbs';
 import { TeamSwitcher } from '@/components/team-switcher';
@@ -34,13 +35,13 @@ import { UserMenuContent } from '@/components/user-menu-content';
 import { useCurrentUrl } from '@/hooks/use-current-url';
 import { useInitials } from '@/hooks/use-initials';
 import { cn, toUrl } from '@/lib/utils';
-import type { BreadcrumbItem, NavItem } from '@/types';
+import type { TBreadcrumb } from '@/components/breadcrumbs';
 
 type Props = {
-    breadcrumbs?: BreadcrumbItem[];
+    breadcrumbs?: TBreadcrumb[];
 };
 
-const rightNavItems: NavItem[] = [
+const rightNavItems: TNavItem[] = [
     {
         title: 'Repository',
         href: 'https://github.com/laravel/react-starter-kit',
@@ -58,14 +59,12 @@ const activeItemStyles =
 
 export function AppHeader({ breadcrumbs = [] }: Props) {
     const page = usePage();
-    const { auth, currentTeam } = page.props;
+    const { user, currentTeam } = page.props.auth;
     const getInitials = useInitials();
     const { isCurrentUrl, whenCurrentUrl } = useCurrentUrl();
-    const dashboardUrl = currentTeam
-        ? route('dashboard', currentTeam.id)
-        : '/';
+    const dashboardUrl = currentTeam ? route('dashboard', currentTeam.id) : '/';
 
-    const mainNavItems: NavItem[] = [
+    const mainNavItems: TNavItem[] = [
         {
             title: 'Dashboard',
             href: dashboardUrl,
@@ -85,7 +84,7 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                                     <Button
                                         variant="ghost"
                                         size="icon"
-                                        className="mr-2 h-[34px] w-[34px]"
+                                        className="mr-2 h-8.5 w-8.5"
                                     >
                                         <Menu className="h-5 w-5" />
                                     </Button>
@@ -193,10 +192,7 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                             </Button>
                             <div className="ml-1 hidden gap-1 lg:flex">
                                 {rightNavItems.map((item) => (
-                                    <TooltipProvider
-                                        key={item.title}
-                                        delay={0}
-                                    >
+                                    <TooltipProvider key={item.title} delay={0}>
                                         <Tooltip>
                                             <TooltipTrigger>
                                                 <a
@@ -230,18 +226,18 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                                     >
                                         <Avatar className="size-8 overflow-hidden rounded-full">
                                             <AvatarImage
-                                                src={auth.user.avatar}
-                                                alt={auth.user.name}
+                                                src={user.avatar}
+                                                alt={user.name}
                                             />
                                             <AvatarFallback className="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
-                                                {getInitials(auth.user.name)}
+                                                {getInitials(user.name)}
                                             </AvatarFallback>
                                         </Avatar>
                                     </Button>
                                 }
                             />
                             <DropdownMenuContent className="w-56" align="end">
-                                <UserMenuContent user={auth.user} />
+                                <UserMenuContent user={user} />
                             </DropdownMenuContent>
                         </DropdownMenu>
 

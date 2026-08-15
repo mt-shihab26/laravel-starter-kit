@@ -7,9 +7,9 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { useCurrentUrl } from '@/hooks/use-current-url';
-import type { NavItem } from '@/types';
+import type { TNavItem } from '@/types/utils';
 
-export function NavMain({ items = [] }: { items: NavItem[] }) {
+export function NavMain({ items = [] }: { items: TNavItem[] }) {
     const { isCurrentUrl } = useCurrentUrl();
 
     return (

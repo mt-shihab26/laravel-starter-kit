@@ -10,10 +10,10 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
-import type { Team } from '@/types';
+import type { TTeam } from '@/types';
 
 type Props = {
-    team: Team | null;
+    team: TTeam | null;
     open: boolean;
     onOpenChange: (open: boolean) => void;
 };
@@ -47,9 +47,7 @@ export default function LeaveTeamModal({ team, open, onOpenChange }: Props) {
 
                 <DialogFooter className="gap-2">
                     <DialogClose
-                        render={
-                            <Button variant="secondary">Cancel</Button>
-                        }
+                        render={<Button variant="secondary">Cancel</Button>}
                     />
 
                     <Button

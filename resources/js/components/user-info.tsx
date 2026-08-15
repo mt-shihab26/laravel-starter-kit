@@ -1,15 +1,17 @@
+import type { TUser } from '@/types/models';
+
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useInitials } from '@/hooks/use-initials';
-import type { Team, User } from '@/types';
+import type { TTeam } from '@/types';
 
 export function UserInfo({
     user,
     showEmail = false,
     team = null,
 }: {
-    user: User;
+    user: TUser;
     showEmail?: boolean;
-    team?: Team | null;
+    team?: TTeam | null;
 }) {
     const getInitials = useInitials();
     const showAvatar = Boolean(user.avatar && user.avatar !== '');

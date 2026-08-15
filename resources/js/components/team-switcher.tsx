@@ -11,7 +11,7 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useIsMobile } from '@/hooks/use-mobile';
-import type { Team } from '@/types';
+import type { TTeam } from '@/types';
 
 type TeamSwitcherProps = {
     inHeader?: boolean;
@@ -20,10 +20,10 @@ type TeamSwitcherProps = {
 export function TeamSwitcher({ inHeader = false }: TeamSwitcherProps) {
     const page = usePage();
     const isMobile = useIsMobile();
-    const currentTeam = page.props.currentTeam;
-    const teams = page.props.teams ?? [];
+    const currentTeam = page.props.auth.currentTeam;
+    const teams = page.props.auth.teams ?? [];
 
-    const switchTeam = (team: Team) => {
+    const switchTeam = (team: TTeam) => {
         const previousTeamId = currentTeam?.id;
 
         router.visit(route('teams.switch', team.id), {
@@ -81,7 +81,7 @@ export function TeamSwitcher({ inHeader = false }: TeamSwitcherProps) {
                             <span
                                 className={
                                     inHeader
-                                        ? 'max-w-[120px] truncate font-medium'
+                                        ? 'max-w-30 truncate font-medium'
                                         : 'truncate font-semibold'
                                 }
                             >

@@ -2,12 +2,18 @@ import { AppContent } from '@/components/app-content';
 import { AppShell } from '@/components/app-shell';
 import { AppSidebar } from '@/components/app-sidebar';
 import { AppSidebarHeader } from '@/components/app-sidebar-header';
-import type { AppLayoutProps } from '@/types';
+import type { TBreadcrumb } from '@/components/breadcrumbs';
+import type { ReactNode } from 'react';
+
+export type TAppLayoutProps = {
+    children: ReactNode;
+    breadcrumbs?: TBreadcrumb[];
+};
 
 export default function AppSidebarLayout({
     children,
     breadcrumbs = [],
-}: AppLayoutProps) {
+}: TAppLayoutProps) {
     return (
         <AppShell variant="sidebar">
             <AppSidebar />

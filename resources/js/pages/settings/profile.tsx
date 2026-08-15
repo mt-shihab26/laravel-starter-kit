@@ -6,11 +6,6 @@ import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import type { Auth } from '@/types';
-
-type PageProps = {
-    auth: Auth;
-};
 
 export default function Profile({
     mustVerifyEmail,
@@ -19,7 +14,7 @@ export default function Profile({
     mustVerifyEmail: boolean;
     status?: string;
 }) {
-    const { auth } = usePage<PageProps>().props;
+    const { auth } = usePage().props;
 
     return (
         <>

@@ -5,9 +5,9 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { useCurrentUrl } from '@/hooks/use-current-url';
 import { cn, toUrl } from '@/lib/utils';
-import type { NavItem } from '@/types';
+import type { TNavItem } from '@/types/utils';
 
-const sidebarNavItems: NavItem[] = [
+const sidebarNavItems: TNavItem[] = [
     {
         title: 'Profile',
         href: route('profile.edit'),

@@ -1,9 +1,9 @@
-import * as React from 'react';
 import { SidebarInset } from '@/components/ui/sidebar';
-import type { AppVariant } from '@/types';
+
+export type TAppVariant = 'header' | 'sidebar';
 
 type Props = React.ComponentProps<'main'> & {
-    variant?: AppVariant;
+    variant?: TAppVariant;
 };
 
 export function AppContent({ variant = 'sidebar', children, ...props }: Props) {

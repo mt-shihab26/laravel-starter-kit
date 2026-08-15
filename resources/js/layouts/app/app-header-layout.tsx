@@ -1,12 +1,18 @@
 import { AppContent } from '@/components/app-content';
 import { AppHeader } from '@/components/app-header';
 import { AppShell } from '@/components/app-shell';
-import type { AppLayoutProps } from '@/types';
+import type { TBreadcrumb } from '@/components/breadcrumbs';
+import type { ReactNode } from 'react';
+
+type TAppLayoutProps = {
+    children: ReactNode;
+    breadcrumbs?: TBreadcrumb[];
+};
 
 export default function AppHeaderLayout({
     children,
     breadcrumbs,
-}: AppLayoutProps) {
+}: TAppLayoutProps) {
     return (
         <AppShell variant="header">
             <AppHeader breadcrumbs={breadcrumbs} />

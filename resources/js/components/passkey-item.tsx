@@ -10,10 +10,17 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/components/ui/dialog';
-import type { Passkey } from '@/types/auth';
+
+export type TPasskey = {
+    id: number;
+    name: string;
+    authenticator: string | null;
+    created_at_diff: string;
+    last_used_at_diff: string | null;
+};
 
 type Props = {
-    passkey: Passkey;
+    passkey: TPasskey;
     onDelete: (id: number, onError: () => void) => void;
 };
 
@@ -78,9 +85,7 @@ export default function PasskeyItem({ passkey, onDelete }: Props) {
                     </DialogDescription>
                     <DialogFooter className="gap-2">
                         <DialogClose
-                            render={
-                                <Button variant="secondary">Cancel</Button>
-                            }
+                            render={<Button variant="secondary">Cancel</Button>}
                         />
                         <Button
                             variant="destructive"

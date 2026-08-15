@@ -10,11 +10,11 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
-import type { Team, TeamMember } from '@/types';
+import type { TTeam, TTeamMember } from '@/types';
 
 type Props = {
-    team: Team;
-    member: TeamMember | null;
+    team: TTeam;
+    member: TTeamMember | null;
     open: boolean;
     onOpenChange: (open: boolean) => void;
 };
@@ -53,9 +53,7 @@ export default function RemoveMemberModal({
 
                 <DialogFooter className="gap-2">
                     <DialogClose
-                        render={
-                            <Button variant="secondary">Cancel</Button>
-                        }
+                        render={<Button variant="secondary">Cancel</Button>}
                     />
 
                     <Button

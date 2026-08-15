@@ -10,11 +10,11 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
-import type { Team, TeamInvitation } from '@/types';
+import type { TTeam, TTeamInvitation } from '@/types';
 
 type Props = {
-    team: Team;
-    invitation: TeamInvitation | null;
+    team: TTeam;
+    invitation: TTeamInvitation | null;
     open: boolean;
     onOpenChange: (open: boolean) => void;
 };
@@ -57,9 +57,7 @@ export default function CancelInvitationModal({
                 <DialogFooter className="gap-2">
                     <DialogClose
                         render={
-                            <Button variant="secondary">
-                                Keep invitation
-                            </Button>
+                            <Button variant="secondary">Keep invitation</Button>
                         }
                     />
 
