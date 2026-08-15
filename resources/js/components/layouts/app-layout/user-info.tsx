@@ -1,7 +1,7 @@
 import type { TUser } from '@/types/models';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { useInitials } from '@/hooks/use-initials';
+import { formatInitials } from '@/lib/formats';
 import type { TTeam } from '@/types/models';
 
 export const UserInfo = ({
@@ -13,7 +13,6 @@ export const UserInfo = ({
     showEmail?: boolean;
     team?: TTeam | null;
 }) => {
-    const getInitials = useInitials();
     const showAvatar = Boolean(user.avatar && user.avatar !== '');
 
     return (
@@ -23,7 +22,7 @@ export const UserInfo = ({
                     <AvatarImage src={user.avatar} alt={user.name} />
                 ) : null}
                 <AvatarFallback className="rounded-lg text-black dark:text-white">
-                    {getInitials(user.name)}
+                    {formatInitials(user.name)}
                 </AvatarFallback>
             </Avatar>
             <div className="grid flex-1 text-left text-sm leading-tight">

@@ -7,11 +7,19 @@ import {
     DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
 import { UserInfo } from '@/components/layouts/app-layout/user-info';
-import { useMobileNavigation } from '@/hooks/use-mobile-navigation';
 import type { TUser } from '@/types/models';
 
 type Props = {
     user: TUser;
+};
+
+import { useCallback } from 'react';
+
+const useMobileNavigation = () => {
+    return useCallback(() => {
+        // Remove pointer-events style from body...
+        document.body.style.removeProperty('pointer-events');
+    }, []);
 };
 
 export const UserMenuContent = ({ user }: Props) => {

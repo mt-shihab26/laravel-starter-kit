@@ -17,7 +17,7 @@ import type { TTeam, TTeamInvitation, TTeamMember } from '@/types/models';
 
 import { router } from '@inertiajs/react';
 import { useMemo, useState } from 'react';
-import { useInitials } from '@/hooks/use-initials';
+import { formatInitials } from '@/lib/formats';
 
 import { Form } from '@inertiajs/react';
 import { ChevronDown, Mail, UserPlus, X } from 'lucide-react';
@@ -59,8 +59,6 @@ const TeamEdit = ({
     permissions,
     availableRoles,
 }: Props) => {
-    const getInitials = useInitials();
-
     const [inviteDialogOpen, setInviteDialogOpen] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [removeMemberDialogOpen, setRemoveMemberDialogOpen] = useState(false);
@@ -194,7 +192,7 @@ const TeamEdit = ({
                                             />
                                         ) : null}
                                         <AvatarFallback>
-                                            {getInitials(member.name)}
+                                            {formatInitials(member.name)}
                                         </AvatarFallback>
                                     </Avatar>
                                     <div>

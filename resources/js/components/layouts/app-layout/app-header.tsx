@@ -33,7 +33,7 @@ import {
 } from '@/components/ui/tooltip';
 import { UserMenuContent } from '@/components/layouts/app-layout/user-menu-content';
 import { useCurrentUrl } from '@/hooks/use-current-url';
-import { useInitials } from '@/hooks/use-initials';
+import { formatInitials } from '@/lib/formats';
 import { cn, toUrl } from '@/lib/utils';
 import type { TBreadcrumb } from '@/components/layouts/app-layout/breadcrumbs';
 
@@ -60,7 +60,6 @@ const activeItemStyles =
 export const AppHeader = ({ breadcrumbs = [] }: Props) => {
     const page = usePage();
     const { user, currentTeam } = page.props.auth;
-    const getInitials = useInitials();
     const { isCurrentUrl, whenCurrentUrl } = useCurrentUrl();
     const dashboardUrl = currentTeam ? route('dashboard', currentTeam.id) : '/';
 
@@ -230,7 +229,7 @@ export const AppHeader = ({ breadcrumbs = [] }: Props) => {
                                                 alt={user.name}
                                             />
                                             <AvatarFallback className="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
-                                                {getInitials(user.name)}
+                                                {formatInitials(user.name)}
                                             </AvatarFallback>
                                         </Avatar>
                                     </Button>

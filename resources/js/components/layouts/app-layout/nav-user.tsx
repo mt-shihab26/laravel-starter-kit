@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/sidebar';
 import { UserInfo } from '@/components/layouts/app-layout/user-info';
 import { UserMenuContent } from '@/components/layouts/app-layout/user-menu-content';
-import { useIsMobile } from '@/hooks/use-mobile';
+import { useIsMobile } from '@/hooks/use-is-mobile';
 
 export const NavUser = () => {
     const { user, currentTeam } = usePage().props.auth;

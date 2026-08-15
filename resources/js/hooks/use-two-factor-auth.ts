@@ -1,7 +1,7 @@
 import { useHttp } from '@inertiajs/react';
 import { useCallback, useState } from 'react';
 
-export type UseTwoFactorAuthReturn = {
+type TUseTwoFactorAuthReturn = {
     qrCodeSvg: string | null;
     manualSetupKey: string | null;
     recoveryCodesList: string[];
@@ -18,7 +18,7 @@ export type UseTwoFactorAuthReturn = {
 
 export const OTP_MAX_LENGTH = 6;
 
-export const useTwoFactorAuth = (): UseTwoFactorAuthReturn => {
+export const useTwoFactorAuth = (): TUseTwoFactorAuthReturn => {
     const { submit } = useHttp();
 
     const [qrCodeSvg, setQrCodeSvg] = useState<string | null>(null);
