@@ -37,7 +37,6 @@
         "input-otp": "^1.4.2",
         "laravel-vite-plugin": "^3.2.0",
         "lucide-react": "^1.31.0",
-        "next-themes": "^0.4.6",
         "react": "^19.2.8",
         "react-day-picker": "^10.0.1",
         "react-dom": "^19.2.8",
@@ -45,10 +44,6 @@
         "recharts": "3.8.0",
         "sonner": "^2.0.8",
         "tailwind-merge": "^3.6.0",
-        "tailwindcss": "^4.3.3",
-        "tw-animate-css": "^1.4.0",
-        "typescript": "^7.0.2",
-        "vite": "^8.2.1",
       },
       "devDependencies": {
         "@laravel/vite-plugin-wayfinder": "^0.1.7",
@@ -59,6 +54,10 @@
         "prettier-plugin-organize-imports": "^4.3.0",
         "prettier-plugin-tailwindcss": "^0.8.1",
         "shadcn": "^4.18.0",
+        "tailwindcss": "^4.3.3",
+        "tw-animate-css": "^1.4.0",
+        "typescript": "^7.0.2",
+        "vite": "^8.2.1",
       },
       "optionalDependencies": {
         "@laravel/multiplex": "^0.4.2",
@@ -843,8 +842,6 @@
     "nanoid": ["nanoid@3.3.18", "", { "bin": { "nanoid": "bin/nanoid.cjs" } }, "sha512-DTg4MJbGMWkfi6VZFdNt2/caMbQy4Ou+Op/hJQvGEWcnVfoA1QA+xzRKAzw9jD6+GVOOeYr/mIcuDSdug6F6+w=="],
 
     "negotiator": ["negotiator@1.0.0", "", {}, "sha512-8Ofs/AUQh8MaEcrlq5xOX0CQ9ypTF5dl78mjlMNfOK08fzpgTHQRQPBxcPlEtIw0yRpws+Zo/3r+5WRby7u3Gg=="],
-
-    "next-themes": ["next-themes@0.4.6", "", { "peerDependencies": { "react": "^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc", "react-dom": "^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc" } }, "sha512-pZvgD5L0IEvX5/9GWyHMf3m8BKiVQwsCMHfoFosXtXBMnaS0ZnIJ9ST4b4NqLVKDEm8QBxoNNGNaBv2JNF6XNA=="],
 
     "node-releases": ["node-releases@2.0.53", "", {}, "sha512-D9UOmYG3UH1V+ENW56t5QXBwJw1YEY18ruVeus89Rw+SyIgjPkCO84bRzO3uNIYosJbNwiabWVn48o3uJLjxFQ=="],
 
