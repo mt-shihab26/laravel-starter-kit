@@ -12,7 +12,7 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from '@/components/ui/tooltip';
-import type { TTeam } from '@/types';
+import type { TTeam } from '@/types/models';
 
 type Props = {
     teams: TTeam[];

@@ -11,7 +11,7 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useIsMobile } from '@/hooks/use-mobile';
-import type { TTeam } from '@/types';
+import type { TTeam } from '@/types/models';
 
 type TeamSwitcherProps = {
     inHeader?: boolean;

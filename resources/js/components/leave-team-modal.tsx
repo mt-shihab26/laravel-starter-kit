@@ -10,7 +10,7 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
-import type { TTeam } from '@/types';
+import type { TTeam } from '@/types/models';
 
 type Props = {
     team: TTeam | null;

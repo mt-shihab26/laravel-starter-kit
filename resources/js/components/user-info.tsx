@@ -2,7 +2,7 @@ import type { TUser } from '@/types/models';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useInitials } from '@/hooks/use-initials';
-import type { TTeam } from '@/types';
+import type { TTeam } from '@/types/models';
 
 export function UserInfo({
     user,
