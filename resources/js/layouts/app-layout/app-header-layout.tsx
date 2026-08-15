@@ -1,8 +1,9 @@
+import type { TBreadcrumb } from '@/components/breadcrumbs';
+import type { ReactNode } from 'react';
+
 import { AppContent } from '@/components/app-content';
 import { AppHeader } from '@/components/app-header';
 import { AppShell } from '@/components/app-shell';
-import type { TBreadcrumb } from '@/components/breadcrumbs';
-import type { ReactNode } from 'react';
 
 type TAppLayoutProps = {
     children: ReactNode;
