@@ -27,17 +27,17 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('/settings')->group(function () {
         Route::redirect('/', '/settings/profile');
 
-        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('settings.profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('settings.profile.update');
 
         Route::middleware('verified')->group(function () {
-            Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+            Route::delete('/profile', [ProfileController::class, 'destroy'])->name('settings.profile.destroy');
 
-            Route::get('/security', [SecurityController::class, 'edit'])->middleware(RequirePassword::class)->name('security.edit');
+            Route::get('/security', [SecurityController::class, 'edit'])->middleware(RequirePassword::class)->name('settings.security.edit');
 
-            Route::put('/password', [SecurityController::class, 'update'])->middleware('throttle:6,1')->name('user-password.update');
+            Route::put('/password', [SecurityController::class, 'update'])->middleware('throttle:6,1')->name('settings.password.update');
 
-            Route::inertia('/appearance', 'settings/appearance')->name('appearance.edit');
+            Route::inertia('/appearance', 'settings/appearance')->name('settings.appearance.edit');
 
             Route::prefix('/teams')->group(function () {
                 Route::get('/', [TeamController::class, 'index'])->name('teams.index');

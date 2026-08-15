@@ -13,12 +13,12 @@ import { AppLayout } from '@/components/layouts/app-layout';
 const links = [
     {
         title: 'Profile',
-        href: route('profile.edit'),
+        href: route('settings.profile.edit'),
         icon: User,
     },
     {
         title: 'Security',
-        href: route('security.edit'),
+        href: route('settings.security.edit'),
         icon: Lock,
     },
     {
@@ -28,7 +28,7 @@ const links = [
     },
     {
         title: 'Appearance',
-        href: route('appearance.edit'),
+        href: route('settings.appearance.edit'),
         icon: Palette,
     },
 ];

@@ -37,7 +37,7 @@ const Security = (
                 />
 
                 <Form
-                    action={route('user-password.update')}
+                    action={route('settings.password.update')}
                     method="put"
                     options={{
                         preserveScroll: true,
