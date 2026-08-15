@@ -15,7 +15,6 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { store } from '@/routes/teams';
 
 export default function CreateTeamModal({
     children,
@@ -30,7 +29,8 @@ export default function CreateTeamModal({
             <DialogContent>
                 <Form
                     key={String(open)}
-                    {...store.form()}
+                    action={route('teams.store')}
+                    method="post"
                     className="space-y-6"
                     onSuccess={() => setOpen(false)}
                 >

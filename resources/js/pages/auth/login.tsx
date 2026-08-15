@@ -9,9 +9,6 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
-import { register } from '@/routes';
-import { store } from '@/routes/login';
-import { request } from '@/routes/password';
 import type { TeamInvitationContext } from '@/types';
 
 type Props = {
@@ -39,7 +36,8 @@ export default function Login({
             <PasskeyVerify />
 
             <Form
-                {...store.form()}
+                action={route('login.store')}
+                method="post"
                 resetOnSuccess={['password']}
                 className="flex flex-col gap-6"
             >
@@ -66,7 +64,7 @@ export default function Login({
                                     <Label htmlFor="password">Password</Label>
                                     {canResetPassword && (
                                         <TextLink
-                                            href={request()}
+                                            href={route('password.request')}
                                             className="ml-auto text-sm"
                                             tabIndex={5}
                                         >
@@ -109,10 +107,8 @@ export default function Login({
                         <div className="text-center text-sm text-muted-foreground">
                             Don't have an account?{' '}
                             <TextLink
-                                href={register({
-                                    query: {
-                                        invitation: teamInvitation?.code,
-                                    },
+                                href={route('register', {
+                                    invitation: teamInvitation?.code,
                                 })}
                                 data-test="register-link"
                                 tabIndex={5}

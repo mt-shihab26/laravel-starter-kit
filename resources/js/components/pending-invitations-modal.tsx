@@ -1,6 +1,5 @@
 import { router } from '@inertiajs/react';
 import { useState } from 'react';
-import TeamInvitationController from '@/actions/App/Http/Controllers/Teams/TeamInvitationController';
 import { Button } from '@/components/ui/button';
 import {
     Dialog,
@@ -25,14 +24,16 @@ export default function PendingInvitationsModal({
     const [processingCode, setProcessingCode] = useState<string | null>(null);
 
     const acceptInvitation = (invitation: DashboardInvitation) => {
-        router.visit(TeamInvitationController.accept(invitation), {
+        router.visit(route('invitations.accept', invitation.code), {
+            method: 'post',
             onStart: () => setProcessingCode(invitation.code),
             onFinish: () => setProcessingCode(null),
         });
     };
 
     const declineInvitation = (invitation: DashboardInvitation) => {
-        router.visit(TeamInvitationController.decline(invitation), {
+        router.visit(route('invitations.decline', invitation.code), {
+            method: 'delete',
             onStart: () => setProcessingCode(invitation.code),
             onFinish: () => setProcessingCode(null),
             onSuccess: () => {

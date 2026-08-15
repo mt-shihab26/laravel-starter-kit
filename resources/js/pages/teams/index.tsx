@@ -12,7 +12,6 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { edit, index } from '@/routes/teams';
 import type { Team } from '@/types';
 
 type Props = {
@@ -114,8 +113,9 @@ export default function TeamsIndex({ teams }: Props) {
                                                             data-test="team-view-button"
                                                             render={
                                                                 <Link
-                                                                    href={edit(
-                                                                        team.slug,
+                                                                    href={route(
+                                                                        'teams.edit',
+                                                                        team.id,
                                                                     )}
                                                                 >
                                                                     <Eye className="h-4 w-4" />
@@ -138,8 +138,9 @@ export default function TeamsIndex({ teams }: Props) {
                                                             data-test="team-edit-button"
                                                             render={
                                                                 <Link
-                                                                    href={edit(
-                                                                        team.slug,
+                                                                    href={route(
+                                                                        'teams.edit',
+                                                                        team.id,
                                                                     )}
                                                                 >
                                                                     <Pencil className="h-4 w-4" />
@@ -180,7 +181,7 @@ TeamsIndex.layout = {
     breadcrumbs: [
         {
             title: 'Teams',
-            href: index(),
+            href: route('teams.index'),
         },
     ],
 };

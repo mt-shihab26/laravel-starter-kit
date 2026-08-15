@@ -25,8 +25,6 @@ import {
     TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { useInitials } from '@/hooks/use-initials';
-import { edit, index, update } from '@/routes/teams';
-import { update as updateMember } from '@/routes/teams/members';
 import type {
     RoleOption,
     Team,
@@ -72,7 +70,8 @@ export default function TeamEdit({
     );
 
     const updateMemberRole = (member: TeamMember, newRole: string) => {
-        router.visit(updateMember([team.slug, member.id]), {
+        router.visit(route('teams.members.update', [team.id, member.id]), {
+            method: 'patch',
             data: { role: newRole },
             preserveScroll: true,
         });
@@ -105,7 +104,8 @@ export default function TeamEdit({
                             />
 
                             <Form
-                                {...update.form(team.slug)}
+                                action={route('teams.update', team.id)}
+                                method="patch"
                                 className="space-y-6"
                             >
                                 {({ errors, processing }) => (
@@ -387,15 +387,15 @@ export default function TeamEdit({
     );
 }
 
-TeamEdit.layout = (props: { team: { name: string; slug: string } }) => ({
+TeamEdit.layout = (props: { team: { id: number; name: string } }) => ({
     breadcrumbs: [
         {
             title: 'Teams',
-            href: index(),
+            href: route('teams.index'),
         },
         {
             title: props.team.name,
-            href: edit(props.team.slug),
+            href: route('teams.edit', props.team.id),
         },
     ],
 });

@@ -7,8 +7,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
-import { login } from '@/routes';
-import { store } from '@/routes/register';
 import type { TeamInvitationContext } from '@/types';
 
 type Props = {
@@ -21,7 +19,8 @@ export default function Register({ passwordRules, teamInvitation }: Props) {
         <>
             <Head title="Register" />
             <Form
-                {...store.form()}
+                action={route('register.store')}
+                method="post"
                 resetOnSuccess={['password', 'password_confirmation']}
                 disableWhileProcessing
                 className="flex flex-col gap-6"
@@ -116,13 +115,10 @@ export default function Register({ passwordRules, teamInvitation }: Props) {
                             <TextLink
                                 href={
                                     teamInvitation
-                                        ? login.url({
-                                              query: {
-                                                  invitation:
-                                                      teamInvitation.code,
-                                              },
+                                        ? route('login', {
+                                              invitation: teamInvitation.code,
                                           })
-                                        : login()
+                                        : route('login')
                                 }
                                 data-test="team-invitation-login-link"
                                 tabIndex={6}

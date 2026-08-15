@@ -1,6 +1,5 @@
 import { PlaceholderPattern } from '@/components/elements/placeholder-pattern';
 import PendingInvitationsModal from '@/components/pending-invitations-modal';
-import { dashboard } from '@/routes';
 import type { DashboardInvitation } from '@/types';
 import { Head } from '@inertiajs/react';
 import { useState } from 'react';
@@ -42,11 +41,13 @@ export default function Dashboard({ pendingInvitations = [] }: Props) {
     );
 }
 
-Dashboard.layout = (props: { currentTeam?: { slug: string } | null }) => ({
+Dashboard.layout = (props: { currentTeam?: { id: number } | null }) => ({
     breadcrumbs: [
         {
             title: 'Dashboard',
-            href: props.currentTeam ? dashboard(props.currentTeam.slug) : '/',
+            href: props.currentTeam
+                ? route('dashboard', props.currentTeam.id)
+                : '/',
         },
     ],
 });

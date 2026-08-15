@@ -1,4 +1,3 @@
-import { wayfinder } from '@laravel/vite-plugin-wayfinder';
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 
@@ -22,8 +21,5 @@ export default defineConfig({
         inertia(),
         react(),
         tailwindcss(),
-        wayfinder({
-            formVariants: true,
-        }),
     ],
 });

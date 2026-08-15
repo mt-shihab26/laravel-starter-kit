@@ -10,7 +10,6 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
-import { destroy as destroyMember } from '@/routes/teams/members';
 import type { Team, TeamMember } from '@/types';
 
 type Props = {
@@ -33,7 +32,8 @@ export default function RemoveMemberModal({
             return;
         }
 
-        router.visit(destroyMember([team.slug, member.id]), {
+        router.visit(route('teams.members.destroy', [team.id, member.id]), {
+            method: 'delete',
             onStart: () => setProcessing(true),
             onFinish: () => setProcessing(false),
             onSuccess: () => onOpenChange(false),

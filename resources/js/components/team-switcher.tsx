@@ -11,7 +11,6 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { switchMethod } from '@/routes/teams';
 import type { Team } from '@/types';
 
 type TeamSwitcherProps = {
@@ -25,21 +24,22 @@ export function TeamSwitcher({ inHeader = false }: TeamSwitcherProps) {
     const teams = page.props.teams ?? [];
 
     const switchTeam = (team: Team) => {
-        const previousTeamSlug = currentTeam?.slug;
+        const previousTeamId = currentTeam?.id;
 
-        router.visit(switchMethod(team.slug), {
+        router.visit(route('teams.switch', team.id), {
+            method: 'post',
             onFinish: () => {
-                if (!previousTeamSlug || typeof window === 'undefined') {
+                if (!previousTeamId || typeof window === 'undefined') {
                     router.reload();
 
                     return;
                 }
 
                 const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
-                const segment = `/${previousTeamSlug}`;
+                const segment = `/${previousTeamId}`;
 
                 if (currentUrl.includes(segment)) {
-                    router.visit(currentUrl.replace(segment, `/${team.slug}`), {
+                    router.visit(currentUrl.replace(segment, `/${team.id}`), {
                         replace: true,
                     });
 

@@ -20,7 +20,6 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
-import { store as storeInvitation } from '@/routes/teams/invitations';
 import type { RoleOption, Team } from '@/types';
 
 type Props = {
@@ -51,7 +50,8 @@ export default function InviteMemberModal({
             <DialogContent>
                 <Form
                     key={String(open)}
-                    {...storeInvitation.form(team.slug)}
+                    action={route('teams.invitations.store', team.id)}
+                    method="post"
                     className="space-y-6"
                     onSuccess={() => onOpenChange(false)}
                 >
