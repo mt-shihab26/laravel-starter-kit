@@ -1,11 +1,11 @@
-import { PlaceholderPattern } from '@/components/elements/placeholder-pattern';
-import {
-    PendingInvitationsModal,
-    type TDashboardInvitation,
-} from '@/components/pending-invitations-modal';
-import { AppLayout } from '@/components/layouts/app-layout';
+import type { TDashboardInvitation } from '@/components/screens/teams/pending-invitations-modal';
+
 import { usePage } from '@inertiajs/react';
 import { useState } from 'react';
+
+import { PlaceholderPattern } from '@/components/elements/placeholder-pattern';
+import { PendingInvitationsModal } from '@/components/screens/teams/pending-invitations-modal';
+import { AppLayout } from '@/components/layouts/app-layout';
 
 type Props = {
     pendingInvitations?: TDashboardInvitation[];
@@ -24,7 +24,9 @@ const Dashboard = ({ pendingInvitations = [] }: Props) => {
             breadcrumbs={[
                 {
                     title: 'Dashboard',
-                    href: currentTeam ? route('dashboard', currentTeam.id) : '/',
+                    href: currentTeam
+                        ? route('dashboard', currentTeam.id)
+                        : '/',
                 },
             ]}
         >
@@ -45,7 +47,7 @@ const Dashboard = ({ pendingInvitations = [] }: Props) => {
                         <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
                     </div>
                 </div>
-                <div className="relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
+                <div className="relative min-h-screen flex-1 overflow-hidden rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
                     <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
                 </div>
             </div>

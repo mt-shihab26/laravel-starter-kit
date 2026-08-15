@@ -1,37 +1,40 @@
-import { Form, router } from '@inertiajs/react';
-import { ChevronDown, Mail, UserPlus, X } from 'lucide-react';
-import { useMemo, useState } from 'react';
-import { CancelInvitationModal } from '@/components/cancel-invitation-modal';
-import { DeleteTeamModal } from '@/components/delete-team-modal';
-import { Heading } from '@/components/heading';
-import { InputError } from '@/components/input-error';
-import {
-    InviteMemberModal,
-    type TTeamRoleOption,
-} from '@/components/invite-member-modal';
-import { RemoveMemberModal } from '@/components/remove-member-modal';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import {
     Tooltip,
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { useInitials } from '@/hooks/use-initials';
-import { SettingsLayout } from '@/components/layouts/settings-layout';
+
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+
+import type { TTeamRoleOption } from '@/components/screens/teams/invite-member-modal';
 import type { TTeam, TTeamInvitation, TTeamMember } from '@/types/models';
 
-export type TTeamPermissions = {
+import { router } from '@inertiajs/react';
+import { useMemo, useState } from 'react';
+import { useInitials } from '@/hooks/use-initials';
+
+import { Form } from '@inertiajs/react';
+import { ChevronDown, Mail, UserPlus, X } from 'lucide-react';
+import { DeleteTeamModal } from '@/components/layouts/app-layout/delete-team-modal';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Heading } from '@/components/elements/heading';
+import { InputError } from '@/components/elements/input-error';
+import { InviteMemberModal } from '@/components/screens/teams/invite-member-modal';
+import { SettingsLayout } from '@/components/layouts/settings-layout';
+import { RemoveMemberModal } from '@/components/screens/teams/remove-member-modal';
+import { CancelInvitationModal } from '@/components/screens/teams/cancel-invitation-modal';
+
+type TTeamPermissions = {
     canUpdateTeam: boolean;
     canDeleteTeam: boolean;
     canAddMember: boolean;

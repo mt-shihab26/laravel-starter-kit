@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { usePage } from '@inertiajs/react';
 
 import { Link } from '@inertiajs/react';
-import { AppLogoIcon } from '@/components/app-logo-icon';
+import { AppLogoIcon } from '@/components/icons/app-logo-icon';
 
 export const AuthSplitLayout = ({
     children,

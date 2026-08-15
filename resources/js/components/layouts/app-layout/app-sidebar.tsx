@@ -1,11 +1,11 @@
 import { Link, usePage } from '@inertiajs/react';
 import { BookOpen, FolderGit2, LayoutGrid } from 'lucide-react';
-import { AppLogo } from '@/components/app-logo';
+import { AppLogo } from '@/components/layouts/app-layout/app-logo';
 import type { TNavItem } from '@/types/utils';
-import { NavFooter } from '@/components/nav-footer';
-import { NavMain } from '@/components/nav-main';
-import { NavUser } from '@/components/nav-user';
-import { TeamSwitcher } from '@/components/team-switcher';
+import { NavFooter } from '@/components/layouts/app-layout/nav-footer';
+import { NavMain } from '@/components/layouts/app-layout/nav-main';
+import { NavUser } from '@/components/layouts/app-layout/nav-user';
+import { TeamSwitcher } from '@/components/layouts/app-layout/team-switcher';
 import {
     Sidebar,
     SidebarContent,

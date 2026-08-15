@@ -1,7 +1,7 @@
 import { Form } from '@inertiajs/react';
 import type { ReactElement } from 'react';
 import { useState } from 'react';
-import { InputError } from '@/components/input-error';
+import { InputError } from '@/components/elements/input-error';
 import { Button } from '@/components/ui/button';
 import {
     Dialog,

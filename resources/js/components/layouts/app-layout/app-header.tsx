@@ -1,10 +1,10 @@
 import { Link, usePage } from '@inertiajs/react';
 import { BookOpen, Folder, LayoutGrid, Menu, Search } from 'lucide-react';
-import { AppLogo } from '@/components/app-logo';
+import { AppLogo } from '@/components/layouts/app-layout/app-logo';
 import type { TNavItem } from '@/types/utils';
-import { AppLogoIcon } from '@/components/app-logo-icon';
-import { Breadcrumbs } from '@/components/breadcrumbs';
-import { TeamSwitcher } from '@/components/team-switcher';
+import { AppLogoIcon } from '@/components/icons/app-logo-icon';
+import { Breadcrumbs } from '@/components/layouts/app-layout/breadcrumbs';
+import { TeamSwitcher } from '@/components/layouts/app-layout/team-switcher';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
@@ -31,11 +31,11 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { UserMenuContent } from '@/components/user-menu-content';
+import { UserMenuContent } from '@/components/layouts/app-layout/user-menu-content';
 import { useCurrentUrl } from '@/hooks/use-current-url';
 import { useInitials } from '@/hooks/use-initials';
 import { cn, toUrl } from '@/lib/utils';
-import type { TBreadcrumb } from '@/components/breadcrumbs';
+import type { TBreadcrumb } from '@/components/layouts/app-layout/breadcrumbs';
 
 type Props = {
     breadcrumbs?: TBreadcrumb[];

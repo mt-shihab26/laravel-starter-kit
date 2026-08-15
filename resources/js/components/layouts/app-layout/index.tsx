@@ -1,4 +1,4 @@
-import type { TBreadcrumb } from '@/components/breadcrumbs';
+import type { TBreadcrumb } from '@/components/layouts/app-layout/breadcrumbs';
 import type { ReactNode } from 'react';
 
 import { AppSidebarLayout } from '@/components/layouts/app-layout/app-sidebar-layout';

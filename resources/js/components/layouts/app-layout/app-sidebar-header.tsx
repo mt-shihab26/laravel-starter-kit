@@ -1,6 +1,6 @@
-import { Breadcrumbs } from '@/components/breadcrumbs';
+import { Breadcrumbs } from '@/components/layouts/app-layout/breadcrumbs';
 import { SidebarTrigger } from '@/components/ui/sidebar';
-import type { TBreadcrumb } from '@/components/breadcrumbs';
+import type { TBreadcrumb } from '@/components/layouts/app-layout/breadcrumbs';
 
 export const AppSidebarHeader = ({
     breadcrumbs = [],

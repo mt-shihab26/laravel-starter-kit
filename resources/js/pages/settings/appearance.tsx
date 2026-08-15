@@ -1,5 +1,5 @@
-import { AppearanceToggleTab } from '@/components/appearance-tabs';
-import { Heading } from '@/components/heading';
+import { AppearanceTabs } from '@/components/screens/settings/appearance-tabs';
+import { Heading } from '@/components/elements/heading';
 import { SettingsLayout } from '@/components/layouts/settings-layout';
 
 const Appearance = () => {
@@ -16,7 +16,7 @@ const Appearance = () => {
                     title="Appearance settings"
                     description="Update the appearance settings for your account"
                 />
-                <AppearanceToggleTab />
+                <AppearanceTabs />
             </div>
         </SettingsLayout>
     );

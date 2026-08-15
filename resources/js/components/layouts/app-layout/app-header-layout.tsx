@@ -1,9 +1,9 @@
-import type { TBreadcrumb } from '@/components/breadcrumbs';
+import type { TBreadcrumb } from '@/components/layouts/app-layout/breadcrumbs';
 import type { ReactNode } from 'react';
 
-import { AppContent } from '@/components/app-content';
-import { AppHeader } from '@/components/app-header';
-import { AppShell } from '@/components/app-shell';
+import { AppContent } from '@/components/layouts/app-layout/app-content';
+import { AppHeader } from '@/components/layouts/app-layout/app-header';
+import { AppShell } from '@/components/layouts/app-layout/app-shell';
 
 export const AppHeaderLayout = ({
     children,

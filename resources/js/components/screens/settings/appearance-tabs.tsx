@@ -5,7 +5,7 @@ import type { Appearance } from '@/hooks/use-appearance';
 import { useAppearance } from '@/hooks/use-appearance';
 import { cn } from '@/lib/utils';
 
-export const AppearanceToggleTab = ({
+export const AppearanceTabs = ({
     className = '',
     ...props
 }: HTMLAttributes<HTMLDivElement>) => {

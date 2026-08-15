@@ -5,7 +5,7 @@ import { cn, toUrl } from '@/lib/utils';
 
 import { Link } from '@inertiajs/react';
 import { Lock, Palette, User, Users } from 'lucide-react';
-import { Heading } from '@/components/heading';
+import { Heading } from '@/components/elements/heading';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { AppLayout } from '@/components/layouts/app-layout';

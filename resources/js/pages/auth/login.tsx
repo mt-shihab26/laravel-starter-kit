@@ -1,12 +1,11 @@
+import type { TTeamInvitationContext } from '@/components/elements/team-invitation-alert';
+
 import { Form } from '@inertiajs/react';
-import { InputError } from '@/components/input-error';
-import { PasskeyVerify } from '@/components/passkey-verify';
-import { PasswordInput } from '@/components/password-input';
-import {
-    TeamInvitationAlert,
-    type TTeamInvitationContext,
-} from '@/components/team-invitation-alert';
-import { TextLink } from '@/components/text-link';
+import { InputError } from '@/components/elements/input-error';
+import { PasskeyVerify } from '@/components/elements/passkey-verify';
+import { PasswordInput } from '@/components/elements/password-input';
+import { TeamInvitationAlert } from '@/components/elements/team-invitation-alert';
+import { TextLink } from '@/components/elements/text-link';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';

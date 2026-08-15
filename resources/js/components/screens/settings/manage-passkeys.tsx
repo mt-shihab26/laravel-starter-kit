@@ -1,10 +1,13 @@
 import { router } from '@inertiajs/react';
 import { KeyRound } from 'lucide-react';
-import { Heading } from '@/components/heading';
-import { PasskeyItem, type TPasskey } from '@/components/passkey-item';
-import { PasskeyRegistration } from '@/components/passkey-register';
+import { Heading } from '@/components/elements/heading';
+import {
+    PasskeyItem,
+    type TPasskey,
+} from '@/components/screens/settings/passkey-item';
+import { PasskeyRegistration } from '@/components/screens/settings/passkey-register';
 
-export type Props = {
+export type TManagePasskeysProps = {
     canManagePasskeys?: boolean;
     passkeys?: TPasskey[];
 };
@@ -23,7 +26,7 @@ const EmptyState = () => {
     );
 };
 
-export const ManagePasskeys = (props: Props) => {
+export const ManagePasskeys = (props: TManagePasskeysProps) => {
     const passkeys = props.passkeys ?? [];
 
     const handleDelete = (id: number, onError: () => void) => {

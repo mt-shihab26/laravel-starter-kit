@@ -1,20 +1,22 @@
-import { Form } from '@inertiajs/react';
+import type { TManagePasskeysProps } from '@/components/screens/settings/manage-passkeys';
+import type { TManageTwoFactorProps } from '@/components/screens/settings/manage-two-factor';
+
 import { useRef } from 'react';
-import { Heading } from '@/components/heading';
-import { InputError } from '@/components/input-error';
-import type { Props as ManagePasskeysProps } from '@/components/manage-passkeys';
-import { ManagePasskeys } from '@/components/manage-passkeys';
-import type { Props as ManageTwoFactorProps } from '@/components/manage-two-factor';
-import { ManageTwoFactor } from '@/components/manage-two-factor';
-import { PasswordInput } from '@/components/password-input';
+
+import { ManageTwoFactor } from '@/components/screens/settings/manage-two-factor';
+import { Form } from '@inertiajs/react';
+import { Heading } from '@/components/elements/heading';
+import { InputError } from '@/components/elements/input-error';
+import { ManagePasskeys } from '@/components/screens/settings/manage-passkeys';
+import { PasswordInput } from '@/components/elements/password-input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { SettingsLayout } from '@/components/layouts/settings-layout';
 
 type Props = {
     passwordRules: string;
-} & ManagePasskeysProps &
-    ManageTwoFactorProps;
+} & TManagePasskeysProps &
+    TManageTwoFactorProps;
 
 const Security = (props: Props) => {
     const passwordInput = useRef<HTMLInputElement>(null);

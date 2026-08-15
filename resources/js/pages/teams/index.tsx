@@ -1,25 +1,24 @@
-import { Link } from '@inertiajs/react';
-import { Eye, LogOut, Pencil, Plus } from 'lucide-react';
-import { useState } from 'react';
-import { CreateTeamModal } from '@/components/create-team-modal';
-import { Heading } from '@/components/heading';
-import { LeaveTeamModal } from '@/components/leave-team-modal';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import {
     Tooltip,
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { SettingsLayout } from '@/components/layouts/settings-layout';
+
 import type { TTeam } from '@/types/models';
 
-type Props = {
-    teams: TTeam[];
-};
+import { useState } from 'react';
 
-const TeamsIndex = ({ teams }: Props) => {
+import { Link } from '@inertiajs/react';
+import { Eye, LogOut, Pencil, Plus } from 'lucide-react';
+import { CreateTeamModal } from '@/components/layouts/app-layout/create-team-modal';
+import { Heading } from '@/components/elements/heading';
+import { LeaveTeamModal } from '@/components/layouts/app-layout/leave-team-modal';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { SettingsLayout } from '@/components/layouts/settings-layout';
+
+const TeamsIndex = ({ teams }: { teams: TTeam[] }) => {
     const [leaveTeamDialogOpen, setLeaveTeamDialogOpen] = useState(false);
     const [teamLeaving, setTeamLeaving] = useState<TTeam | null>(null);
 
