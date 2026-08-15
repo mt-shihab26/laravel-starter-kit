@@ -1,9 +1,9 @@
-import { Head } from '@inertiajs/react';
-import { useState } from 'react';
+import { PlaceholderPattern } from '@/components/elements/placeholder-pattern';
 import PendingInvitationsModal from '@/components/pending-invitations-modal';
-import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import { dashboard } from '@/routes';
 import type { DashboardInvitation } from '@/types';
+import { Head } from '@inertiajs/react';
+import { useState } from 'react';
 
 type Props = {
     pendingInvitations?: DashboardInvitation[];
