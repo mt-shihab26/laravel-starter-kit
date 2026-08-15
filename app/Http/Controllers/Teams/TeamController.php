@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Teams;
 
 use App\Actions\Teams\CreateTeam;
+use App\Enums\TeamPermission;
 use App\Enums\TeamRole;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teams\DeleteTeamRequest;
@@ -13,7 +14,6 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -89,7 +89,7 @@ class TeamController extends Controller
      */
     public function update(SaveTeamRequest $request, Team $team): RedirectResponse
     {
-        Gate::authorize('update', $team);
+        abort_unless($request->user()->hasTeamPermission($team, TeamPermission::UpdateTeam), 403);
 
         $team = DB::transaction(function () use ($request, $team) {
             $team = Team::whereKey($team->id)->lockForUpdate()->firstOrFail();
@@ -121,9 +121,9 @@ class TeamController extends Controller
      */
     public function leave(Request $request, Team $team): RedirectResponse
     {
-        Gate::authorize('leave', $team);
-
         $user = $request->user();
+
+        abort_if($team->is_personal || ! $user->belongsToTeam($team) || $user->ownsTeam($team), 403);
 
         $fallbackTeam = $user->isCurrentTeam($team)
             ? $user->fallbackTeam($team)

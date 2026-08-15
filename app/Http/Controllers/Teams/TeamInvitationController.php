@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Teams;
 
+use App\Enums\TeamPermission;
 use App\Enums\TeamRole;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teams\CreateTeamInvitationRequest;
 use App\Http\Requests\Teams\RespondToTeamInvitationRequest;
 use App\Models\Team;
 use App\Models\TeamInvitation;
-use App\Notifications\TeamInvitation as TeamInvitationNotification;
+use App\Notifications\TeamInvitationNotification;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Notification;
 use Inertia\Inertia;
 
@@ -22,7 +23,7 @@ class TeamInvitationController extends Controller
      */
     public function store(CreateTeamInvitationRequest $request, Team $team): RedirectResponse
     {
-        Gate::authorize('inviteMember', $team);
+        abort_unless($request->user()->hasTeamPermission($team, TeamPermission::CreateInvitation), 403);
 
         $invitation = $team->invitations()->create([
             'email' => $request->validated('email'),
@@ -42,11 +43,11 @@ class TeamInvitationController extends Controller
     /**
      * Cancel the specified invitation.
      */
-    public function destroy(Team $team, TeamInvitation $invitation): RedirectResponse
+    public function destroy(Request $request, Team $team, TeamInvitation $invitation): RedirectResponse
     {
         abort_unless($invitation->team_id === $team->id, 404);
 
-        Gate::authorize('cancelInvitation', $team);
+        abort_unless($request->user()->hasTeamPermission($team, TeamPermission::CancelInvitation), 403);
 
         $invitation->delete();
 

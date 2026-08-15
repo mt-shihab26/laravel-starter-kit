@@ -4,7 +4,7 @@ use App\Enums\TeamRole;
 use App\Models\Team;
 use App\Models\TeamInvitation;
 use App\Models\User;
-use App\Notifications\TeamInvitation as TeamInvitationNotification;
+use App\Notifications\TeamInvitationNotification;
 use Illuminate\Support\Facades\Notification;
 
 test('team invitations can be created', function () {
