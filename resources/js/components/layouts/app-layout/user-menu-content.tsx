@@ -42,7 +42,7 @@ export const UserMenuContent = ({ user }: { user: TUser }) => {
                     render={
                         <Link
                             className="block w-full cursor-pointer"
-                            href={route('profile.edit')}
+                            href={route('settings.profile.edit')}
                             prefetch
                             onClick={cleanup}
                         >

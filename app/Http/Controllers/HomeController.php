@@ -21,8 +21,8 @@ class HomeController extends Controller
     public function wellknown(): JsonResponse
     {
         return response()->json([
-            'enroll' => route('security.edit'),
-            'manage' => route('security.edit'),
+            'enroll' => route('settings.security.edit'),
+            'manage' => route('settings.security.edit'),
         ]);
     }
 }

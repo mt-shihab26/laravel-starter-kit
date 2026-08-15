@@ -34,7 +34,7 @@ const Profile = ({
                 />
 
                 <Form
-                    action={route('profile.update')}
+                    action={route('settings.profile.update')}
                     method="patch"
                     options={{
                         preserveScroll: true,

@@ -38,7 +38,7 @@ class ProfileController extends Controller
         $request->user()->save();
 
         return redirect()
-            ->route('profile.edit')
+            ->route('settings.profile.edit')
             ->with('success', __('Profile updated.'));
     }
 
