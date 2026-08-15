@@ -12,13 +12,15 @@ import {
 } from '@/components/ui/dialog';
 import type { TTeam } from '@/types/models';
 
-type Props = {
+export const LeaveTeamModal = ({
+    team,
+    open,
+    onOpenChange,
+}: {
     team: TTeam | null;
     open: boolean;
     onOpenChange: (open: boolean) => void;
-};
-
-export const LeaveTeamModal = ({ team, open, onOpenChange }: Props) => {
+}) => {
     const [processing, setProcessing] = useState(false);
 
     const leaveTeam = () => {

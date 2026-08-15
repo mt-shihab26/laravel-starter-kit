@@ -5,11 +5,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-type Props = {
+export const PasskeyRegistration = ({
+    onSuccess,
+}: {
     onSuccess: () => void;
-};
-
-export const PasskeyRegistration = ({ onSuccess }: Props) => {
+}) => {
     const [name, setName] = useState(() => {
         const ua = navigator.userAgent;
 

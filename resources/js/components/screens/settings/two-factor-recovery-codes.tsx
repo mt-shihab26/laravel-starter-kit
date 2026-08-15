@@ -11,17 +11,15 @@ import {
     CardTitle,
 } from '@/components/ui/card';
 
-type Props = {
-    recoveryCodesList: string[];
-    fetchRecoveryCodes: () => Promise<void>;
-    errors: string[];
-};
-
 export const TwoFactorRecoveryCodes = ({
     recoveryCodesList,
     fetchRecoveryCodes,
     errors,
-}: Props) => {
+}: {
+    recoveryCodesList: string[];
+    fetchRecoveryCodes: () => Promise<void>;
+    errors: string[];
+}) => {
     const [codesAreVisible, setCodesAreVisible] = useState<boolean>(false);
     const codesSectionRef = useRef<HTMLDivElement | null>(null);
     const canRegenerateCodes = recoveryCodesList.length > 0 && codesAreVisible;

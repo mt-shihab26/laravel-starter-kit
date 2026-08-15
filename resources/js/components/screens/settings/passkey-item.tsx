@@ -19,12 +19,13 @@ export type TPasskey = {
     last_used_at_diff: string | null;
 };
 
-type Props = {
+export const PasskeyItem = ({
+    passkey,
+    onDelete,
+}: {
     passkey: TPasskey;
     onDelete: (id: number, onError: () => void) => void;
-};
-
-export const PasskeyItem = ({ passkey, onDelete }: Props) => {
+}) => {
     const [isDeleting, setIsDeleting] = useState(false);
 
     const handleDelete = () => {

@@ -2,15 +2,13 @@ import { SidebarInset } from '@/components/ui/sidebar';
 
 export type TAppVariant = 'header' | 'sidebar';
 
-type Props = React.ComponentProps<'main'> & {
-    variant?: TAppVariant;
-};
-
 export const AppContent = ({
     variant = 'sidebar',
     children,
     ...props
-}: Props) => {
+}: React.ComponentProps<'main'> & {
+    variant?: TAppVariant;
+}) => {
     if (variant === 'sidebar') {
         return <SidebarInset {...props}>{children}</SidebarInset>;
     }

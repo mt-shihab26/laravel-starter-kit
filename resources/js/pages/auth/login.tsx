@@ -13,13 +13,15 @@ import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import { AuthLayout } from '@/components/layouts/auth-layout';
 
-type Props = {
+const Login = ({
+    status,
+    canResetPassword,
+    teamInvitation,
+}: {
     status?: string;
     canResetPassword: boolean;
     teamInvitation?: TTeamInvitationContext | null;
-};
-
-const Login = ({ status, canResetPassword, teamInvitation }: Props) => {
+}) => {
     return (
         <AuthLayout
             title="Log in to your account"

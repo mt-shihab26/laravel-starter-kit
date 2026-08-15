@@ -7,11 +7,11 @@ import { PlaceholderPattern } from '@/components/elements/placeholder-pattern';
 import { PendingInvitationsModal } from '@/components/screens/teams/pending-invitations-modal';
 import { AppLayout } from '@/components/layouts/app-layout';
 
-type Props = {
+const Dashboard = ({
+    pendingInvitations = [],
+}: {
     pendingInvitations?: TDashboardInvitation[];
-};
-
-const Dashboard = ({ pendingInvitations = [] }: Props) => {
+}) => {
     const { currentTeam } = usePage().props.auth;
     const [showInvitations, setShowInvitations] = useState(
         pendingInvitations.length > 0,

@@ -28,19 +28,17 @@ export type TTeamRoleOption = {
     label: string;
 };
 
-type Props = {
-    team: TTeam;
-    availableRoles: TTeamRoleOption[];
-    open: boolean;
-    onOpenChange: (open: boolean) => void;
-};
-
 export const InviteMemberModal = ({
     team,
     availableRoles,
     open,
     onOpenChange,
-}: Props) => {
+}: {
+    team: TTeam;
+    availableRoles: TTeamRoleOption[];
+    open: boolean;
+    onOpenChange: (open: boolean) => void;
+}) => {
     const [inviteRole, setInviteRole] =
         useState<TTeamRoleOption['value']>('member');
 

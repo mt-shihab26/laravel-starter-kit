@@ -229,18 +229,6 @@ const TwoFactorVerificationStep = ({
     );
 };
 
-type Props = {
-    isOpen: boolean;
-    onClose: () => void;
-    requiresConfirmation: boolean;
-    twoFactorEnabled: boolean;
-    qrCodeSvg: string | null;
-    manualSetupKey: string | null;
-    clearSetupData: () => void;
-    fetchSetupData: () => Promise<void>;
-    errors: string[];
-};
-
 export const TwoFactorSetupModal = ({
     isOpen,
     onClose,
@@ -251,7 +239,17 @@ export const TwoFactorSetupModal = ({
     clearSetupData,
     fetchSetupData,
     errors,
-}: Props) => {
+}: {
+    isOpen: boolean;
+    onClose: () => void;
+    requiresConfirmation: boolean;
+    twoFactorEnabled: boolean;
+    qrCodeSvg: string | null;
+    manualSetupKey: string | null;
+    clearSetupData: () => void;
+    fetchSetupData: () => Promise<void>;
+    errors: string[];
+}) => {
     const [showVerificationStep, setShowVerificationStep] =
         useState<boolean>(false);
 

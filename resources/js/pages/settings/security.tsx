@@ -13,12 +13,12 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { SettingsLayout } from '@/components/layouts/settings-layout';
 
-type Props = {
-    passwordRules: string;
-} & TManagePasskeysProps &
-    TManageTwoFactorProps;
-
-const Security = (props: Props) => {
+const Security = (
+    props: {
+        passwordRules: string;
+    } & TManagePasskeysProps &
+        TManageTwoFactorProps,
+) => {
     const passwordInput = useRef<HTMLInputElement>(null);
     const currentPasswordInput = useRef<HTMLInputElement>(null);
 

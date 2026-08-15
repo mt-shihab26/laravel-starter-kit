@@ -3,12 +3,13 @@ import type { ReactNode } from 'react';
 import { SidebarProvider } from '@/components/ui/sidebar';
 export type TAppVariant = 'header' | 'sidebar';
 
-type Props = {
+export const AppShell = ({
+    children,
+    variant = 'sidebar',
+}: {
     children: ReactNode;
     variant?: TAppVariant;
-};
-
-export const AppShell = ({ children, variant = 'sidebar' }: Props) => {
+}) => {
     const isOpen = usePage().props.open;
 
     if (variant === 'header') {

@@ -7,13 +7,15 @@ import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import { AuthLayout } from '@/components/layouts/auth-layout';
 
-type Props = {
+const ResetPassword = ({
+    token,
+    email,
+    passwordRules,
+}: {
     token: string;
     email: string;
     passwordRules: string;
-};
-
-const ResetPassword = ({ token, email, passwordRules }: Props) => {
+}) => {
     return (
         <AuthLayout
             title="Reset password"

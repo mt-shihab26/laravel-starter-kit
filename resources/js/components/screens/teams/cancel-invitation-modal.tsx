@@ -1,6 +1,3 @@
-import { router } from '@inertiajs/react';
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
 import {
     Dialog,
     DialogClose,
@@ -10,21 +7,25 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
+
 import type { TTeam, TTeamInvitation } from '@/types/models';
 
-type Props = {
-    team: TTeam;
-    invitation: TTeamInvitation | null;
-    open: boolean;
-    onOpenChange: (open: boolean) => void;
-};
+import { router } from '@inertiajs/react';
+import { useState } from 'react';
+
+import { Button } from '@/components/ui/button';
 
 export const CancelInvitationModal = ({
     team,
     invitation,
     open,
     onOpenChange,
-}: Props) => {
+}: {
+    team: TTeam;
+    invitation: TTeamInvitation | null;
+    open: boolean;
+    onOpenChange: (open: boolean) => void;
+}) => {
     const [processing, setProcessing] = useState(false);
 
     const cancelInvitation = () => {

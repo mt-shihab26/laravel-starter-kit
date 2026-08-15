@@ -17,17 +17,15 @@ export type TDashboardInvitation = {
     };
 };
 
-type Props = {
-    invitations: TDashboardInvitation[];
-    open: boolean;
-    onOpenChange: (open: boolean) => void;
-};
-
 export const PendingInvitationsModal = ({
     invitations,
     open,
     onOpenChange,
-}: Props) => {
+}: {
+    invitations: TDashboardInvitation[];
+    open: boolean;
+    onOpenChange: (open: boolean) => void;
+}) => {
     const [processingCode, setProcessingCode] = useState<string | null>(null);
 
     const acceptInvitation = (invitation: TDashboardInvitation) => {

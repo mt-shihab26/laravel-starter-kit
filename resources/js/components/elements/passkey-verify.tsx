@@ -1,13 +1,20 @@
 import type { UrlMethodPair } from '@inertiajs/core';
+
 import { router } from '@inertiajs/react';
 import { usePasskeyVerify } from '@laravel/passkeys/react';
+
 import { KeyRound } from 'lucide-react';
 import { InputError } from '@/components/elements/input-error';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Spinner } from '@/components/ui/spinner';
 
-type Props = {
+export const PasskeyVerify = ({
+    routes,
+    label,
+    loadingLabel,
+    separator,
+}: {
     routes?: {
         options: UrlMethodPair;
         submit: UrlMethodPair;
@@ -15,14 +22,7 @@ type Props = {
     label?: string;
     loadingLabel?: string;
     separator?: string;
-};
-
-export const PasskeyVerify = ({
-    routes,
-    label,
-    loadingLabel,
-    separator,
-}: Props = {}) => {
+} = {}) => {
     const { verify, isLoading, error, isSupported } = usePasskeyVerify({
         ...(routes && {
             routes: {

@@ -13,11 +13,11 @@ import {
 import { useIsMobile } from '@/hooks/use-is-mobile';
 import type { TTeam } from '@/types/models';
 
-type TeamSwitcherProps = {
+export const TeamSwitcher = ({
+    inHeader = false,
+}: {
     inHeader?: boolean;
-};
-
-export const TeamSwitcher = ({ inHeader = false }: TeamSwitcherProps) => {
+}) => {
     const page = usePage();
     const isMobile = useIsMobile();
     const currentTeam = page.props.auth.currentTeam;

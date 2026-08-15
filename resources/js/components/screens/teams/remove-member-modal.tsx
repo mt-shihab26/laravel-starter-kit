@@ -12,19 +12,17 @@ import {
 } from '@/components/ui/dialog';
 import type { TTeam, TTeamMember } from '@/types/models';
 
-type Props = {
-    team: TTeam;
-    member: TTeamMember | null;
-    open: boolean;
-    onOpenChange: (open: boolean) => void;
-};
-
 export const RemoveMemberModal = ({
     team,
     member,
     open,
     onOpenChange,
-}: Props) => {
+}: {
+    team: TTeam;
+    member: TTeamMember | null;
+    open: boolean;
+    onOpenChange: (open: boolean) => void;
+}) => {
     const [processing, setProcessing] = useState(false);
 
     const removeMember = () => {

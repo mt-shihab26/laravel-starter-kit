@@ -6,12 +6,13 @@ export type TTeamInvitationContext = {
     teamName: string;
 };
 
-type Props = {
+export const TeamInvitationAlert = ({
+    invitation,
+    action,
+}: {
     invitation: TTeamInvitationContext;
     action: 'Log in' | 'Register';
-};
-
-export const TeamInvitationAlert = ({ invitation, action }: Props) => {
+}) => {
     return (
         <Alert
             data-test="team-invitation-alert"

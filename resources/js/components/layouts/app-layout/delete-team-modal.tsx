@@ -15,13 +15,15 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import type { TTeam } from '@/types/models';
 
-type Props = {
+export const DeleteTeamModal = ({
+    team,
+    open,
+    onOpenChange,
+}: {
     team: TTeam;
     open: boolean;
     onOpenChange: (open: boolean) => void;
-};
-
-export const DeleteTeamModal = ({ team, open, onOpenChange }: Props) => {
+}) => {
     const [confirmationName, setConfirmationName] = useState('');
 
     const canDeleteTeam = confirmationName === team.name;

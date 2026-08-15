@@ -9,10 +9,6 @@ import {
 import { UserInfo } from '@/components/layouts/app-layout/user-info';
 import type { TUser } from '@/types/models';
 
-type Props = {
-    user: TUser;
-};
-
 import { useCallback } from 'react';
 
 const useMobileNavigation = () => {
@@ -22,7 +18,7 @@ const useMobileNavigation = () => {
     }, []);
 };
 
-export const UserMenuContent = ({ user }: Props) => {
+export const UserMenuContent = ({ user }: { user: TUser }) => {
     const cleanup = useMobileNavigation();
 
     const handleLogout = () => {

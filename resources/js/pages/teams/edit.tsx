@@ -44,21 +44,19 @@ type TTeamPermissions = {
     canCancelInvitation: boolean;
 };
 
-type Props = {
-    team: TTeam;
-    members: TTeamMember[];
-    invitations: TTeamInvitation[];
-    permissions: TTeamPermissions;
-    availableRoles: TTeamRoleOption[];
-};
-
 const TeamEdit = ({
     team,
     members,
     invitations,
     permissions,
     availableRoles,
-}: Props) => {
+}: {
+    team: TTeam;
+    members: TTeamMember[];
+    invitations: TTeamInvitation[];
+    permissions: TTeamPermissions;
+    availableRoles: TTeamRoleOption[];
+}) => {
     const [inviteDialogOpen, setInviteDialogOpen] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [removeMemberDialogOpen, setRemoveMemberDialogOpen] = useState(false);

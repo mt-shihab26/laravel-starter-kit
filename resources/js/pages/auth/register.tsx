@@ -11,12 +11,13 @@ import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import { AuthLayout } from '@/components/layouts/auth-layout';
 
-type Props = {
+const Register = ({
+    passwordRules,
+    teamInvitation,
+}: {
     passwordRules: string;
     teamInvitation?: TTeamInvitationContext | null;
-};
-
-const Register = ({ passwordRules, teamInvitation }: Props) => {
+}) => {
     return (
         <AuthLayout
             title="Create an account"

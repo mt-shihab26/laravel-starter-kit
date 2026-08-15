@@ -37,10 +37,6 @@ import { formatInitials } from '@/lib/formats';
 import { cn, toUrl } from '@/lib/utils';
 import type { TBreadcrumb } from '@/components/layouts/app-layout/breadcrumbs';
 
-type Props = {
-    breadcrumbs?: TBreadcrumb[];
-};
-
 const rightNavItems: TNavItem[] = [
     {
         title: 'Repository',
@@ -57,7 +53,11 @@ const rightNavItems: TNavItem[] = [
 const activeItemStyles =
     'text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100';
 
-export const AppHeader = ({ breadcrumbs = [] }: Props) => {
+export const AppHeader = ({
+    breadcrumbs = [],
+}: {
+    breadcrumbs?: TBreadcrumb[];
+}) => {
     const page = usePage();
     const { user, currentTeam } = page.props.auth;
     const { isCurrentUrl, whenCurrentUrl } = useCurrentUrl();
