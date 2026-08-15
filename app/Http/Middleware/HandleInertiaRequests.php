@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Inertia\Middleware;
+use Tighten\Ziggy\Ziggy;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -39,13 +40,20 @@ class HandleInertiaRequests extends Middleware
 
         return [
             ...parent::share($request),
+            'ziggy' => fn () => [...(new Ziggy)->toArray(), 'location' => $request->url()],
             'name' => config('app.name'),
+            'open' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
             'auth' => [
                 'user' => $user,
+                'currentTeam' => fn () => $user?->currentTeam ? $user->toUserTeam($user->currentTeam) : null,
+                'teams' => fn () => $user?->toUserTeams(includeCurrent: true) ?? [],
             ],
-            'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
-            'currentTeam' => fn () => $user?->currentTeam ? $user->toUserTeam($user->currentTeam) : null,
-            'teams' => fn () => $user?->toUserTeams(includeCurrent: true) ?? [],
+            'flash' => [
+                'success' => fn () => $request->session()->get('success'),
+                'error' => fn () => $request->session()->get('error'),
+                'info' => fn () => $request->session()->get('info'),
+                'warning' => fn () => $request->session()->get('warning'),
+            ],
         ];
     }
 }

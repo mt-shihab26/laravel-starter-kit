@@ -1,67 +1,72 @@
-import { Form, Head, router } from '@inertiajs/react';
-import { ChevronDown, Mail, UserPlus, X } from 'lucide-react';
-import { useMemo, useState } from 'react';
-import CancelInvitationModal from '@/components/cancel-invitation-modal';
-import DeleteTeamModal from '@/components/delete-team-modal';
-import Heading from '@/components/heading';
-import InputError from '@/components/input-error';
-import InviteMemberModal from '@/components/invite-member-modal';
-import RemoveMemberModal from '@/components/remove-member-modal';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import {
     Tooltip,
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { useInitials } from '@/hooks/use-initials';
-import { edit, index, update } from '@/routes/teams';
-import { update as updateMember } from '@/routes/teams/members';
-import type {
-    RoleOption,
-    Team,
-    TeamInvitation,
-    TeamMember,
-    TeamPermissions,
-} from '@/types';
 
-type Props = {
-    team: Team;
-    members: TeamMember[];
-    invitations: TeamInvitation[];
-    permissions: TeamPermissions;
-    availableRoles: RoleOption[];
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+
+import type { TTeamRoleOption } from '@/components/screens/teams/invite-member-modal';
+import type { TTeam, TTeamInvitation, TTeamMember } from '@/types/models';
+
+import { router } from '@inertiajs/react';
+import { useMemo, useState } from 'react';
+import { formatInitials } from '@/lib/formats';
+
+import { Form } from '@inertiajs/react';
+import { ChevronDown, Mail, UserPlus, X } from 'lucide-react';
+import { DeleteTeamModal } from '@/components/layouts/app-layout/delete-team-modal';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Heading } from '@/components/elements/heading';
+import { InputError } from '@/components/elements/input-error';
+import { InviteMemberModal } from '@/components/screens/teams/invite-member-modal';
+import { SettingsLayout } from '@/components/layouts/settings-layout';
+import { RemoveMemberModal } from '@/components/screens/teams/remove-member-modal';
+import { CancelInvitationModal } from '@/components/screens/teams/cancel-invitation-modal';
+
+type TTeamPermissions = {
+    canUpdateTeam: boolean;
+    canDeleteTeam: boolean;
+    canAddMember: boolean;
+    canUpdateMember: boolean;
+    canRemoveMember: boolean;
+    canCreateInvitation: boolean;
+    canCancelInvitation: boolean;
 };
 
-export default function TeamEdit({
+const TeamEdit = ({
     team,
     members,
     invitations,
     permissions,
     availableRoles,
-}: Props) {
-    const getInitials = useInitials();
-
+}: {
+    team: TTeam;
+    members: TTeamMember[];
+    invitations: TTeamInvitation[];
+    permissions: TTeamPermissions;
+    availableRoles: TTeamRoleOption[];
+}) => {
     const [inviteDialogOpen, setInviteDialogOpen] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [removeMemberDialogOpen, setRemoveMemberDialogOpen] = useState(false);
-    const [memberToRemove, setMemberToRemove] = useState<TeamMember | null>(
+    const [memberToRemove, setMemberToRemove] = useState<TTeamMember | null>(
         null,
     );
     const [cancelInvitationDialogOpen, setCancelInvitationDialogOpen] =
         useState(false);
     const [invitationToCancel, setInvitationToCancel] =
-        useState<TeamInvitation | null>(null);
+        useState<TTeamInvitation | null>(null);
 
     const pageTitle = useMemo(
         () =>
@@ -71,27 +76,29 @@ export default function TeamEdit({
         [permissions.canUpdateTeam, team.name],
     );
 
-    const updateMemberRole = (member: TeamMember, newRole: string) => {
-        router.visit(updateMember([team.slug, member.id]), {
+    const updateMemberRole = (member: TTeamMember, newRole: string) => {
+        router.visit(route('teams.members.update', [team.id, member.id]), {
+            method: 'patch',
             data: { role: newRole },
             preserveScroll: true,
         });
     };
 
-    const confirmRemoveMember = (member: TeamMember) => {
+    const confirmRemoveMember = (member: TTeamMember) => {
         setMemberToRemove(member);
         setRemoveMemberDialogOpen(true);
     };
 
-    const confirmCancelInvitation = (invitation: TeamInvitation) => {
+    const confirmCancelInvitation = (invitation: TTeamInvitation) => {
         setInvitationToCancel(invitation);
         setCancelInvitationDialogOpen(true);
     };
 
     return (
-        <>
-            <Head title={pageTitle} />
-
+        <SettingsLayout
+            title={pageTitle}
+            description="Update your team name and settings"
+        >
             <h1 className="sr-only">{pageTitle}</h1>
 
             <div className="flex flex-col space-y-10">
@@ -105,7 +112,8 @@ export default function TeamEdit({
                             />
 
                             <Form
-                                {...update.form(team.slug)}
+                                action={route('teams.update', team.id)}
+                                method="patch"
                                 className="space-y-6"
                             >
                                 {({ errors, processing }) => (
@@ -182,7 +190,7 @@ export default function TeamEdit({
                                             />
                                         ) : null}
                                         <AvatarFallback>
-                                            {getInitials(member.name)}
+                                            {formatInitials(member.name)}
                                         </AvatarFallback>
                                     </Avatar>
                                     <div>
@@ -199,16 +207,18 @@ export default function TeamEdit({
                                     {member.role !== 'owner' &&
                                     permissions.canUpdateMember ? (
                                         <DropdownMenu>
-                                            <DropdownMenuTrigger asChild>
-                                                <Button
-                                                    variant="outline"
-                                                    size="sm"
-                                                    data-test="member-role-trigger"
-                                                >
-                                                    {member.role_label}
-                                                    <ChevronDown className="ml-2 h-4 w-4 opacity-50" />
-                                                </Button>
-                                            </DropdownMenuTrigger>
+                                            <DropdownMenuTrigger
+                                                render={
+                                                    <Button
+                                                        variant="outline"
+                                                        size="sm"
+                                                        data-test="member-role-trigger"
+                                                    >
+                                                        {member.role_label}
+                                                        <ChevronDown className="ml-2 h-4 w-4 opacity-50" />
+                                                    </Button>
+                                                }
+                                            />
                                             <DropdownMenuContent>
                                                 {availableRoles.map((role) => (
                                                     <DropdownMenuItem
@@ -236,20 +246,22 @@ export default function TeamEdit({
                                     permissions.canRemoveMember ? (
                                         <TooltipProvider>
                                             <Tooltip>
-                                                <TooltipTrigger asChild>
-                                                    <Button
-                                                        variant="ghost"
-                                                        size="sm"
-                                                        data-test="member-remove-button"
-                                                        onClick={() =>
-                                                            confirmRemoveMember(
-                                                                member,
-                                                            )
-                                                        }
-                                                    >
-                                                        <X className="h-4 w-4" />
-                                                    </Button>
-                                                </TooltipTrigger>
+                                                <TooltipTrigger
+                                                    render={
+                                                        <Button
+                                                            variant="ghost"
+                                                            size="sm"
+                                                            data-test="member-remove-button"
+                                                            onClick={() =>
+                                                                confirmRemoveMember(
+                                                                    member,
+                                                                )
+                                                            }
+                                                        >
+                                                            <X className="h-4 w-4" />
+                                                        </Button>
+                                                    }
+                                                />
                                                 <TooltipContent>
                                                     <p>Remove member</p>
                                                 </TooltipContent>
@@ -294,20 +306,22 @@ export default function TeamEdit({
                                     {permissions.canCancelInvitation ? (
                                         <TooltipProvider>
                                             <Tooltip>
-                                                <TooltipTrigger asChild>
-                                                    <Button
-                                                        variant="ghost"
-                                                        size="sm"
-                                                        data-test="invitation-cancel-button"
-                                                        onClick={() =>
-                                                            confirmCancelInvitation(
-                                                                invitation,
-                                                            )
-                                                        }
-                                                    >
-                                                        <X className="h-4 w-4" />
-                                                    </Button>
-                                                </TooltipTrigger>
+                                                <TooltipTrigger
+                                                    render={
+                                                        <Button
+                                                            variant="ghost"
+                                                            size="sm"
+                                                            data-test="invitation-cancel-button"
+                                                            onClick={() =>
+                                                                confirmCancelInvitation(
+                                                                    invitation,
+                                                                )
+                                                            }
+                                                        >
+                                                            <X className="h-4 w-4" />
+                                                        </Button>
+                                                    }
+                                                />
                                                 <TooltipContent>
                                                     <p>Cancel invitation</p>
                                                 </TooltipContent>
@@ -377,19 +391,8 @@ export default function TeamEdit({
                     onOpenChange={setDeleteDialogOpen}
                 />
             ) : null}
-        </>
+        </SettingsLayout>
     );
-}
+};
 
-TeamEdit.layout = (props: { team: { name: string; slug: string } }) => ({
-    breadcrumbs: [
-        {
-            title: 'Teams',
-            href: index(),
-        },
-        {
-            title: props.team.name,
-            href: edit(props.team.slug),
-        },
-    ],
-});
+export default TeamEdit;

@@ -1,0 +1,39 @@
+import {
+    SidebarGroup,
+    SidebarGroupLabel,
+    SidebarMenu,
+    SidebarMenuButton,
+    SidebarMenuItem,
+} from '@/components/ui/sidebar';
+
+import type { TNavItem } from '@/types/utils';
+
+import { useCurrentUrl } from '@/hooks/use-current-url';
+
+import { Link } from '@inertiajs/react';
+
+export const NavMain = ({ items = [] }: { items: TNavItem[] }) => {
+    const { isCurrentUrl } = useCurrentUrl();
+
+    return (
+        <SidebarGroup className="px-2 py-0">
+            <SidebarGroupLabel>Platform</SidebarGroupLabel>
+            <SidebarMenu>
+                {items.map((item) => (
+                    <SidebarMenuItem key={item.title}>
+                        <SidebarMenuButton
+                            isActive={isCurrentUrl(item.href)}
+                            tooltip={{ children: item.title }}
+                            render={
+                                <Link href={item.href} prefetch>
+                                    {item.icon && <item.icon />}
+                                    <span>{item.title}</span>
+                                </Link>
+                            }
+                        />
+                    </SidebarMenuItem>
+                ))}
+            </SidebarMenu>
+        </SidebarGroup>
+    );
+};

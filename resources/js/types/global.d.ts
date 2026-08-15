@@ -1,5 +1,5 @@
-import type { Auth } from '@/types/auth';
-import type { Team } from '@/types/teams';
+import type { TTeam } from '@/types/teams';
+import type { route as routeFn } from 'ziggy-js';
 
 declare module 'react' {
     interface InputHTMLAttributes<T> {
@@ -7,15 +7,26 @@ declare module 'react' {
     }
 }
 
+declare global {
+    var route: typeof routeFn;
+}
+
 declare module '@inertiajs/core' {
     export interface InertiaConfig {
         sharedPageProps: {
             name: string;
-            auth: Auth;
-            sidebarOpen: boolean;
-            currentTeam: Team | null;
-            teams: Team[];
-            [key: string]: unknown;
+            open: boolean;
+            auth: {
+                user: TUser;
+                currentTeam: TTeam | null;
+                teams: TTeam[];
+            };
+            flash: {
+                success: string | null;
+                error: string | null;
+                info: string | null;
+                warning: string | null;
+            };
         };
     }
 }

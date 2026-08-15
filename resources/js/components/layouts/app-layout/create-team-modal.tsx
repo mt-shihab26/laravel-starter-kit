@@ -1,0 +1,81 @@
+import {
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from '@/components/ui/dialog';
+
+import type { ReactElement } from 'react';
+
+import { useState } from 'react';
+
+import { Form } from '@inertiajs/react';
+import { InputError } from '@/components/elements/input-error';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+
+export const CreateTeamModal = ({ children }: { children: ReactElement }) => {
+    const [open, setOpen] = useState(false);
+
+    return (
+        <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger render={children} />
+            <DialogContent>
+                <Form
+                    key={String(open)}
+                    action={route('teams.store')}
+                    method="post"
+                    className="space-y-6"
+                    onSuccess={() => setOpen(false)}
+                >
+                    {({ errors, processing }) => (
+                        <>
+                            <DialogHeader>
+                                <DialogTitle>Create a new team</DialogTitle>
+                                <DialogDescription>
+                                    Create a new team to collaborate with
+                                    others.
+                                </DialogDescription>
+                            </DialogHeader>
+
+                            <div className="grid gap-2">
+                                <Label htmlFor="name">Team name</Label>
+                                <Input
+                                    id="name"
+                                    name="name"
+                                    data-test="create-team-name"
+                                    placeholder="My team"
+                                    required
+                                />
+                                <InputError message={errors.name} />
+                            </div>
+
+                            <DialogFooter className="gap-2">
+                                <DialogClose
+                                    render={
+                                        <Button variant="secondary">
+                                            Cancel
+                                        </Button>
+                                    }
+                                />
+
+                                <Button
+                                    type="submit"
+                                    data-test="create-team-submit"
+                                    disabled={processing}
+                                >
+                                    Create team
+                                </Button>
+                            </DialogFooter>
+                        </>
+                    )}
+                </Form>
+            </DialogContent>
+        </Dialog>
+    );
+};

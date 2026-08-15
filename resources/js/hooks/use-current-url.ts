@@ -1,4 +1,5 @@
 import type { InertiaLinkProps } from '@inertiajs/react';
+
 import { usePage } from '@inertiajs/react';
 import { toUrl } from '@/lib/utils';
 
@@ -26,7 +27,7 @@ export type UseCurrentUrlReturn = {
     whenCurrentUrl: WhenCurrentUrlFn;
 };
 
-export function useCurrentUrl(): UseCurrentUrlReturn {
+export const useCurrentUrl = (): UseCurrentUrlReturn => {
     const page = usePage();
     const currentUrlPath = new URL(
         page.url,
@@ -80,4 +81,4 @@ export function useCurrentUrl(): UseCurrentUrlReturn {
         isCurrentOrParentUrl,
         whenCurrentUrl,
     };
-}
+};

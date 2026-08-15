@@ -1,0 +1,110 @@
+import {
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+} from '@/components/ui/dialog';
+
+import type { TTeam } from '@/types/models';
+
+import { useState } from 'react';
+
+import { Form } from '@inertiajs/react';
+import { InputError } from '@/components/elements/input-error';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+
+export const DeleteTeamModal = ({
+    team,
+    open,
+    onOpenChange,
+}: {
+    team: TTeam;
+    open: boolean;
+    onOpenChange: (open: boolean) => void;
+}) => {
+    const [confirmationName, setConfirmationName] = useState('');
+
+    const canDeleteTeam = confirmationName === team.name;
+
+    const handleOpenChange = (nextOpen: boolean) => {
+        onOpenChange(nextOpen);
+
+        if (!nextOpen) {
+            setConfirmationName('');
+        }
+    };
+
+    return (
+        <Dialog open={open} onOpenChange={handleOpenChange}>
+            <DialogContent>
+                <Form
+                    key={String(open)}
+                    action={route('teams.destroy', team.id)}
+                    method="delete"
+                    className="space-y-6"
+                    onSuccess={() => handleOpenChange(false)}
+                >
+                    {({ errors, processing }) => (
+                        <>
+                            <DialogHeader>
+                                <DialogTitle>Are you sure?</DialogTitle>
+                                <DialogDescription>
+                                    This action cannot be undone. This will
+                                    permanently delete the team{' '}
+                                    <strong>"{team.name}"</strong>.
+                                </DialogDescription>
+                            </DialogHeader>
+
+                            <div className="space-y-4 py-4">
+                                <div className="grid gap-2">
+                                    <Label htmlFor="confirmation-name">
+                                        Type <strong>"{team.name}"</strong> to
+                                        confirm
+                                    </Label>
+                                    <Input
+                                        id="confirmation-name"
+                                        name="name"
+                                        data-test="delete-team-name"
+                                        value={confirmationName}
+                                        onChange={(event) =>
+                                            setConfirmationName(
+                                                event.target.value,
+                                            )
+                                        }
+                                        placeholder="Enter team name"
+                                        autoComplete="off"
+                                    />
+                                    <InputError message={errors.name} />
+                                </div>
+                            </div>
+
+                            <DialogFooter className="gap-2">
+                                <DialogClose
+                                    render={
+                                        <Button variant="secondary">
+                                            Cancel
+                                        </Button>
+                                    }
+                                />
+
+                                <Button
+                                    variant="destructive"
+                                    type="submit"
+                                    data-test="delete-team-confirm"
+                                    disabled={!canDeleteTeam || processing}
+                                >
+                                    Delete team
+                                </Button>
+                            </DialogFooter>
+                        </>
+                    )}
+                </Form>
+            </DialogContent>
+        </Dialog>
+    );
+};

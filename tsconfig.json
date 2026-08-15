@@ -19,15 +19,9 @@
         "noImplicitAny": true,
         "skipLibCheck": true,
         "paths": {
-            "@/*": [
-                "./resources/js/*"
-            ],
-            "@assets/*": [
-                "./resources/assets/*"
-            ],
-            "ziggy-js": [
-                "./vendor/tightenco/ziggy"
-            ]
+            "@/*": ["./resources/js/*"],
+            "@assets/*": ["./resources/assets/*"],
+            "ziggy-js": ["./vendor/tightenco/ziggy"]
         }
     }
 }

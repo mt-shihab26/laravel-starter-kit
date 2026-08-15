@@ -1,30 +1,32 @@
-import { Form, Head } from '@inertiajs/react';
+import type { TManagePasskeysProps } from '@/components/screens/settings/manage-passkeys';
+import type { TManageTwoFactorProps } from '@/components/screens/settings/manage-two-factor';
+
 import { useRef } from 'react';
-import SecurityController from '@/actions/App/Http/Controllers/Settings/SecurityController';
-import Heading from '@/components/heading';
-import InputError from '@/components/input-error';
-import type { Props as ManagePasskeysProps } from '@/components/manage-passkeys';
-import ManagePasskeys from '@/components/manage-passkeys';
-import type { Props as ManageTwoFactorProps } from '@/components/manage-two-factor';
-import ManageTwoFactor from '@/components/manage-two-factor';
-import PasswordInput from '@/components/password-input';
+
+import { ManageTwoFactor } from '@/components/screens/settings/manage-two-factor';
+import { Form } from '@inertiajs/react';
+import { Heading } from '@/components/elements/heading';
+import { InputError } from '@/components/elements/input-error';
+import { ManagePasskeys } from '@/components/screens/settings/manage-passkeys';
+import { PasswordInput } from '@/components/elements/password-input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import { edit } from '@/routes/security';
+import { SettingsLayout } from '@/components/layouts/settings-layout';
 
-type Props = {
-    passwordRules: string;
-} & ManagePasskeysProps &
-    ManageTwoFactorProps;
-
-export default function Security(props: Props) {
+const Security = (
+    props: {
+        passwordRules: string;
+    } & TManagePasskeysProps &
+        TManageTwoFactorProps,
+) => {
     const passwordInput = useRef<HTMLInputElement>(null);
     const currentPasswordInput = useRef<HTMLInputElement>(null);
 
     return (
-        <>
-            <Head title="Security settings" />
-
+        <SettingsLayout
+            title="Security settings"
+            description="Ensure your account is using a long, random password to stay secure"
+        >
             <h1 className="sr-only">Security settings</h1>
 
             <div className="space-y-6">
@@ -35,7 +37,8 @@ export default function Security(props: Props) {
                 />
 
                 <Form
-                    {...SecurityController.update.form()}
+                    action={route('user-password.update')}
+                    method="put"
                     options={{
                         preserveScroll: true,
                     }}
@@ -133,15 +136,8 @@ export default function Security(props: Props) {
                 canManagePasskeys={props.canManagePasskeys}
                 passkeys={props.passkeys}
             />
-        </>
+        </SettingsLayout>
     );
-}
-
-Security.layout = {
-    breadcrumbs: [
-        {
-            title: 'Security settings',
-            href: edit(),
-        },
-    ],
 };
+
+export default Security;

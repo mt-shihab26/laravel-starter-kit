@@ -1,19 +1,18 @@
-// Components
-import { Form, Head } from '@inertiajs/react';
+import { Form } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
-import InputError from '@/components/input-error';
-import TextLink from '@/components/text-link';
+import { InputError } from '@/components/elements/input-error';
+import { TextLink } from '@/components/elements/text-link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { login } from '@/routes';
-import { email } from '@/routes/password';
+import { AuthLayout } from '@/components/layouts/auth-layout';
 
-export default function ForgotPassword({ status }: { status?: string }) {
+const ForgotPassword = ({ status }: { status?: string }) => {
     return (
-        <>
-            <Head title="Forgot password" />
-
+        <AuthLayout
+            title="Forgot password"
+            description="Enter your email to receive a password reset link"
+        >
             {status && (
                 <div className="mb-4 text-center text-sm font-medium text-green-600">
                     {status}
@@ -21,7 +20,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
             )}
 
             <div className="space-y-6">
-                <Form {...email.form()}>
+                <Form action={route('password.email')} method="post">
                     {({ processing, errors }) => (
                         <>
                             <div className="grid gap-2">
@@ -56,14 +55,11 @@ export default function ForgotPassword({ status }: { status?: string }) {
 
                 <div className="space-x-1 text-center text-sm text-muted-foreground">
                     <span>Or, return to</span>
-                    <TextLink href={login()}>log in</TextLink>
+                    <TextLink href={route('login')}>log in</TextLink>
                 </div>
             </div>
-        </>
+        </AuthLayout>
     );
-}
-
-ForgotPassword.layout = {
-    title: 'Forgot password',
-    description: 'Enter your email to receive a password reset link',
 };
+
+export default ForgotPassword;

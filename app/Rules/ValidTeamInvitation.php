@@ -10,10 +10,12 @@ use Illuminate\Translation\PotentiallyTranslatedString;
 
 class ValidTeamInvitation implements ValidationRule
 {
-    public function __construct(protected ?User $user)
-    {
-        //
-    }
+    /**
+     * Create a new rule instance.
+     */
+    public function __construct(
+        protected ?User $user
+    ) {}
 
     /**
      * Run the validation rule.

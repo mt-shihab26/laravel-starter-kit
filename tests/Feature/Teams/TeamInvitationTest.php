@@ -4,7 +4,7 @@ use App\Enums\TeamRole;
 use App\Models\Team;
 use App\Models\TeamInvitation;
 use App\Models\User;
-use App\Notifications\Teams\TeamInvitation as TeamInvitationNotification;
+use App\Notifications\TeamInvitationNotification;
 use Illuminate\Support\Facades\Notification;
 
 test('team invitations can be created', function () {
@@ -190,7 +190,7 @@ test('team invitations can be accepted', function () {
         ->post(route('invitations.accept', $invitation));
 
     $response->assertRedirect(route('dashboard'));
-    $response->assertInertiaFlash('toast', ['type' => 'success', 'message' => 'Invitation accepted.']);
+    $response->assertSessionHas('success', 'Invitation accepted.');
 
     expect($invitedUser->fresh()->belongsToTeam($team))->toBeTrue();
     expect($invitation->fresh()->accepted_at)->not->toBeNull();

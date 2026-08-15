@@ -1,37 +1,37 @@
-import { Head, Link } from '@inertiajs/react';
-import { Eye, LogOut, Pencil, Plus } from 'lucide-react';
-import { useState } from 'react';
-import CreateTeamModal from '@/components/create-team-modal';
-import Heading from '@/components/heading';
-import LeaveTeamModal from '@/components/leave-team-modal';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import {
     Tooltip,
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { edit, index } from '@/routes/teams';
-import type { Team } from '@/types';
 
-type Props = {
-    teams: Team[];
-};
+import type { TTeam } from '@/types/models';
 
-export default function TeamsIndex({ teams }: Props) {
+import { useState } from 'react';
+
+import { Link } from '@inertiajs/react';
+import { Eye, LogOut, Pencil, Plus } from 'lucide-react';
+import { CreateTeamModal } from '@/components/layouts/app-layout/create-team-modal';
+import { Heading } from '@/components/elements/heading';
+import { LeaveTeamModal } from '@/components/layouts/app-layout/leave-team-modal';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { SettingsLayout } from '@/components/layouts/settings-layout';
+
+const TeamsIndex = ({ teams }: { teams: TTeam[] }) => {
     const [leaveTeamDialogOpen, setLeaveTeamDialogOpen] = useState(false);
-    const [teamLeaving, setTeamLeaving] = useState<Team | null>(null);
+    const [teamLeaving, setTeamLeaving] = useState<TTeam | null>(null);
 
-    const openLeaveTeamDialog = (team: Team) => {
+    const openLeaveTeamDialog = (team: TTeam) => {
         setTeamLeaving(team);
         setLeaveTeamDialogOpen(true);
     };
 
     return (
-        <>
-            <Head title="Teams" />
-
+        <SettingsLayout
+            title="Teams"
+            description="Manage your teams and team memberships"
+        >
             <h1 className="sr-only">Teams</h1>
 
             <div className="flex flex-col space-y-6">
@@ -82,20 +82,22 @@ export default function TeamsIndex({ teams }: Props) {
                                     <div className="flex items-center gap-2">
                                         {canLeaveTeam ? (
                                             <Tooltip>
-                                                <TooltipTrigger asChild>
-                                                    <Button
-                                                        variant="ghost"
-                                                        size="sm"
-                                                        data-test="team-leave-button"
-                                                        onClick={() =>
-                                                            openLeaveTeamDialog(
-                                                                team,
-                                                            )
-                                                        }
-                                                    >
-                                                        <LogOut className="h-4 w-4" />
-                                                    </Button>
-                                                </TooltipTrigger>
+                                                <TooltipTrigger
+                                                    render={
+                                                        <Button
+                                                            variant="ghost"
+                                                            size="sm"
+                                                            data-test="team-leave-button"
+                                                            onClick={() =>
+                                                                openLeaveTeamDialog(
+                                                                    team,
+                                                                )
+                                                            }
+                                                        >
+                                                            <LogOut className="h-4 w-4" />
+                                                        </Button>
+                                                    }
+                                                />
                                                 <TooltipContent>
                                                     <p>Leave team</p>
                                                 </TooltipContent>
@@ -104,44 +106,50 @@ export default function TeamsIndex({ teams }: Props) {
 
                                         {team.role === 'member' ? (
                                             <Tooltip>
-                                                <TooltipTrigger asChild>
-                                                    <Button
-                                                        variant="ghost"
-                                                        size="sm"
-                                                        data-test="team-view-button"
-                                                        asChild
-                                                    >
-                                                        <Link
-                                                            href={edit(
-                                                                team.slug,
-                                                            )}
-                                                        >
-                                                            <Eye className="h-4 w-4" />
-                                                        </Link>
-                                                    </Button>
-                                                </TooltipTrigger>
+                                                <TooltipTrigger
+                                                    render={
+                                                        <Button
+                                                            variant="ghost"
+                                                            size="sm"
+                                                            data-test="team-view-button"
+                                                            render={
+                                                                <Link
+                                                                    href={route(
+                                                                        'teams.edit',
+                                                                        team.id,
+                                                                    )}
+                                                                >
+                                                                    <Eye className="h-4 w-4" />
+                                                                </Link>
+                                                            }
+                                                        />
+                                                    }
+                                                />
                                                 <TooltipContent>
                                                     <p>View team</p>
                                                 </TooltipContent>
                                             </Tooltip>
                                         ) : (
                                             <Tooltip>
-                                                <TooltipTrigger asChild>
-                                                    <Button
-                                                        variant="ghost"
-                                                        size="sm"
-                                                        data-test="team-edit-button"
-                                                        asChild
-                                                    >
-                                                        <Link
-                                                            href={edit(
-                                                                team.slug,
-                                                            )}
-                                                        >
-                                                            <Pencil className="h-4 w-4" />
-                                                        </Link>
-                                                    </Button>
-                                                </TooltipTrigger>
+                                                <TooltipTrigger
+                                                    render={
+                                                        <Button
+                                                            variant="ghost"
+                                                            size="sm"
+                                                            data-test="team-edit-button"
+                                                            render={
+                                                                <Link
+                                                                    href={route(
+                                                                        'teams.edit',
+                                                                        team.id,
+                                                                    )}
+                                                                >
+                                                                    <Pencil className="h-4 w-4" />
+                                                                </Link>
+                                                            }
+                                                        />
+                                                    }
+                                                />
                                                 <TooltipContent>
                                                     <p>Edit team</p>
                                                 </TooltipContent>
@@ -166,15 +174,8 @@ export default function TeamsIndex({ teams }: Props) {
                 open={leaveTeamDialogOpen}
                 onOpenChange={setLeaveTeamDialogOpen}
             />
-        </>
+        </SettingsLayout>
     );
-}
-
-TeamsIndex.layout = {
-    breadcrumbs: [
-        {
-            title: 'Teams',
-            href: index(),
-        },
-    ],
 };
+
+export default TeamsIndex;

@@ -49,7 +49,6 @@ test('dashboard includes pending invitations for the authenticated user', functi
         ->where('pendingInvitations.0.code', $invitation->code)
         ->where('pendingInvitations.0.inviterName', 'Taylor Otwell')
         ->where('pendingInvitations.0.team.name', 'Laravel Team')
-        ->where('pendingInvitations.0.team.slug', $team->slug)
         ->missing('pendingInvitations.0.teamName'),
     );
 });

@@ -1,27 +1,31 @@
-import { Form, Head } from '@inertiajs/react';
-import InputError from '@/components/input-error';
-import PasswordInput from '@/components/password-input';
-import TeamInvitationAlert from '@/components/team-invitation-alert';
-import TextLink from '@/components/text-link';
+import type { TTeamInvitationContext } from '@/components/elements/team-invitation-alert';
+
+import { Form } from '@inertiajs/react';
+import { InputError } from '@/components/elements/input-error';
+import { PasswordInput } from '@/components/elements/password-input';
+import { TeamInvitationAlert } from '@/components/elements/team-invitation-alert';
+import { TextLink } from '@/components/elements/text-link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
-import { login } from '@/routes';
-import { store } from '@/routes/register';
-import type { TeamInvitationContext } from '@/types';
+import { AuthLayout } from '@/components/layouts/auth-layout';
 
-type Props = {
+const Register = ({
+    passwordRules,
+    teamInvitation,
+}: {
     passwordRules: string;
-    teamInvitation?: TeamInvitationContext | null;
-};
-
-export default function Register({ passwordRules, teamInvitation }: Props) {
+    teamInvitation?: TTeamInvitationContext | null;
+}) => {
     return (
-        <>
-            <Head title="Register" />
+        <AuthLayout
+            title="Create an account"
+            description="Enter your details below to create your account"
+        >
             <Form
-                {...store.form()}
+                action={route('register.store')}
+                method="post"
                 resetOnSuccess={['password', 'password_confirmation']}
                 disableWhileProcessing
                 className="flex flex-col gap-6"
@@ -116,13 +120,10 @@ export default function Register({ passwordRules, teamInvitation }: Props) {
                             <TextLink
                                 href={
                                     teamInvitation
-                                        ? login.url({
-                                              query: {
-                                                  invitation:
-                                                      teamInvitation.code,
-                                              },
+                                        ? route('login', {
+                                              invitation: teamInvitation.code,
                                           })
-                                        : login()
+                                        : route('login')
                                 }
                                 data-test="team-invitation-login-link"
                                 tabIndex={6}
@@ -133,11 +134,8 @@ export default function Register({ passwordRules, teamInvitation }: Props) {
                     </>
                 )}
             </Form>
-        </>
+        </AuthLayout>
     );
-}
-
-Register.layout = {
-    title: 'Create an account',
-    description: 'Enter your details below to create your account',
 };
+
+export default Register;

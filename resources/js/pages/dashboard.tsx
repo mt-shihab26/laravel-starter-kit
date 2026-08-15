@@ -1,22 +1,35 @@
-import { PlaceholderPattern } from '@/components/elements/placeholder-pattern';
-import PendingInvitationsModal from '@/components/pending-invitations-modal';
-import { dashboard } from '@/routes';
-import type { DashboardInvitation } from '@/types';
-import { Head } from '@inertiajs/react';
+import type { TDashboardInvitation } from '@/components/screens/teams/pending-invitations-modal';
+
+import { usePage } from '@inertiajs/react';
 import { useState } from 'react';
 
-type Props = {
-    pendingInvitations?: DashboardInvitation[];
-};
+import { PlaceholderPattern } from '@/components/elements/placeholder-pattern';
+import { PendingInvitationsModal } from '@/components/screens/teams/pending-invitations-modal';
+import { AppLayout } from '@/components/layouts/app-layout';
 
-export default function Dashboard({ pendingInvitations = [] }: Props) {
+const Dashboard = ({
+    pendingInvitations = [],
+}: {
+    pendingInvitations?: TDashboardInvitation[];
+}) => {
+    const { currentTeam } = usePage().props.auth;
     const [showInvitations, setShowInvitations] = useState(
         pendingInvitations.length > 0,
     );
 
     return (
-        <>
-            <Head title="Dashboard" />
+        <AppLayout
+            title="Dashboard"
+            description="Overview of your account activity"
+            breadcrumbs={[
+                {
+                    title: 'Dashboard',
+                    href: currentTeam
+                        ? route('dashboard', currentTeam.id)
+                        : '/',
+                },
+            ]}
+        >
             <PendingInvitationsModal
                 invitations={pendingInvitations}
                 open={pendingInvitations.length > 0 && showInvitations}
@@ -34,19 +47,12 @@ export default function Dashboard({ pendingInvitations = [] }: Props) {
                         <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
                     </div>
                 </div>
-                <div className="relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
+                <div className="relative min-h-screen flex-1 overflow-hidden rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
                     <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
                 </div>
             </div>
-        </>
+        </AppLayout>
     );
-}
+};
 
-Dashboard.layout = (props: { currentTeam?: { slug: string } | null }) => ({
-    breadcrumbs: [
-        {
-            title: 'Dashboard',
-            href: props.currentTeam ? dashboard(props.currentTeam.slug) : '/',
-        },
-    ],
-});
+export default Dashboard;

@@ -1,13 +1,13 @@
-import { Head } from '@inertiajs/react';
-import AppearanceTabs from '@/components/appearance-tabs';
-import Heading from '@/components/heading';
-import { edit as editAppearance } from '@/routes/appearance';
+import { AppearanceTabs } from '@/components/screens/settings/appearance-tabs';
+import { Heading } from '@/components/elements/heading';
+import { SettingsLayout } from '@/components/layouts/settings-layout';
 
-export default function Appearance() {
+const Appearance = () => {
     return (
-        <>
-            <Head title="Appearance settings" />
-
+        <SettingsLayout
+            title="Appearance settings"
+            description="Update the appearance settings for your account"
+        >
             <h1 className="sr-only">Appearance settings</h1>
 
             <div className="space-y-6">
@@ -18,15 +18,8 @@ export default function Appearance() {
                 />
                 <AppearanceTabs />
             </div>
-        </>
+        </SettingsLayout>
     );
-}
-
-Appearance.layout = {
-    breadcrumbs: [
-        {
-            title: 'Appearance settings',
-            href: editAppearance(),
-        },
-    ],
 };
+
+export default Appearance;
