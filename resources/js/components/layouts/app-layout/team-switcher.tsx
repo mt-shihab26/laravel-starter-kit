@@ -16,11 +16,7 @@ import { Check, ChevronsUpDown, Plus, Users } from 'lucide-react';
 import { CreateTeamModal } from '@/components/layouts/app-layout/create-team-modal';
 import { Button } from '@/components/ui/button';
 
-export const TeamSwitcher = ({
-    inHeader = false,
-}: {
-    inHeader?: boolean;
-}) => {
+export const TeamSwitcher = ({ inHeader = false }: { inHeader?: boolean }) => {
     const page = usePage();
     const isMobile = useIsMobile();
     const currentTeam = page.props.auth.currentTeam;
