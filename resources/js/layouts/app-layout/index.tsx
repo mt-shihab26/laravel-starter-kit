@@ -1,6 +1,6 @@
 import type { TBreadcrumb } from '@/components/breadcrumbs';
 
-import AppLayoutTemplate from '@/layouts/app-layout/app-sidebar-layout';
+import { AppSidebarLayout as AppLayoutTemplate } from '@/layouts/app-layout/app-sidebar-layout';
 
 export const AppLayout = ({
     breadcrumbs = [],

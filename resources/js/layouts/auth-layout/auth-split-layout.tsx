@@ -1,5 +1,5 @@
 import { Link, usePage } from '@inertiajs/react';
-import AppLogoIcon from '@/components/app-logo-icon';
+import { AppLogoIcon } from '@/components/app-logo-icon';
 import type { ReactNode } from 'react';
 
 export type TAuthLayoutProps = {
@@ -9,11 +9,11 @@ export type TAuthLayoutProps = {
     description?: string;
 };
 
-export default function AuthSplitLayout({
+export const AuthSplitLayout = ({
     children,
     title,
     description,
-}: TAuthLayoutProps) {
+}: TAuthLayoutProps) => {
     const { name } = usePage().props;
 
     return (
@@ -47,4 +47,4 @@ export default function AuthSplitLayout({
             </div>
         </div>
     );
-}
+};

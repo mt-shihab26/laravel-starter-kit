@@ -10,14 +10,11 @@ type TAppLayoutProps = {
     breadcrumbs?: TBreadcrumb[];
 };
 
-export default function AppHeaderLayout({
-    children,
-    breadcrumbs,
-}: TAppLayoutProps) {
+export const AppHeaderLayout = ({ children, breadcrumbs }: TAppLayoutProps) => {
     return (
         <AppShell variant="header">
             <AppHeader breadcrumbs={breadcrumbs} />
             <AppContent variant="header">{children}</AppContent>
         </AppShell>
     );
-}
+};

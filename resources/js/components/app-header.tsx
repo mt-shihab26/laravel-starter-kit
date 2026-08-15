@@ -1,8 +1,8 @@
 import { Link, usePage } from '@inertiajs/react';
 import { BookOpen, Folder, LayoutGrid, Menu, Search } from 'lucide-react';
-import AppLogo from '@/components/app-logo';
+import { AppLogo } from '@/components/app-logo';
 import type { TNavItem } from '@/types/utils';
-import AppLogoIcon from '@/components/app-logo-icon';
+import { AppLogoIcon } from '@/components/app-logo-icon';
 import { Breadcrumbs } from '@/components/breadcrumbs';
 import { TeamSwitcher } from '@/components/team-switcher';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -57,7 +57,7 @@ const rightNavItems: TNavItem[] = [
 const activeItemStyles =
     'text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100';
 
-export function AppHeader({ breadcrumbs = [] }: Props) {
+export const AppHeader = ({ breadcrumbs = [] }: Props) => {
     const page = usePage();
     const { user, currentTeam } = page.props.auth;
     const getInitials = useInitials();
@@ -254,4 +254,4 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
             )}
         </>
     );
-}
+};

@@ -1,12 +1,12 @@
 import { Form, Head } from '@inertiajs/react';
 import { useRef } from 'react';
-import Heading from '@/components/heading';
-import InputError from '@/components/input-error';
+import { Heading } from '@/components/heading';
+import { InputError } from '@/components/input-error';
 import type { Props as ManagePasskeysProps } from '@/components/manage-passkeys';
-import ManagePasskeys from '@/components/manage-passkeys';
+import { ManagePasskeys } from '@/components/manage-passkeys';
 import type { Props as ManageTwoFactorProps } from '@/components/manage-two-factor';
-import ManageTwoFactor from '@/components/manage-two-factor';
-import PasswordInput from '@/components/password-input';
+import { ManageTwoFactor } from '@/components/manage-two-factor';
+import { PasswordInput } from '@/components/password-input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 
@@ -15,7 +15,7 @@ type Props = {
 } & ManagePasskeysProps &
     ManageTwoFactorProps;
 
-export default function Security(props: Props) {
+const Security = (props: Props) => {
     const passwordInput = useRef<HTMLInputElement>(null);
     const currentPasswordInput = useRef<HTMLInputElement>(null);
 
@@ -134,7 +134,7 @@ export default function Security(props: Props) {
             />
         </>
     );
-}
+};
 
 Security.layout = {
     breadcrumbs: [
@@ -144,3 +144,5 @@ Security.layout = {
         },
     ],
 };
+
+export default Security;

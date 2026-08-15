@@ -11,7 +11,7 @@ type Props = {
     action: 'Log in' | 'Register';
 };
 
-export default function TeamInvitationAlert({ invitation, action }: Props) {
+export const TeamInvitationAlert = ({ invitation, action }: Props) => {
     return (
         <Alert
             data-test="team-invitation-alert"
@@ -23,4 +23,4 @@ export default function TeamInvitationAlert({ invitation, action }: Props) {
             </AlertDescription>
         </Alert>
     );
-}
+};

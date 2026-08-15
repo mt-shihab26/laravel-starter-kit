@@ -1,9 +1,9 @@
 import { Head, Link } from '@inertiajs/react';
 import { Eye, LogOut, Pencil, Plus } from 'lucide-react';
 import { useState } from 'react';
-import CreateTeamModal from '@/components/create-team-modal';
-import Heading from '@/components/heading';
-import LeaveTeamModal from '@/components/leave-team-modal';
+import { CreateTeamModal } from '@/components/create-team-modal';
+import { Heading } from '@/components/heading';
+import { LeaveTeamModal } from '@/components/leave-team-modal';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -18,7 +18,7 @@ type Props = {
     teams: TTeam[];
 };
 
-export default function TeamsIndex({ teams }: Props) {
+const TeamsIndex = ({ teams }: Props) => {
     const [leaveTeamDialogOpen, setLeaveTeamDialogOpen] = useState(false);
     const [teamLeaving, setTeamLeaving] = useState<TTeam | null>(null);
 
@@ -175,7 +175,7 @@ export default function TeamsIndex({ teams }: Props) {
             />
         </>
     );
-}
+};
 
 TeamsIndex.layout = {
     breadcrumbs: [
@@ -185,3 +185,5 @@ TeamsIndex.layout = {
         },
     ],
 };
+
+export default TeamsIndex;

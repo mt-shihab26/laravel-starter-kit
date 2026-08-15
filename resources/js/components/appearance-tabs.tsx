@@ -5,10 +5,10 @@ import type { Appearance } from '@/hooks/use-appearance';
 import { useAppearance } from '@/hooks/use-appearance';
 import { cn } from '@/lib/utils';
 
-export default function AppearanceToggleTab({
+export const AppearanceToggleTab = ({
     className = '',
     ...props
-}: HTMLAttributes<HTMLDivElement>) {
+}: HTMLAttributes<HTMLDivElement>) => {
     const { appearance, updateAppearance } = useAppearance();
 
     const tabs: { value: Appearance; icon: LucideIcon; label: string }[] = [
@@ -42,4 +42,4 @@ export default function AppearanceToggleTab({
             ))}
         </div>
     );
-}
+};

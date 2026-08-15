@@ -1,11 +1,12 @@
 import { Form, Head } from '@inertiajs/react';
-import InputError from '@/components/input-error';
-import PasskeyVerify from '@/components/passkey-verify';
-import PasswordInput from '@/components/password-input';
-import TeamInvitationAlert, {
+import { InputError } from '@/components/input-error';
+import { PasskeyVerify } from '@/components/passkey-verify';
+import { PasswordInput } from '@/components/password-input';
+import {
+    TeamInvitationAlert,
     type TTeamInvitationContext,
 } from '@/components/team-invitation-alert';
-import TextLink from '@/components/text-link';
+import { TextLink } from '@/components/text-link';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
@@ -18,11 +19,7 @@ type Props = {
     teamInvitation?: TTeamInvitationContext | null;
 };
 
-export default function Login({
-    status,
-    canResetPassword,
-    teamInvitation,
-}: Props) {
+const Login = ({ status, canResetPassword, teamInvitation }: Props) => {
     return (
         <>
             <Head title="Log in" />
@@ -128,9 +125,11 @@ export default function Login({
             )}
         </>
     );
-}
+};
 
 Login.layout = {
     title: 'Log in to your account',
     description: 'Enter your email and password below to log in',
 };
+
+export default Login;

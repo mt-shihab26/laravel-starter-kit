@@ -19,12 +19,12 @@ type Props = {
     onOpenChange: (open: boolean) => void;
 };
 
-export default function CancelInvitationModal({
+export const CancelInvitationModal = ({
     team,
     invitation,
     open,
     onOpenChange,
-}: Props) {
+}: Props) => {
     const [processing, setProcessing] = useState(false);
 
     const cancelInvitation = () => {
@@ -73,4 +73,4 @@ export default function CancelInvitationModal({
             </DialogContent>
         </Dialog>
     );
-}
+};

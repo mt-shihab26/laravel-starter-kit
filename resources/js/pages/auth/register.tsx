@@ -1,10 +1,11 @@
 import { Form, Head } from '@inertiajs/react';
-import InputError from '@/components/input-error';
-import PasswordInput from '@/components/password-input';
-import TeamInvitationAlert, {
+import { InputError } from '@/components/input-error';
+import { PasswordInput } from '@/components/password-input';
+import {
+    TeamInvitationAlert,
     type TTeamInvitationContext,
 } from '@/components/team-invitation-alert';
-import TextLink from '@/components/text-link';
+import { TextLink } from '@/components/text-link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -15,7 +16,7 @@ type Props = {
     teamInvitation?: TTeamInvitationContext | null;
 };
 
-export default function Register({ passwordRules, teamInvitation }: Props) {
+const Register = ({ passwordRules, teamInvitation }: Props) => {
     return (
         <>
             <Head title="Register" />
@@ -132,9 +133,11 @@ export default function Register({ passwordRules, teamInvitation }: Props) {
             </Form>
         </>
     );
-}
+};
 
 Register.layout = {
     title: 'Create an account',
     description: 'Enter your details below to create your account',
 };
+
+export default Register;

@@ -9,7 +9,7 @@ import {
 import { useCurrentUrl } from '@/hooks/use-current-url';
 import type { TNavItem } from '@/types/utils';
 
-export function NavMain({ items = [] }: { items: TNavItem[] }) {
+export const NavMain = ({ items = [] }: { items: TNavItem[] }) => {
     const { isCurrentUrl } = useCurrentUrl();
 
     return (
@@ -33,4 +33,4 @@ export function NavMain({ items = [] }: { items: TNavItem[] }) {
             </SidebarMenu>
         </SidebarGroup>
     );
-}
+};

@@ -1,7 +1,7 @@
 import { Form } from '@inertiajs/react';
 import type { ReactElement } from 'react';
 import { useState } from 'react';
-import InputError from '@/components/input-error';
+import { InputError } from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import {
     Dialog,
@@ -16,11 +16,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-export default function CreateTeamModal({
-    children,
-}: {
-    children: ReactElement;
-}) {
+export const CreateTeamModal = ({ children }: { children: ReactElement }) => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -79,4 +75,4 @@ export default function CreateTeamModal({
             </DialogContent>
         </Dialog>
     );
-}
+};

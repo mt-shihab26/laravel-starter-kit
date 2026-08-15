@@ -9,13 +9,13 @@ import {
 import { toUrl } from '@/lib/utils';
 import type { TNavItem } from '@/types/utils';
 
-export function NavFooter({
+export const NavFooter = ({
     items,
     className,
     ...props
 }: ComponentPropsWithoutRef<typeof SidebarGroup> & {
     items: TNavItem[];
-}) {
+}) => {
     return (
         <SidebarGroup
             {...props}
@@ -46,4 +46,4 @@ export function NavFooter({
             </SidebarGroupContent>
         </SidebarGroup>
     );
-}
+};

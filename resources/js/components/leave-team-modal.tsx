@@ -18,7 +18,7 @@ type Props = {
     onOpenChange: (open: boolean) => void;
 };
 
-export default function LeaveTeamModal({ team, open, onOpenChange }: Props) {
+export const LeaveTeamModal = ({ team, open, onOpenChange }: Props) => {
     const [processing, setProcessing] = useState(false);
 
     const leaveTeam = () => {
@@ -62,4 +62,4 @@ export default function LeaveTeamModal({ team, open, onOpenChange }: Props) {
             </DialogContent>
         </Dialog>
     );
-}
+};

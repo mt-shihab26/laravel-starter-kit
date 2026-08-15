@@ -1,6 +1,6 @@
-import AuthLayoutTemplate from './auth-simple-layout';
+import { AuthSimpleLayout as AuthLayoutTemplate } from './auth-simple-layout';
 
-export function AuthLayout({
+export const AuthLayout = ({
     title,
     description,
     children,
@@ -8,10 +8,10 @@ export function AuthLayout({
     title?: string;
     description?: string;
     children: React.ReactNode;
-}) {
+}) => {
     return (
         <AuthLayoutTemplate title={title} description={description}>
             {children}
         </AuthLayoutTemplate>
     );
-}
+};

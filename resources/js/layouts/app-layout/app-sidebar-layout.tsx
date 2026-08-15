@@ -11,10 +11,10 @@ type TAppLayoutProps = {
     breadcrumbs?: TBreadcrumb[];
 };
 
-export default function AppSidebarLayout({
+export const AppSidebarLayout = ({
     children,
     breadcrumbs = [],
-}: TAppLayoutProps) {
+}: TAppLayoutProps) => {
     return (
         <AppShell variant="sidebar">
             <AppSidebar />
@@ -24,4 +24,4 @@ export default function AppSidebarLayout({
             </AppContent>
         </AppShell>
     );
-}
+};

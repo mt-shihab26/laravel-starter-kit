@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 
-export default function PasswordInput({
+export const PasswordInput = ({
     className,
     ref,
     ...props
-}: Omit<ComponentProps<'input'>, 'type'> & { ref?: Ref<HTMLInputElement> }) {
+}: Omit<ComponentProps<'input'>, 'type'> & { ref?: Ref<HTMLInputElement> }) => {
     const [showPassword, setShowPassword] = useState(false);
 
     return (
@@ -34,4 +34,4 @@ export default function PasswordInput({
             </button>
         </div>
     );
-}
+};

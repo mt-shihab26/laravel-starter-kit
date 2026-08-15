@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react';
 import type { PropsWithChildren } from 'react';
-import Heading from '@/components/heading';
+import { Heading } from '@/components/heading';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { useCurrentUrl } from '@/hooks/use-current-url';
@@ -30,7 +30,7 @@ const sidebarNavItems: TNavItem[] = [
     },
 ];
 
-export function SettingsLayout({ children }: PropsWithChildren) {
+export const SettingsLayout = ({ children }: PropsWithChildren) => {
     const { isCurrentOrParentUrl } = useCurrentUrl();
 
     return (
@@ -77,4 +77,4 @@ export function SettingsLayout({ children }: PropsWithChildren) {
             </div>
         </div>
     );
-}
+};

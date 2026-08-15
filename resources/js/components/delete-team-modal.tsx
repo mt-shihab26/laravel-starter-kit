@@ -1,6 +1,6 @@
 import { Form } from '@inertiajs/react';
 import { useState } from 'react';
-import InputError from '@/components/input-error';
+import { InputError } from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import {
     Dialog,
@@ -21,7 +21,7 @@ type Props = {
     onOpenChange: (open: boolean) => void;
 };
 
-export default function DeleteTeamModal({ team, open, onOpenChange }: Props) {
+export const DeleteTeamModal = ({ team, open, onOpenChange }: Props) => {
     const [confirmationName, setConfirmationName] = useState('');
 
     const canDeleteTeam = confirmationName === team.name;
@@ -102,4 +102,4 @@ export default function DeleteTeamModal({ team, open, onOpenChange }: Props) {
             </DialogContent>
         </Dialog>
     );
-}
+};

@@ -15,7 +15,11 @@ export type TBreadcrumb = {
     href: NonNullable<InertiaLinkProps['href']>;
 };
 
-export function Breadcrumbs({ breadcrumbs }: { breadcrumbs: TBreadcrumb[] }) {
+export const Breadcrumbs = ({
+    breadcrumbs,
+}: {
+    breadcrumbs: TBreadcrumb[];
+}) => {
     return (
         <>
             {breadcrumbs.length > 0 && (
@@ -50,4 +54,4 @@ export function Breadcrumbs({ breadcrumbs }: { breadcrumbs: TBreadcrumb[] }) {
             )}
         </>
     );
-}
+};

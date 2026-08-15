@@ -23,11 +23,11 @@ type Props = {
     onOpenChange: (open: boolean) => void;
 };
 
-export default function PendingInvitationsModal({
+export const PendingInvitationsModal = ({
     invitations,
     open,
     onOpenChange,
-}: Props) {
+}: Props) => {
     const [processingCode, setProcessingCode] = useState<string | null>(null);
 
     const acceptInvitation = (invitation: TDashboardInvitation) => {
@@ -109,4 +109,4 @@ export default function PendingInvitationsModal({
             </DialogContent>
         </Dialog>
     );
-}
+};

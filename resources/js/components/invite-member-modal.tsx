@@ -1,6 +1,6 @@
 import { Form } from '@inertiajs/react';
 import { useState } from 'react';
-import InputError from '@/components/input-error';
+import { InputError } from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import {
     Dialog,
@@ -35,12 +35,12 @@ type Props = {
     onOpenChange: (open: boolean) => void;
 };
 
-export default function InviteMemberModal({
+export const InviteMemberModal = ({
     team,
     availableRoles,
     open,
     onOpenChange,
-}: Props) {
+}: Props) => {
     const [inviteRole, setInviteRole] =
         useState<TTeamRoleOption['value']>('member');
 
@@ -138,4 +138,4 @@ export default function InviteMemberModal({
             </DialogContent>
         </Dialog>
     );
-}
+};

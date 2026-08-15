@@ -1,14 +1,15 @@
 import { Form, Head, router } from '@inertiajs/react';
 import { ChevronDown, Mail, UserPlus, X } from 'lucide-react';
 import { useMemo, useState } from 'react';
-import CancelInvitationModal from '@/components/cancel-invitation-modal';
-import DeleteTeamModal from '@/components/delete-team-modal';
-import Heading from '@/components/heading';
-import InputError from '@/components/input-error';
-import InviteMemberModal, {
+import { CancelInvitationModal } from '@/components/cancel-invitation-modal';
+import { DeleteTeamModal } from '@/components/delete-team-modal';
+import { Heading } from '@/components/heading';
+import { InputError } from '@/components/input-error';
+import {
+    InviteMemberModal,
     type TTeamRoleOption,
 } from '@/components/invite-member-modal';
-import RemoveMemberModal from '@/components/remove-member-modal';
+import { RemoveMemberModal } from '@/components/remove-member-modal';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -47,13 +48,13 @@ type Props = {
     availableRoles: TTeamRoleOption[];
 };
 
-export default function TeamEdit({
+const TeamEdit = ({
     team,
     members,
     invitations,
     permissions,
     availableRoles,
-}: Props) {
+}: Props) => {
     const getInitials = useInitials();
 
     const [inviteDialogOpen, setInviteDialogOpen] = useState(false);
@@ -391,7 +392,7 @@ export default function TeamEdit({
             ) : null}
         </>
     );
-}
+};
 
 TeamEdit.layout = (props: { team: { id: number; name: string } }) => ({
     breadcrumbs: [
@@ -405,3 +406,5 @@ TeamEdit.layout = (props: { team: { id: number; name: string } }) => ({
         },
     ],
 });
+
+export default TeamEdit;

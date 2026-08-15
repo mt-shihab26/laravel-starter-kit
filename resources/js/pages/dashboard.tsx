@@ -1,5 +1,6 @@
 import { PlaceholderPattern } from '@/components/elements/placeholder-pattern';
-import PendingInvitationsModal, {
+import {
+    PendingInvitationsModal,
     type TDashboardInvitation,
 } from '@/components/pending-invitations-modal';
 import { Head } from '@inertiajs/react';
@@ -9,7 +10,7 @@ type Props = {
     pendingInvitations?: TDashboardInvitation[];
 };
 
-export default function Dashboard({ pendingInvitations = [] }: Props) {
+const Dashboard = ({ pendingInvitations = [] }: Props) => {
     const [showInvitations, setShowInvitations] = useState(
         pendingInvitations.length > 0,
     );
@@ -40,7 +41,7 @@ export default function Dashboard({ pendingInvitations = [] }: Props) {
             </div>
         </>
     );
-}
+};
 
 Dashboard.layout = (props: { currentTeam?: { id: number } | null }) => ({
     breadcrumbs: [
@@ -52,3 +53,5 @@ Dashboard.layout = (props: { currentTeam?: { id: number } | null }) => ({
         },
     ],
 });
+
+export default Dashboard;

@@ -1,8 +1,8 @@
 import { Head } from '@inertiajs/react';
-import AppearanceTabs from '@/components/appearance-tabs';
-import Heading from '@/components/heading';
+import { AppearanceToggleTab } from '@/components/appearance-tabs';
+import { Heading } from '@/components/heading';
 
-export default function Appearance() {
+const Appearance = () => {
     return (
         <>
             <Head title="Appearance settings" />
@@ -15,11 +15,11 @@ export default function Appearance() {
                     title="Appearance settings"
                     description="Update the appearance settings for your account"
                 />
-                <AppearanceTabs />
+                <AppearanceToggleTab />
             </div>
         </>
     );
-}
+};
 
 Appearance.layout = {
     breadcrumbs: [
@@ -29,3 +29,5 @@ Appearance.layout = {
         },
     ],
 };
+
+export default Appearance;

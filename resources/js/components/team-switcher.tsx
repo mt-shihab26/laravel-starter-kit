@@ -1,6 +1,6 @@
 import { router, usePage } from '@inertiajs/react';
 import { Check, ChevronsUpDown, Plus, Users } from 'lucide-react';
-import CreateTeamModal from '@/components/create-team-modal';
+import { CreateTeamModal } from '@/components/create-team-modal';
 import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
@@ -17,7 +17,7 @@ type TeamSwitcherProps = {
     inHeader?: boolean;
 };
 
-export function TeamSwitcher({ inHeader = false }: TeamSwitcherProps) {
+export const TeamSwitcher = ({ inHeader = false }: TeamSwitcherProps) => {
     const page = usePage();
     const isMobile = useIsMobile();
     const currentTeam = page.props.auth.currentTeam;
@@ -152,4 +152,4 @@ export function TeamSwitcher({ inHeader = false }: TeamSwitcherProps) {
             </DropdownMenuContent>
         </DropdownMenu>
     );
-}
+};

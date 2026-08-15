@@ -1,6 +1,6 @@
 import { Link, usePage } from '@inertiajs/react';
 import { BookOpen, FolderGit2, LayoutGrid } from 'lucide-react';
-import AppLogo from '@/components/app-logo';
+import { AppLogo } from '@/components/app-logo';
 import type { TNavItem } from '@/types/utils';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
@@ -16,7 +16,7 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 
-export function AppSidebar() {
+export const AppSidebar = () => {
     const page = usePage();
     const dashboardUrl = page.props.auth.currentTeam
         ? route('dashboard', page.props.auth.currentTeam.id)
@@ -75,4 +75,4 @@ export function AppSidebar() {
             </SidebarFooter>
         </Sidebar>
     );
-}
+};

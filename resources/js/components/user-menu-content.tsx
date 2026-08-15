@@ -14,7 +14,7 @@ type Props = {
     user: TUser;
 };
 
-export function UserMenuContent({ user }: Props) {
+export const UserMenuContent = ({ user }: Props) => {
     const cleanup = useMobileNavigation();
 
     const handleLogout = () => {
@@ -62,4 +62,4 @@ export function UserMenuContent({ user }: Props) {
             />
         </>
     );
-}
+};

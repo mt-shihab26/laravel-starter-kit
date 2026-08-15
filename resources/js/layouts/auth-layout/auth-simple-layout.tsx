@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import AppLogoIcon from '@/components/app-logo-icon';
+import { AppLogoIcon } from '@/components/app-logo-icon';
 import type { ReactNode } from 'react';
 
 export type TAuthLayoutProps = {
@@ -9,11 +9,11 @@ export type TAuthLayoutProps = {
     description?: string;
 };
 
-export default function AuthSimpleLayout({
+export const AuthSimpleLayout = ({
     children,
     title,
     description,
-}: TAuthLayoutProps) {
+}: TAuthLayoutProps) => {
     return (
         <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-background p-6 md:p-10">
             <div className="w-full max-w-sm">
@@ -41,4 +41,4 @@ export default function AuthSimpleLayout({
             </div>
         </div>
     );
-}
+};

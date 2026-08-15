@@ -1,7 +1,7 @@
 import { Form } from '@inertiajs/react';
 import { Eye, EyeOff, LockKeyhole, RefreshCw } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import AlertError from '@/components/alert-error';
+import { AlertError } from '@/components/alert-error';
 import { Button } from '@/components/ui/button';
 import {
     Card,
@@ -17,11 +17,11 @@ type Props = {
     errors: string[];
 };
 
-export default function TwoFactorRecoveryCodes({
+export const TwoFactorRecoveryCodes = ({
     recoveryCodesList,
     fetchRecoveryCodes,
     errors,
-}: Props) {
+}: Props) => {
     const [codesAreVisible, setCodesAreVisible] = useState<boolean>(false);
     const codesSectionRef = useRef<HTMLDivElement | null>(null);
     const canRegenerateCodes = recoveryCodesList.length > 0 && codesAreVisible;
@@ -163,4 +163,4 @@ export default function TwoFactorRecoveryCodes({
             </CardContent>
         </Card>
     );
-}
+};
