@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\TeamInvitation;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 use Inertia\Response;
 
 class DashboardController extends Controller
@@ -30,7 +29,7 @@ class DashboardController extends Controller
                 ],
             ]);
 
-        return Inertia::render('dashboard', [
+        return inertia('dashboard', [
             'pendingInvitations' => $pendingInvitations,
         ]);
     }
