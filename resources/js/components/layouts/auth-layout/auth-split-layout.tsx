@@ -1,19 +1,19 @@
-import { Link, usePage } from '@inertiajs/react';
-import { AppLogoIcon } from '@/components/app-logo-icon';
 import type { ReactNode } from 'react';
 
-export type TAuthLayoutProps = {
-    children?: ReactNode;
-    name?: string;
-    title?: string;
-    description?: string;
-};
+import { usePage } from '@inertiajs/react';
+
+import { Link } from '@inertiajs/react';
+import { AppLogoIcon } from '@/components/app-logo-icon';
 
 export const AuthSplitLayout = ({
     children,
     title,
     description,
-}: TAuthLayoutProps) => {
+}: {
+    children?: ReactNode;
+    title?: string;
+    description?: string;
+}) => {
     const { name } = usePage().props;
 
     return (
@@ -29,7 +29,7 @@ export const AuthSplitLayout = ({
                 </Link>
             </div>
             <div className="w-full lg:p-8">
-                <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+                <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-87.5">
                     <Link
                         href={route('home')}
                         className="relative z-20 flex items-center justify-center lg:hidden"

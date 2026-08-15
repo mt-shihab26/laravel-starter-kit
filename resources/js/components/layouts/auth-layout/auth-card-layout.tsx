@@ -1,6 +1,3 @@
-import { Link } from '@inertiajs/react';
-import type { PropsWithChildren } from 'react';
-import { AppLogoIcon } from '@/components/app-logo-icon';
 import {
     Card,
     CardContent,
@@ -9,15 +6,20 @@ import {
     CardTitle,
 } from '@/components/ui/card';
 
+import type { ReactNode } from 'react';
+
+import { Link } from '@inertiajs/react';
+import { AppLogoIcon } from '@/components/app-logo-icon';
+
 export const AuthCardLayout = ({
     children,
     title,
     description,
-}: PropsWithChildren<{
-    name?: string;
-    title?: string;
+}: {
+    children: ReactNode;
+    title: string;
     description?: string;
-}>) => {
+}) => {
     return (
         <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10">
             <div className="flex w-full max-w-md flex-col gap-6">

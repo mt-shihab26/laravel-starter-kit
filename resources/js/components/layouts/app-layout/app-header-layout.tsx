@@ -5,12 +5,13 @@ import { AppContent } from '@/components/app-content';
 import { AppHeader } from '@/components/app-header';
 import { AppShell } from '@/components/app-shell';
 
-type TAppLayoutProps = {
+export const AppHeaderLayout = ({
+    children,
+    breadcrumbs,
+}: {
     children: ReactNode;
     breadcrumbs?: TBreadcrumb[];
-};
-
-export const AppHeaderLayout = ({ children, breadcrumbs }: TAppLayoutProps) => {
+}) => {
     return (
         <AppShell variant="header">
             <AppHeader breadcrumbs={breadcrumbs} />
