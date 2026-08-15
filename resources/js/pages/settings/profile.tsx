@@ -1,4 +1,4 @@
-import { Form, Head, usePage } from '@inertiajs/react';
+import { Form, usePage } from '@inertiajs/react';
 import { Link } from '@inertiajs/react';
 import { DeleteUser } from '@/components/delete-user';
 import { Heading } from '@/components/heading';
@@ -22,8 +22,6 @@ const Profile = ({
             title="Profile settings"
             description="Update your name and email address"
         >
-            <Head title="Profile settings" />
-
             <h1 className="sr-only">Profile settings</h1>
 
             <div className="space-y-6">

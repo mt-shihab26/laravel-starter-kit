@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { Eye, LogOut, Pencil, Plus } from 'lucide-react';
 import { useState } from 'react';
 import { CreateTeamModal } from '@/components/create-team-modal';
@@ -33,8 +33,6 @@ const TeamsIndex = ({ teams }: Props) => {
             title="Teams"
             description="Manage your teams and team memberships"
         >
-            <Head title="Teams" />
-
             <h1 className="sr-only">Teams</h1>
 
             <div className="flex flex-col space-y-6">

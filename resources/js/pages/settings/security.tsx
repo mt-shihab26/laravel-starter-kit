@@ -1,4 +1,4 @@
-import { Form, Head } from '@inertiajs/react';
+import { Form } from '@inertiajs/react';
 import { useRef } from 'react';
 import { Heading } from '@/components/heading';
 import { InputError } from '@/components/input-error';
@@ -25,8 +25,6 @@ const Security = (props: Props) => {
             title="Security settings"
             description="Ensure your account is using a long, random password to stay secure"
         >
-            <Head title="Security settings" />
-
             <h1 className="sr-only">Security settings</h1>
 
             <div className="space-y-6">

@@ -1,5 +1,5 @@
 // Components
-import { Form, Head } from '@inertiajs/react';
+import { Form } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { InputError } from '@/components/input-error';
 import { TextLink } from '@/components/text-link';
@@ -14,8 +14,6 @@ const ForgotPassword = ({ status }: { status?: string }) => {
             title="Forgot password"
             description="Enter your email to receive a password reset link"
         >
-            <Head title="Forgot password" />
-
             {status && (
                 <div className="mb-4 text-center text-sm font-medium text-green-600">
                     {status}

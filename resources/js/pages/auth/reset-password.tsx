@@ -1,4 +1,4 @@
-import { Form, Head } from '@inertiajs/react';
+import { Form } from '@inertiajs/react';
 import { InputError } from '@/components/input-error';
 import { PasswordInput } from '@/components/password-input';
 import { Button } from '@/components/ui/button';
@@ -19,8 +19,6 @@ const ResetPassword = ({ token, email, passwordRules }: Props) => {
             title="Reset password"
             description="Please enter your new password below"
         >
-            <Head title="Reset password" />
-
             <Form
                 action={route('password.update')}
                 method="post"

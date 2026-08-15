@@ -1,4 +1,3 @@
-import { Head } from '@inertiajs/react';
 import { AppearanceToggleTab } from '@/components/appearance-tabs';
 import { Heading } from '@/components/heading';
 import { SettingsLayout } from '@/components/layouts/settings-layout';
@@ -9,8 +8,6 @@ const Appearance = () => {
             title="Appearance settings"
             description="Update the appearance settings for your account"
         >
-            <Head title="Appearance settings" />
-
             <h1 className="sr-only">Appearance settings</h1>
 
             <div className="space-y-6">

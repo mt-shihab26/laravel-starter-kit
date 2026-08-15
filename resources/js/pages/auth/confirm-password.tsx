@@ -1,4 +1,4 @@
-import { Form, Head } from '@inertiajs/react';
+import { Form } from '@inertiajs/react';
 import { InputError } from '@/components/input-error';
 import { PasskeyVerify } from '@/components/passkey-verify';
 import { PasswordInput } from '@/components/password-input';
@@ -13,8 +13,6 @@ const ConfirmPassword = () => {
             title="Confirm password"
             description="This is a secure area of the application. Please confirm your password before continuing."
         >
-            <Head title="Confirm password" />
-
             <PasskeyVerify
                 routes={{
                     options: {

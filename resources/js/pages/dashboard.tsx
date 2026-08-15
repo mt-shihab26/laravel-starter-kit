@@ -4,7 +4,7 @@ import {
     type TDashboardInvitation,
 } from '@/components/pending-invitations-modal';
 import { AppLayout } from '@/components/layouts/app-layout';
-import { Head, usePage } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 import { useState } from 'react';
 
 type Props = {
@@ -28,7 +28,6 @@ const Dashboard = ({ pendingInvitations = [] }: Props) => {
                 },
             ]}
         >
-            <Head title="Dashboard" />
             <PendingInvitationsModal
                 invitations={pendingInvitations}
                 open={pendingInvitations.length > 0 && showInvitations}

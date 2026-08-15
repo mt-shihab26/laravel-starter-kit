@@ -1,4 +1,4 @@
-import { Form, Head, router } from '@inertiajs/react';
+import { Form, router } from '@inertiajs/react';
 import { ChevronDown, Mail, UserPlus, X } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { CancelInvitationModal } from '@/components/cancel-invitation-modal';
@@ -96,9 +96,10 @@ const TeamEdit = ({
     };
 
     return (
-        <SettingsLayout title={pageTitle} description="Update your team name and settings">
-            <Head title={pageTitle} />
-
+        <SettingsLayout
+            title={pageTitle}
+            description="Update your team name and settings"
+        >
             <h1 className="sr-only">{pageTitle}</h1>
 
             <div className="flex flex-col space-y-10">

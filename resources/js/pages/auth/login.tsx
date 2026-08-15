@@ -1,4 +1,4 @@
-import { Form, Head } from '@inertiajs/react';
+import { Form } from '@inertiajs/react';
 import { InputError } from '@/components/input-error';
 import { PasskeyVerify } from '@/components/passkey-verify';
 import { PasswordInput } from '@/components/password-input';
@@ -26,8 +26,6 @@ const Login = ({ status, canResetPassword, teamInvitation }: Props) => {
             title="Log in to your account"
             description="Enter your email and password below to log in"
         >
-            <Head title="Log in" />
-
             {teamInvitation && (
                 <TeamInvitationAlert
                     invitation={teamInvitation}

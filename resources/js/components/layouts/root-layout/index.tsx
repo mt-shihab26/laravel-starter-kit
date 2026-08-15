@@ -19,8 +19,7 @@ export const RootLayout = ({
 
     return (
         <TooltipProvider delay={0}>
-            <Head>
-                <title>{title}</title>
+            <Head title={title}>
                 <meta name="description" content={description ?? ''} />
             </Head>
             {children}

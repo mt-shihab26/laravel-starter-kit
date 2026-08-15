@@ -1,4 +1,4 @@
-import { Form, Head } from '@inertiajs/react';
+import { Form } from '@inertiajs/react';
 import { InputError } from '@/components/input-error';
 import { PasswordInput } from '@/components/password-input';
 import {
@@ -23,7 +23,6 @@ const Register = ({ passwordRules, teamInvitation }: Props) => {
             title="Create an account"
             description="Enter your details below to create your account"
         >
-            <Head title="Register" />
             <Form
                 action={route('register.store')}
                 method="post"
