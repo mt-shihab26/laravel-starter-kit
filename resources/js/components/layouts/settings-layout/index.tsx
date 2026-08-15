@@ -1,37 +1,14 @@
 import type { ReactNode } from 'react';
 
+import { settingsLinks } from '@/lib/links';
 import { useCurrentUrl } from '@/hooks/use-current-url';
 import { cn, toUrl } from '@/lib/utils';
 
 import { Link } from '@inertiajs/react';
-import { Lock, Palette, User, Users } from 'lucide-react';
 import { Heading } from '@/components/elements/heading';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { AppLayout } from '@/components/layouts/app-layout';
-
-const links = [
-    {
-        title: 'Profile',
-        href: route('settings.profile.edit'),
-        icon: User,
-    },
-    {
-        title: 'Security',
-        href: route('settings.security.edit'),
-        icon: Lock,
-    },
-    {
-        title: 'Teams',
-        href: route('teams.index'),
-        icon: Users,
-    },
-    {
-        title: 'Appearance',
-        href: route('settings.appearance.edit'),
-        icon: Palette,
-    },
-];
 
 export const SettingsLayout = ({
     title,
@@ -57,7 +34,7 @@ export const SettingsLayout = ({
                             className="flex flex-col space-y-1 space-x-0"
                             aria-label="Settings"
                         >
-                            {links.map((item, index) => (
+                            {settingsLinks().map((item, index) => (
                                 <Button
                                     key={`${toUrl(item.href)}-${index}`}
                                     size="sm"

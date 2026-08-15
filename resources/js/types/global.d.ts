@@ -1,5 +1,5 @@
-import type { TTeam } from '@/types/teams';
 import type { route as routeFn } from 'ziggy-js';
+import type { TTeam, TUser } from './models';
 
 declare module 'react' {
     interface InputHTMLAttributes<T> {
