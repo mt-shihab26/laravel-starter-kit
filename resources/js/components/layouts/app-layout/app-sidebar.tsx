@@ -48,7 +48,7 @@ export const AppSidebar = () => {
     ];
 
     return (
-        <Sidebar collapsible="icon" variant="inset">
+        <Sidebar collapsible="icon" variant="floating">
             <SidebarHeader>
                 <SidebarMenu>
                     <SidebarMenuItem>
