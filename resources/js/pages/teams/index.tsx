@@ -12,6 +12,7 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { SettingsLayout } from '@/components/layouts/settings-layout';
 import type { TTeam } from '@/types/models';
 
 type Props = {
@@ -28,7 +29,10 @@ const TeamsIndex = ({ teams }: Props) => {
     };
 
     return (
-        <>
+        <SettingsLayout
+            title="Teams"
+            description="Manage your teams and team memberships"
+        >
             <Head title="Teams" />
 
             <h1 className="sr-only">Teams</h1>
@@ -173,17 +177,8 @@ const TeamsIndex = ({ teams }: Props) => {
                 open={leaveTeamDialogOpen}
                 onOpenChange={setLeaveTeamDialogOpen}
             />
-        </>
+        </SettingsLayout>
     );
-};
-
-TeamsIndex.layout = {
-    breadcrumbs: [
-        {
-            title: 'Teams',
-            href: route('teams.index'),
-        },
-    ],
 };
 
 export default TeamsIndex;

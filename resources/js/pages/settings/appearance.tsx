@@ -1,10 +1,14 @@
 import { Head } from '@inertiajs/react';
 import { AppearanceToggleTab } from '@/components/appearance-tabs';
 import { Heading } from '@/components/heading';
+import { SettingsLayout } from '@/components/layouts/settings-layout';
 
 const Appearance = () => {
     return (
-        <>
+        <SettingsLayout
+            title="Appearance settings"
+            description="Update the appearance settings for your account"
+        >
             <Head title="Appearance settings" />
 
             <h1 className="sr-only">Appearance settings</h1>
@@ -17,17 +21,8 @@ const Appearance = () => {
                 />
                 <AppearanceToggleTab />
             </div>
-        </>
+        </SettingsLayout>
     );
-};
-
-Appearance.layout = {
-    breadcrumbs: [
-        {
-            title: 'Appearance settings',
-            href: route('appearance.edit'),
-        },
-    ],
 };
 
 export default Appearance;

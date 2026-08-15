@@ -7,7 +7,7 @@
         "build:ssr": "vite build && vite build --ssr",
         "dev": "vite",
         "format": "prettier --write .",
-        "lint": "tsc --noEmit"
+        "lint": "tsc"
     },
     "dependencies": {
         "@base-ui/react": "^1.7.0",

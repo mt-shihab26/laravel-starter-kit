@@ -3,10 +3,14 @@ import { Form, Head } from '@inertiajs/react';
 import { TextLink } from '@/components/text-link';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
+import { AuthLayout } from '@/components/layouts/auth-layout';
 
 const VerifyEmail = ({ status }: { status?: string }) => {
     return (
-        <>
+        <AuthLayout
+            title="Email verification"
+            description="Please verify your email address by clicking on the link we just emailed to you."
+        >
             <Head title="Email verification" />
 
             {status === 'verification-link-sent' && (
@@ -37,14 +41,8 @@ const VerifyEmail = ({ status }: { status?: string }) => {
                     </>
                 )}
             </Form>
-        </>
+        </AuthLayout>
     );
-};
-
-VerifyEmail.layout = {
-    title: 'Email verification',
-    description:
-        'Please verify your email address by clicking on the link we just emailed to you.',
 };
 
 export default VerifyEmail;

@@ -28,6 +28,7 @@ import {
     TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { useInitials } from '@/hooks/use-initials';
+import { SettingsLayout } from '@/components/layouts/settings-layout';
 import type { TTeam, TTeamInvitation, TTeamMember } from '@/types/models';
 
 export type TTeamPermissions = {
@@ -95,7 +96,7 @@ const TeamEdit = ({
     };
 
     return (
-        <>
+        <SettingsLayout title={pageTitle} description="Update your team name and settings">
             <Head title={pageTitle} />
 
             <h1 className="sr-only">{pageTitle}</h1>
@@ -390,21 +391,8 @@ const TeamEdit = ({
                     onOpenChange={setDeleteDialogOpen}
                 />
             ) : null}
-        </>
+        </SettingsLayout>
     );
 };
-
-TeamEdit.layout = (props: { team: { id: number; name: string } }) => ({
-    breadcrumbs: [
-        {
-            title: 'Teams',
-            href: route('teams.index'),
-        },
-        {
-            title: props.team.name,
-            href: route('teams.edit', props.team.id),
-        },
-    ],
-});
 
 export default TeamEdit;

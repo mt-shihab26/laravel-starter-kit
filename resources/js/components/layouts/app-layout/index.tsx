@@ -1,8 +1,8 @@
 import type { TBreadcrumb } from '@/components/breadcrumbs';
 import type { ReactNode } from 'react';
 
-import { AppSidebarLayout } from '@/layouts/app-layout/app-sidebar-layout';
-import { RootLayout } from '@/layouts/root-layout';
+import { AppSidebarLayout } from '@/components/layouts/app-layout/app-sidebar-layout';
+import { RootLayout } from '@/components/layouts/root-layout';
 
 export const AppLayout = ({
     title,

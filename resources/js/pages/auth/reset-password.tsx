@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
+import { AuthLayout } from '@/components/layouts/auth-layout';
 
 type Props = {
     token: string;
@@ -14,7 +15,10 @@ type Props = {
 
 const ResetPassword = ({ token, email, passwordRules }: Props) => {
     return (
-        <>
+        <AuthLayout
+            title="Reset password"
+            description="Please enter your new password below"
+        >
             <Head title="Reset password" />
 
             <Form
@@ -86,13 +90,8 @@ const ResetPassword = ({ token, email, passwordRules }: Props) => {
                     </div>
                 )}
             </Form>
-        </>
+        </AuthLayout>
     );
-};
-
-ResetPassword.layout = {
-    title: 'Reset password',
-    description: 'Please enter your new password below',
 };
 
 export default ResetPassword;

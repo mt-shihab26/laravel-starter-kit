@@ -9,6 +9,7 @@ import { ManageTwoFactor } from '@/components/manage-two-factor';
 import { PasswordInput } from '@/components/password-input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
+import { SettingsLayout } from '@/components/layouts/settings-layout';
 
 type Props = {
     passwordRules: string;
@@ -20,7 +21,10 @@ const Security = (props: Props) => {
     const currentPasswordInput = useRef<HTMLInputElement>(null);
 
     return (
-        <>
+        <SettingsLayout
+            title="Security settings"
+            description="Ensure your account is using a long, random password to stay secure"
+        >
             <Head title="Security settings" />
 
             <h1 className="sr-only">Security settings</h1>
@@ -132,17 +136,8 @@ const Security = (props: Props) => {
                 canManagePasskeys={props.canManagePasskeys}
                 passkeys={props.passkeys}
             />
-        </>
+        </SettingsLayout>
     );
-};
-
-Security.layout = {
-    breadcrumbs: [
-        {
-            title: 'Security settings',
-            href: route('security.edit'),
-        },
-    ],
 };
 
 export default Security;

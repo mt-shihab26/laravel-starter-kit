@@ -5,10 +5,14 @@ import { PasswordInput } from '@/components/password-input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
+import { AuthLayout } from '@/components/layouts/auth-layout';
 
 const ConfirmPassword = () => {
     return (
-        <>
+        <AuthLayout
+            title="Confirm password"
+            description="This is a secure area of the application. Please confirm your password before continuing."
+        >
             <Head title="Confirm password" />
 
             <PasskeyVerify
@@ -57,14 +61,8 @@ const ConfirmPassword = () => {
                     </div>
                 )}
             </Form>
-        </>
+        </AuthLayout>
     );
-};
-
-ConfirmPassword.layout = {
-    title: 'Confirm password',
-    description:
-        'This is a secure area of the application. Please confirm your password before continuing.',
 };
 
 export default ConfirmPassword;

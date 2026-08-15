@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
+import { AuthLayout } from '@/components/layouts/auth-layout';
 
 type Props = {
     passwordRules: string;
@@ -18,7 +19,10 @@ type Props = {
 
 const Register = ({ passwordRules, teamInvitation }: Props) => {
     return (
-        <>
+        <AuthLayout
+            title="Create an account"
+            description="Enter your details below to create your account"
+        >
             <Head title="Register" />
             <Form
                 action={route('register.store')}
@@ -131,13 +135,8 @@ const Register = ({ passwordRules, teamInvitation }: Props) => {
                     </>
                 )}
             </Form>
-        </>
+        </AuthLayout>
     );
-};
-
-Register.layout = {
-    title: 'Create an account',
-    description: 'Enter your details below to create your account',
 };
 
 export default Register;

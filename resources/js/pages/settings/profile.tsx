@@ -6,6 +6,7 @@ import { InputError } from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { SettingsLayout } from '@/components/layouts/settings-layout';
 
 const Profile = ({
     mustVerifyEmail,
@@ -17,7 +18,10 @@ const Profile = ({
     const { auth } = usePage().props;
 
     return (
-        <>
+        <SettingsLayout
+            title="Profile settings"
+            description="Update your name and email address"
+        >
             <Head title="Profile settings" />
 
             <h1 className="sr-only">Profile settings</h1>
@@ -122,17 +126,8 @@ const Profile = ({
             </div>
 
             <DeleteUser />
-        </>
+        </SettingsLayout>
     );
-};
-
-Profile.layout = {
-    breadcrumbs: [
-        {
-            title: 'Profile settings',
-            href: route('profile.edit'),
-        },
-    ],
 };
 
 export default Profile;

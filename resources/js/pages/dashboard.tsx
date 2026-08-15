@@ -3,7 +3,8 @@ import {
     PendingInvitationsModal,
     type TDashboardInvitation,
 } from '@/components/pending-invitations-modal';
-import { Head } from '@inertiajs/react';
+import { AppLayout } from '@/components/layouts/app-layout';
+import { Head, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 
 type Props = {
@@ -11,12 +12,22 @@ type Props = {
 };
 
 const Dashboard = ({ pendingInvitations = [] }: Props) => {
+    const { currentTeam } = usePage().props.auth;
     const [showInvitations, setShowInvitations] = useState(
         pendingInvitations.length > 0,
     );
 
     return (
-        <>
+        <AppLayout
+            title="Dashboard"
+            description="Overview of your account activity"
+            breadcrumbs={[
+                {
+                    title: 'Dashboard',
+                    href: currentTeam ? route('dashboard', currentTeam.id) : '/',
+                },
+            ]}
+        >
             <Head title="Dashboard" />
             <PendingInvitationsModal
                 invitations={pendingInvitations}
@@ -39,19 +50,8 @@ const Dashboard = ({ pendingInvitations = [] }: Props) => {
                     <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
                 </div>
             </div>
-        </>
+        </AppLayout>
     );
 };
-
-Dashboard.layout = (props: { currentTeam?: { id: number } | null }) => ({
-    breadcrumbs: [
-        {
-            title: 'Dashboard',
-            href: props.currentTeam
-                ? route('dashboard', props.currentTeam.id)
-                : '/',
-        },
-    ],
-});
 
 export default Dashboard;

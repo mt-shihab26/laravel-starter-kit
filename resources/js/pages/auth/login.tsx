@@ -12,6 +12,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
+import { AuthLayout } from '@/components/layouts/auth-layout';
 
 type Props = {
     status?: string;
@@ -21,7 +22,10 @@ type Props = {
 
 const Login = ({ status, canResetPassword, teamInvitation }: Props) => {
     return (
-        <>
+        <AuthLayout
+            title="Log in to your account"
+            description="Enter your email and password below to log in"
+        >
             <Head title="Log in" />
 
             {teamInvitation && (
@@ -123,13 +127,8 @@ const Login = ({ status, canResetPassword, teamInvitation }: Props) => {
                     {status}
                 </div>
             )}
-        </>
+        </AuthLayout>
     );
-};
-
-Login.layout = {
-    title: 'Log in to your account',
-    description: 'Enter your email and password below to log in',
 };
 
 export default Login;
