@@ -14,7 +14,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
-use Inertia\Inertia;
 
 class TeamInvitationController extends Controller
 {
@@ -35,9 +34,9 @@ class TeamInvitationController extends Controller
         Notification::route('mail', $invitation->email)
             ->notify(new TeamInvitationNotification($invitation));
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => __('Invitation sent.')]);
-
-        return to_route('teams.edit', ['team' => $team->id]);
+        return redirect()
+            ->route('teams.edit', ['team' => $team->id])
+            ->with('success', __('Invitation sent.'));
     }
 
     /**
@@ -51,9 +50,9 @@ class TeamInvitationController extends Controller
 
         $invitation->delete();
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => __('Invitation cancelled.')]);
-
-        return to_route('teams.edit', ['team' => $team->id]);
+        return redirect()
+            ->route('teams.edit', ['team' => $team->id])
+            ->with('success', __('Invitation cancelled.'));
     }
 
     /**
@@ -76,9 +75,9 @@ class TeamInvitationController extends Controller
             $user->switchTeam($team);
         });
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => __('Invitation accepted.')]);
-
-        return to_route('dashboard');
+        return redirect()
+            ->route('dashboard')
+            ->with('success', __('Invitation accepted.'));
     }
 
     /**
@@ -88,8 +87,8 @@ class TeamInvitationController extends Controller
     {
         $invitation->delete();
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => __('Invitation declined.')]);
-
-        return to_route('dashboard');
+        return redirect()
+            ->route('dashboard')
+            ->with('success', __('Invitation declined.'));
     }
 }

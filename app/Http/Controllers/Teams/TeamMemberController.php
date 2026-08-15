@@ -10,7 +10,6 @@ use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 
 class TeamMemberController extends Controller
 {
@@ -28,9 +27,9 @@ class TeamMemberController extends Controller
             ->firstOrFail()
             ->update(['role' => $newRole]);
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => __('Member role updated.')]);
-
-        return to_route('teams.edit', ['team' => $team->id]);
+        return redirect()
+            ->route('teams.edit', ['team' => $team->id])
+            ->with('success', __('Member role updated.'));
     }
 
     /**
@@ -50,8 +49,8 @@ class TeamMemberController extends Controller
             $user->switchTeam($user->personalTeam());
         }
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => __('Member removed.')]);
-
-        return to_route('teams.edit', ['team' => $team->id]);
+        return redirect()
+            ->route('teams.edit', ['team' => $team->id])
+            ->with('success', __('Member removed.'));
     }
 }

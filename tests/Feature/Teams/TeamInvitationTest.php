@@ -190,7 +190,7 @@ test('team invitations can be accepted', function () {
         ->post(route('invitations.accept', $invitation));
 
     $response->assertRedirect(route('dashboard'));
-    $response->assertInertiaFlash('toast', ['type' => 'success', 'message' => 'Invitation accepted.']);
+    $response->assertSessionHas('success', 'Invitation accepted.');
 
     expect($invitedUser->fresh()->belongsToTeam($team))->toBeTrue();
     expect($invitation->fresh()->accepted_at)->not->toBeNull();

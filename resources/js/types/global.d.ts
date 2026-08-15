@@ -21,6 +21,12 @@ declare module '@inertiajs/core' {
                 currentTeam: TTeam | null;
                 teams: TTeam[];
             };
+            flash: {
+                success: string | null;
+                error: string | null;
+                info: string | null;
+                warning: string | null;
+            };
         };
     }
 }
