@@ -199,16 +199,18 @@ export default function TeamEdit({
                                     {member.role !== 'owner' &&
                                     permissions.canUpdateMember ? (
                                         <DropdownMenu>
-                                            <DropdownMenuTrigger asChild>
-                                                <Button
-                                                    variant="outline"
-                                                    size="sm"
-                                                    data-test="member-role-trigger"
-                                                >
-                                                    {member.role_label}
-                                                    <ChevronDown className="ml-2 h-4 w-4 opacity-50" />
-                                                </Button>
-                                            </DropdownMenuTrigger>
+                                            <DropdownMenuTrigger
+                                                render={
+                                                    <Button
+                                                        variant="outline"
+                                                        size="sm"
+                                                        data-test="member-role-trigger"
+                                                    >
+                                                        {member.role_label}
+                                                        <ChevronDown className="ml-2 h-4 w-4 opacity-50" />
+                                                    </Button>
+                                                }
+                                            />
                                             <DropdownMenuContent>
                                                 {availableRoles.map((role) => (
                                                     <DropdownMenuItem
@@ -236,20 +238,22 @@ export default function TeamEdit({
                                     permissions.canRemoveMember ? (
                                         <TooltipProvider>
                                             <Tooltip>
-                                                <TooltipTrigger asChild>
-                                                    <Button
-                                                        variant="ghost"
-                                                        size="sm"
-                                                        data-test="member-remove-button"
-                                                        onClick={() =>
-                                                            confirmRemoveMember(
-                                                                member,
-                                                            )
-                                                        }
-                                                    >
-                                                        <X className="h-4 w-4" />
-                                                    </Button>
-                                                </TooltipTrigger>
+                                                <TooltipTrigger
+                                                    render={
+                                                        <Button
+                                                            variant="ghost"
+                                                            size="sm"
+                                                            data-test="member-remove-button"
+                                                            onClick={() =>
+                                                                confirmRemoveMember(
+                                                                    member,
+                                                                )
+                                                            }
+                                                        >
+                                                            <X className="h-4 w-4" />
+                                                        </Button>
+                                                    }
+                                                />
                                                 <TooltipContent>
                                                     <p>Remove member</p>
                                                 </TooltipContent>
@@ -294,20 +298,22 @@ export default function TeamEdit({
                                     {permissions.canCancelInvitation ? (
                                         <TooltipProvider>
                                             <Tooltip>
-                                                <TooltipTrigger asChild>
-                                                    <Button
-                                                        variant="ghost"
-                                                        size="sm"
-                                                        data-test="invitation-cancel-button"
-                                                        onClick={() =>
-                                                            confirmCancelInvitation(
-                                                                invitation,
-                                                            )
-                                                        }
-                                                    >
-                                                        <X className="h-4 w-4" />
-                                                    </Button>
-                                                </TooltipTrigger>
+                                                <TooltipTrigger
+                                                    render={
+                                                        <Button
+                                                            variant="ghost"
+                                                            size="sm"
+                                                            data-test="invitation-cancel-button"
+                                                            onClick={() =>
+                                                                confirmCancelInvitation(
+                                                                    invitation,
+                                                                )
+                                                            }
+                                                        >
+                                                            <X className="h-4 w-4" />
+                                                        </Button>
+                                                    }
+                                                />
                                                 <TooltipContent>
                                                     <p>Cancel invitation</p>
                                                 </TooltipContent>

@@ -49,11 +49,14 @@ export function AppSidebar() {
             <SidebarHeader>
                 <SidebarMenu>
                     <SidebarMenuItem>
-                        <SidebarMenuButton size="lg" asChild>
-                            <Link href={dashboardUrl} prefetch>
-                                <AppLogo />
-                            </Link>
-                        </SidebarMenuButton>
+                        <SidebarMenuButton
+                            size="lg"
+                            render={
+                                <Link href={dashboardUrl} prefetch>
+                                    <AppLogo />
+                                </Link>
+                            }
+                        />
                     </SidebarMenuItem>
                 </SidebarMenu>
                 <SidebarMenu>

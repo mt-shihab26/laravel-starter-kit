@@ -82,20 +82,22 @@ export default function TeamsIndex({ teams }: Props) {
                                     <div className="flex items-center gap-2">
                                         {canLeaveTeam ? (
                                             <Tooltip>
-                                                <TooltipTrigger asChild>
-                                                    <Button
-                                                        variant="ghost"
-                                                        size="sm"
-                                                        data-test="team-leave-button"
-                                                        onClick={() =>
-                                                            openLeaveTeamDialog(
-                                                                team,
-                                                            )
-                                                        }
-                                                    >
-                                                        <LogOut className="h-4 w-4" />
-                                                    </Button>
-                                                </TooltipTrigger>
+                                                <TooltipTrigger
+                                                    render={
+                                                        <Button
+                                                            variant="ghost"
+                                                            size="sm"
+                                                            data-test="team-leave-button"
+                                                            onClick={() =>
+                                                                openLeaveTeamDialog(
+                                                                    team,
+                                                                )
+                                                            }
+                                                        >
+                                                            <LogOut className="h-4 w-4" />
+                                                        </Button>
+                                                    }
+                                                />
                                                 <TooltipContent>
                                                     <p>Leave team</p>
                                                 </TooltipContent>
@@ -104,44 +106,48 @@ export default function TeamsIndex({ teams }: Props) {
 
                                         {team.role === 'member' ? (
                                             <Tooltip>
-                                                <TooltipTrigger asChild>
-                                                    <Button
-                                                        variant="ghost"
-                                                        size="sm"
-                                                        data-test="team-view-button"
-                                                        asChild
-                                                    >
-                                                        <Link
-                                                            href={edit(
-                                                                team.slug,
-                                                            )}
-                                                        >
-                                                            <Eye className="h-4 w-4" />
-                                                        </Link>
-                                                    </Button>
-                                                </TooltipTrigger>
+                                                <TooltipTrigger
+                                                    render={
+                                                        <Button
+                                                            variant="ghost"
+                                                            size="sm"
+                                                            data-test="team-view-button"
+                                                            render={
+                                                                <Link
+                                                                    href={edit(
+                                                                        team.slug,
+                                                                    )}
+                                                                >
+                                                                    <Eye className="h-4 w-4" />
+                                                                </Link>
+                                                            }
+                                                        />
+                                                    }
+                                                />
                                                 <TooltipContent>
                                                     <p>View team</p>
                                                 </TooltipContent>
                                             </Tooltip>
                                         ) : (
                                             <Tooltip>
-                                                <TooltipTrigger asChild>
-                                                    <Button
-                                                        variant="ghost"
-                                                        size="sm"
-                                                        data-test="team-edit-button"
-                                                        asChild
-                                                    >
-                                                        <Link
-                                                            href={edit(
-                                                                team.slug,
-                                                            )}
-                                                        >
-                                                            <Pencil className="h-4 w-4" />
-                                                        </Link>
-                                                    </Button>
-                                                </TooltipTrigger>
+                                                <TooltipTrigger
+                                                    render={
+                                                        <Button
+                                                            variant="ghost"
+                                                            size="sm"
+                                                            data-test="team-edit-button"
+                                                            render={
+                                                                <Link
+                                                                    href={edit(
+                                                                        team.slug,
+                                                                    )}
+                                                                >
+                                                                    <Pencil className="h-4 w-4" />
+                                                                </Link>
+                                                            }
+                                                        />
+                                                    }
+                                                />
                                                 <TooltipContent>
                                                     <p>Edit team</p>
                                                 </TooltipContent>

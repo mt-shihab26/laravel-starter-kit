@@ -1,5 +1,5 @@
 import { Form } from '@inertiajs/react';
-import type { PropsWithChildren } from 'react';
+import type { ReactElement } from 'react';
 import { useState } from 'react';
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
@@ -17,12 +17,16 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { store } from '@/routes/teams';
 
-export default function CreateTeamModal({ children }: PropsWithChildren) {
+export default function CreateTeamModal({
+    children,
+}: {
+    children: ReactElement;
+}) {
     const [open, setOpen] = useState(false);
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>{children}</DialogTrigger>
+            <DialogTrigger render={children} />
             <DialogContent>
                 <Form
                     key={String(open)}
@@ -53,9 +57,13 @@ export default function CreateTeamModal({ children }: PropsWithChildren) {
                             </div>
 
                             <DialogFooter className="gap-2">
-                                <DialogClose asChild>
-                                    <Button variant="secondary">Cancel</Button>
-                                </DialogClose>
+                                <DialogClose
+                                    render={
+                                        <Button variant="secondary">
+                                            Cancel
+                                        </Button>
+                                    }
+                                />
 
                                 <Button
                                     type="submit"
