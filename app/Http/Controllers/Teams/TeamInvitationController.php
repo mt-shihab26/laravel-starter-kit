@@ -87,7 +87,7 @@ class TeamInvitationController extends Controller
         $invitation->delete();
 
         $user = $request->user();
-        $redirectTeamId = $user?->currentTeam?->id ?? $user?->getFallbackTeam()?->id;
+        $redirectTeamId = $user?->getCurrentTeam()?->id;
 
         return redirect()
             ->route('dashboard', ['team' => $redirectTeamId])

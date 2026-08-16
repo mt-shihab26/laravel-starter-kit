@@ -96,32 +96,6 @@ class User extends Authenticatable implements PasskeyUser
     }
 
     /**
-     * Determine if the user is an owner or admin of the given team.
-     */
-    public function canManageTeam(Team $team): bool
-    {
-        $role = $team->teamMembers()->where('user_id', $this->id)->first()?->role;
-
-        return in_array($role, [TeamRole::Owner, TeamRole::Admin], true);
-    }
-
-    /**
-     * Determine if the user belongs to the given team.
-     */
-    public function isBelongsToTeam(Team $team): bool
-    {
-        return $this->teams()->where('teams.id', $team->id)->exists();
-    }
-
-    /**
-     * Determine if the given team is the user's current team.
-     */
-    public function isCurrentTeam(Team $team): bool
-    {
-        return $this->current_team_id === $team->id;
-    }
-
-    /**
      * Get a fallback team for the user, optionally excluding a given team.
      */
     public function getFallbackTeam(?Team $excluding = null): ?Team
@@ -138,6 +112,32 @@ class User extends Authenticatable implements PasskeyUser
     public function getCurrentTeam(): ?Team
     {
         return $this->currentTeam ?? $this->getFallbackTeam();
+    }
+
+    /**
+     * Determine if the given team is the user's current team.
+     */
+    public function isCurrentTeam(Team $team): bool
+    {
+        return $this->current_team_id === $team->id;
+    }
+
+    /**
+     * Determine if the user is an owner or admin of the given team.
+     */
+    public function canManageTeam(Team $team): bool
+    {
+        $role = $team->teamMembers()->where('user_id', $this->id)->first()?->role;
+
+        return in_array($role, [TeamRole::Owner, TeamRole::Admin], true);
+    }
+
+    /**
+     * Determine if the user belongs to the given team.
+     */
+    public function isBelongsToTeam(Team $team): bool
+    {
+        return $this->teams()->where('teams.id', $team->id)->exists();
     }
 
     /**

@@ -213,7 +213,7 @@ test('team invitations can be declined by the invited user', function () {
         ->actingAs($invitedUser)
         ->delete(route('invitations.decline', $invitation));
 
-    $expectedTeam = $invitedUser->currentTeam ?? $invitedUser->getFallbackTeam();
+    $expectedTeam = $invitedUser->getCurrentTeam();
 
     $response->assertRedirect(route('dashboard', ['team' => $expectedTeam->id]));
 

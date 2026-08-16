@@ -26,8 +26,11 @@ class CreateTeamInvitationRequest extends FormRequest
      */
     public function rules(): array
     {
-        /** @var Team $team */
         $team = $this->route('team');
+
+        if (is_string($team)) {
+            $team = Team::find($team);
+        }
 
         return [
             'email' => ['required', 'string', 'email', 'max:255', new UniqueTeamInvitation($team)],
