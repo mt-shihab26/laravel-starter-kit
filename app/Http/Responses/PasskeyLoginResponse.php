@@ -2,6 +2,8 @@
 
 namespace App\Http\Responses;
 
+use App\Models\Team;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Laravel\Fortify\Fortify;
 use Laravel\Passkeys\Contracts\PasskeyLoginResponse as PasskeyLoginResponseContract;
@@ -11,10 +13,14 @@ class PasskeyLoginResponse implements PasskeyLoginResponseContract
 {
     public function toResponse($request): Response
     {
+        /** @var User $user */
         $user = $request->user();
+
         abort_if(! $user, 403);
 
-        $team = $user->currentTeam ?? $user->getFallbackTeam();
+        /** @var Team $team */
+        $team = $user->getCurrentTeam();
+
         abort_if(! $team, 403);
 
         $redirect = "/{$team->id}".Fortify::redirects('login');

@@ -23,7 +23,7 @@ class LoginResponse implements LoginResponseContract
         abort_if(! $user, 403);
 
         /** @var Team $team */
-        $team = $user->currentTeam ?? $user->getFallbackTeam();
+        $team = $user->getCurrentTeam();
 
         abort_if(! $team, 403);
 

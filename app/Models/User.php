@@ -133,6 +133,14 @@ class User extends Authenticatable implements PasskeyUser
     }
 
     /**
+     * Get the user's current team, falling back to another team if unset.
+     */
+    public function getCurrentTeam(): ?Team
+    {
+        return $this->currentTeam ?? $this->getFallbackTeam();
+    }
+
+    /**
      * Determine if the user is the owner of the given team.
      */
     public function isOwnsTeam(Team $team): bool

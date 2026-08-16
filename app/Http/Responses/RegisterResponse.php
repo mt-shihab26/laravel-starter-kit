@@ -2,6 +2,8 @@
 
 namespace App\Http\Responses;
 
+use App\Models\Team;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Laravel\Fortify\Contracts\RegisterResponse as RegisterResponseContract;
 use Laravel\Fortify\Fortify;
@@ -15,10 +17,14 @@ class RegisterResponse implements RegisterResponseContract
             return new JsonResponse(['two_factor' => false], 201);
         }
 
+        /** @var User $user */
         $user = $request->user();
+
         abort_if(! $user, 403);
 
-        $team = $user->currentTeam ?? $user->getFallbackTeam();
+        /** @var Team $team */
+        $team = $user->getCurrentTeam();
+
         abort_if(! $team, 403);
 
         $redirect = "/{$team->id}".Fortify::redirects('register');
