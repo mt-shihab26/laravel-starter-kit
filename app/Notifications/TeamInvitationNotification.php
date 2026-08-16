@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\Models\TeamInvitation as TeamInvitationModel;
+use App\Models\TeamInvitation;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -15,10 +15,9 @@ class TeamInvitationNotification extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      */
-    public function __construct(public TeamInvitationModel $invitation)
-    {
-        //
-    }
+    public function __construct(
+        public TeamInvitation $invitation
+    ) {}
 
     /**
      * Get the notification's delivery channels.
