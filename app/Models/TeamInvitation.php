@@ -96,6 +96,14 @@ class TeamInvitation extends Model
     }
 
     /**
+     * Determine if the invitation is pending.
+     */
+    public function isPending(): bool
+    {
+        return $this->accepted_at === null && ! $this->isExpired();
+    }
+
+    /**
      * Determine if the invitation has expired.
      */
     public function isExpired(): bool
