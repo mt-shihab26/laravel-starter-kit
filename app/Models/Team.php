@@ -73,4 +73,18 @@ class Team extends Model
             ->wherePivot('role', TeamRole::Owner->value)
             ->first();
     }
+
+    /**
+     * Get the team member record for the given user.
+     */
+    public function teamMemberFor(?User $user): ?TeamMember
+    {
+        if (! $user) {
+            return null;
+        }
+
+        return $this->teamMembers()
+            ->where('user_id', $user->id)
+            ->first();
+    }
 }

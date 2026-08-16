@@ -40,8 +40,6 @@ class HandleInertiaRequests extends Middleware
         /** @var ?User $user */
         $user = $request->user();
 
-        dd($user->getCurrentTeam()->toArray());
-
         return [
             ...parent::share($request),
             'ziggy' => fn () => [...(new Ziggy)->toArray(), 'location' => $request->url()],
@@ -49,8 +47,9 @@ class HandleInertiaRequests extends Middleware
             'open' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
             'auth' => [
                 'user' => $user,
-                'currentTeam' => fn () => $user?->currentTeam ? $user->toUserTeam($user->currentTeam) : null,
-                'teams' => fn () => $user?->toUserTeams(includeCurrent: true) ?? [],
+                'team' => fn () => $user?->getCurrentTeam(),
+                'teamMember' => fn () => $user?->getCurrentTeam()?->teamMemberFor($user),
+                'teams' => fn () => $user?->teams ?? [],
             ],
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),
