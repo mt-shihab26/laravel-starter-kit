@@ -50,16 +50,7 @@ class TeamController extends Controller
         return inertia('teams/edit', [
             'team' => $team,
             'users' => $team->users()->get(),
-            'invitations' => $team->invitations()
-                ->whereNull('accepted_at')
-                ->get()
-                ->map(fn ($invitation) => [
-                    'code' => $invitation->code,
-                    'email' => $invitation->email,
-                    'role' => $invitation->role->value,
-                    'role_label' => $invitation->role->label(),
-                    'created_at' => $invitation->created_at->toISOString(),
-                ]),
+            'invitations' => $team->invitations()->whereNull('accepted_at')->get(),
             'canManageTeam' => $user->canManageTeam($team),
             'availableRoles' => TeamRole::assignable(),
         ]);

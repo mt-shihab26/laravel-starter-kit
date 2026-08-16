@@ -13,8 +13,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 import type { TTeamRoleOption } from '@/components/screens/teams/invite-member-modal';
-import type { TTeamInvitationSummary } from '@/components/screens/teams/cancel-invitation-modal';
-import type { TTeam, TUser } from '@/types/models';
+import type { TTeam, TTeamInvitation, TUser } from '@/types/models';
 
 import { router } from '@inertiajs/react';
 import { useMemo, useState } from 'react';
@@ -44,7 +43,7 @@ const TeamEdit = ({
 }: {
     team: TTeam;
     users: TUser[];
-    invitations: TTeamInvitationSummary[];
+    invitations: TTeamInvitation[];
     canManageTeam: boolean;
     availableRoles: TTeamRoleOption[];
 }) => {
@@ -55,7 +54,7 @@ const TeamEdit = ({
     const [cancelInvitationDialogOpen, setCancelInvitationDialogOpen] =
         useState(false);
     const [invitationToCancel, setInvitationToCancel] =
-        useState<TTeamInvitationSummary | null>(null);
+        useState<TTeamInvitation | null>(null);
 
     const pageTitle = useMemo(
         () => (canManageTeam ? `Edit ${team.name}` : `View ${team.name}`),
@@ -75,7 +74,7 @@ const TeamEdit = ({
         setRemoveMemberDialogOpen(true);
     };
 
-    const confirmCancelInvitation = (invitation: TTeamInvitationSummary) => {
+    const confirmCancelInvitation = (invitation: TTeamInvitation) => {
         setInvitationToCancel(invitation);
         setCancelInvitationDialogOpen(true);
     };
@@ -293,7 +292,9 @@ const TeamEdit = ({
                                                 {invitation.email}
                                             </div>
                                             <div className="text-sm text-muted-foreground">
-                                                {invitation.role_label}
+                                                {formatRoleLabel(
+                                                    invitation.role,
+                                                )}
                                             </div>
                                         </div>
                                     </div>
