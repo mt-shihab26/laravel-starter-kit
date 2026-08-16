@@ -12,15 +12,22 @@ use Illuminate\Validation\Rule;
 class CreateTeamInvitationRequest extends FormRequest
 {
     /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
+        /** @var Team $team */
         $team = $this->route('team');
-
-        abort_if(! $team instanceof Team, 404);
 
         return [
             'email' => ['required', 'string', 'email', 'max:255', new UniqueTeamInvitation($team)],

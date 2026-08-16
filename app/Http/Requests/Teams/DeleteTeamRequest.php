@@ -15,10 +15,7 @@ class DeleteTeamRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $team = $this->route('team');
-
-        return $team instanceof Team
-            && $this->user()->canManageTeam($team);
+        return true;
     }
 
     /**

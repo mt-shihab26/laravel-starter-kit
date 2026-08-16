@@ -144,6 +144,8 @@ class TeamController extends Controller
      */
     public function destroy(DeleteTeamRequest $request, Team $team): RedirectResponse
     {
+        abort_unless($request->user()->canManageTeam($team), 403);
+
         $user = $request->user();
         $fallbackTeam = $user->isCurrentTeam($team)
             ? $user->getFallbackTeam($team)
