@@ -294,6 +294,35 @@ test('deleting team switches other affected users to their fallback team', funct
     expect($member->fresh()->current_team_id)->toEqual($fallbackTeam->id);
 });
 
+test('deleting team does not crash when an affected user has no fallback team', function () {
+    $owner = User::factory()->create();
+    $member = User::factory()->create();
+
+    // Leave the member with no other team so a fallback team can't be found.
+    $member->teams()->detach();
+
+    $team = Team::factory()->create();
+    $team->users()->attach($owner, ['role' => TeamRole::Owner->value]);
+    $team->users()->attach($member, ['role' => TeamRole::Member->value]);
+
+    $owner->update(['current_team_id' => $team->id]);
+    $member->update(['current_team_id' => $team->id]);
+
+    $response = $this
+        ->actingAs($owner)
+        ->delete(route('teams.destroy', $team), [
+            'name' => $team->name,
+        ]);
+
+    $response->assertRedirect();
+
+    $this->assertSoftDeleted('teams', [
+        'id' => $team->id,
+    ]);
+
+    expect($member->fresh()->current_team_id)->toEqual($team->id);
+});
+
 test('teams cannot be deleted by non owners', function () {
     $owner = User::factory()->create();
     $member = User::factory()->create();

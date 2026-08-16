@@ -24,7 +24,11 @@ const VerifyEmail = ({ status }: { status?: string }) => {
             >
                 {({ processing }) => (
                     <>
-                        <Button disabled={processing} variant="secondary">
+                        <Button
+                            type="submit"
+                            disabled={processing}
+                            variant="secondary"
+                        >
                             {processing && <Spinner />}
                             Resend verification email
                         </Button>
