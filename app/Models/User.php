@@ -3,7 +3,6 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Data\UserTeam;
 use App\Enums\TeamRole;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -15,7 +14,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Collection as SupportCollection;
 use Laravel\Fortify\Contracts\PasskeyUser;
 use Laravel\Fortify\PasskeyAuthenticatable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -159,36 +157,4 @@ class User extends Authenticatable implements PasskeyUser
         return $role === TeamRole::Owner;
     }
 
-    /**
-     * Get the user's teams as a collection of UserTeam objects.
-     *
-     * @return SupportCollection<int, UserTeam>
-     */
-    public function toUserTeams(bool $includeCurrent = false): SupportCollection
-    {
-        return $this->teams()
-            ->get()
-            ->map(fn (Team $team) => ! $includeCurrent && $this->isCurrentTeam($team) ? null : $this->toUserTeam($team))
-            ->filter()
-            ->values();
-    }
-
-    /**
-     * Get the user's team as a UserTeam object.
-     */
-    public function toUserTeam(Team $team): UserTeam
-    {
-        $role = $team->teamMembers()
-            ->where('user_id', $this->id)
-            ->first()
-            ?->role;
-
-        return new UserTeam(
-            id: $team->id,
-            name: $team->name,
-            role: $role?->value,
-            roleLabel: $role?->label(),
-            isCurrent: $this->isCurrentTeam($team),
-        );
-    }
 }

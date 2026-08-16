@@ -25,7 +25,7 @@ class TeamController extends Controller
         $user = $request->user();
 
         return inertia('teams/index', [
-            'teams' => $user->toUserTeams(includeCurrent: true),
+            'teams' => $user->teams()->get(),
         ]);
     }
 

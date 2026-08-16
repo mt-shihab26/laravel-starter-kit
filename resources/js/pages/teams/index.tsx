@@ -5,9 +5,10 @@ import {
     TooltipTrigger,
 } from '@/components/ui/tooltip';
 
-import type { TTeam } from '@/types/models';
+import type { TTeam, TTeamMember } from '@/types/models';
 
 import { useState } from 'react';
+import { formatRoleLabel } from '@/lib/formats';
 
 import { Link } from '@inertiajs/react';
 import { Eye, LogOut, Pencil, Plus } from 'lucide-react';
@@ -17,11 +18,13 @@ import { LeaveTeamModal } from '@/components/layouts/app-layout/leave-team-modal
 import { Button } from '@/components/ui/button';
 import { SettingsLayout } from '@/components/layouts/settings-layout';
 
-const TeamsIndex = ({ teams }: { teams: TTeam[] }) => {
-    const [leaveTeamDialogOpen, setLeaveTeamDialogOpen] = useState(false);
-    const [teamLeaving, setTeamLeaving] = useState<TTeam | null>(null);
+type TUserTeam = TTeam & { pivot: TTeamMember | null };
 
-    const openLeaveTeamDialog = (team: TTeam) => {
+const TeamsIndex = ({ teams }: { teams: TUserTeam[] }) => {
+    const [leaveTeamDialogOpen, setLeaveTeamDialogOpen] = useState(false);
+    const [teamLeaving, setTeamLeaving] = useState<TUserTeam | null>(null);
+
+    const openLeaveTeamDialog = (team: TUserTeam) => {
         setTeamLeaving(team);
         setLeaveTeamDialogOpen(true);
     };
@@ -50,7 +53,8 @@ const TeamsIndex = ({ teams }: { teams: TTeam[] }) => {
 
                 <div className="space-y-3">
                     {teams.map((team) => {
-                        const canLeaveTeam = team.role !== 'owner';
+                        const role = team.pivot?.role;
+                        const canLeaveTeam = role !== 'owner';
 
                         return (
                             <div
@@ -66,7 +70,7 @@ const TeamsIndex = ({ teams }: { teams: TTeam[] }) => {
                                             </span>
                                         </div>
                                         <span className="text-sm text-muted-foreground">
-                                            {team.roleLabel}
+                                            {role ? formatRoleLabel(role) : null}
                                         </span>
                                     </div>
                                 </div>
@@ -97,7 +101,7 @@ const TeamsIndex = ({ teams }: { teams: TTeam[] }) => {
                                             </Tooltip>
                                         ) : null}
 
-                                        {team.role === 'member' ? (
+                                        {role === 'member' ? (
                                             <Tooltip>
                                                 <TooltipTrigger
                                                     render={

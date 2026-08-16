@@ -13,7 +13,9 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 import type { TTeamRoleOption } from '@/components/screens/teams/invite-member-modal';
-import type { TTeam, TTeamInvitation, TTeamMember } from '@/types/models';
+import type { TTeamMemberSummary } from '@/components/screens/teams/remove-member-modal';
+import type { TTeamInvitationSummary } from '@/components/screens/teams/cancel-invitation-modal';
+import type { TTeam } from '@/types/models';
 
 import { router } from '@inertiajs/react';
 import { useMemo, useState } from 'react';
@@ -42,28 +44,27 @@ const TeamEdit = ({
     availableRoles,
 }: {
     team: TTeam;
-    members: TTeamMember[];
-    invitations: TTeamInvitation[];
+    members: TTeamMemberSummary[];
+    invitations: TTeamInvitationSummary[];
     canManageTeam: boolean;
     availableRoles: TTeamRoleOption[];
 }) => {
     const [inviteDialogOpen, setInviteDialogOpen] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [removeMemberDialogOpen, setRemoveMemberDialogOpen] = useState(false);
-    const [memberToRemove, setMemberToRemove] = useState<TTeamMember | null>(
-        null,
-    );
+    const [memberToRemove, setMemberToRemove] =
+        useState<TTeamMemberSummary | null>(null);
     const [cancelInvitationDialogOpen, setCancelInvitationDialogOpen] =
         useState(false);
     const [invitationToCancel, setInvitationToCancel] =
-        useState<TTeamInvitation | null>(null);
+        useState<TTeamInvitationSummary | null>(null);
 
     const pageTitle = useMemo(
         () => (canManageTeam ? `Edit ${team.name}` : `View ${team.name}`),
         [canManageTeam, team.name],
     );
 
-    const updateMemberRole = (member: TTeamMember, newRole: string) => {
+    const updateMemberRole = (member: TTeamMemberSummary, newRole: string) => {
         router.visit(route('teams.members.update', [team.id, member.id]), {
             method: 'patch',
             data: { role: newRole },
@@ -71,12 +72,12 @@ const TeamEdit = ({
         });
     };
 
-    const confirmRemoveMember = (member: TTeamMember) => {
+    const confirmRemoveMember = (member: TTeamMemberSummary) => {
         setMemberToRemove(member);
         setRemoveMemberDialogOpen(true);
     };
 
-    const confirmCancelInvitation = (invitation: TTeamInvitation) => {
+    const confirmCancelInvitation = (invitation: TTeamInvitationSummary) => {
         setInvitationToCancel(invitation);
         setCancelInvitationDialogOpen(true);
     };
@@ -191,7 +192,8 @@ const TeamEdit = ({
                                 </div>
 
                                 <div className="flex items-center gap-2">
-                                    {member.role !== 'owner' && canManageTeam ? (
+                                    {member.role !== 'owner' &&
+                                    canManageTeam ? (
                                         <DropdownMenu>
                                             <DropdownMenuTrigger
                                                 render={
@@ -228,7 +230,8 @@ const TeamEdit = ({
                                         </Badge>
                                     )}
 
-                                    {member.role !== 'owner' && canManageTeam ? (
+                                    {member.role !== 'owner' &&
+                                    canManageTeam ? (
                                         <TooltipProvider>
                                             <Tooltip>
                                                 <TooltipTrigger

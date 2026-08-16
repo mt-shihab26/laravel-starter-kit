@@ -1,3 +1,5 @@
+import type { TTeamRole } from '@/types/enums';
+
 const getInitial = (name: string): string => {
     return Array.from(name)[0] ?? '';
 };
@@ -21,4 +23,8 @@ export const formatInitials = (fullName: string | null | undefined): string => {
     const lastInitial = getInitial(names[names.length - 1]);
 
     return `${firstInitial}${lastInitial}`.toUpperCase();
+};
+
+export const formatRoleLabel = (role: TTeamRole): string => {
+    return role.charAt(0).toUpperCase() + role.slice(1);
 };

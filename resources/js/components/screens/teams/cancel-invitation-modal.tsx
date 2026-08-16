@@ -8,12 +8,21 @@ import {
     DialogTitle,
 } from '@/components/ui/dialog';
 
-import type { TTeam, TTeamInvitation } from '@/types/models';
+import type { TTeam } from '@/types/models';
+import type { TTeamRole } from '@/types/enums';
 
 import { router } from '@inertiajs/react';
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
+
+export type TTeamInvitationSummary = {
+    code: string;
+    email: string;
+    role: TTeamRole;
+    role_label: string;
+    created_at: string;
+};
 
 export const CancelInvitationModal = ({
     team,
@@ -22,7 +31,7 @@ export const CancelInvitationModal = ({
     onOpenChange,
 }: {
     team: TTeam;
-    invitation: TTeamInvitation | null;
+    invitation: TTeamInvitationSummary | null;
     open: boolean;
     onOpenChange: (open: boolean) => void;
 }) => {

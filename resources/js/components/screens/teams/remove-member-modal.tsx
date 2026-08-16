@@ -8,12 +8,22 @@ import {
     DialogTitle,
 } from '@/components/ui/dialog';
 
-import type { TTeam, TTeamMember } from '@/types/models';
+import type { TTeam } from '@/types/models';
+import type { TTeamRole } from '@/types/enums';
 
 import { router } from '@inertiajs/react';
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
+
+export type TTeamMemberSummary = {
+    id: number;
+    name: string;
+    email: string;
+    avatar: string | null;
+    role: TTeamRole;
+    role_label: string;
+};
 
 export const RemoveMemberModal = ({
     team,
@@ -22,7 +32,7 @@ export const RemoveMemberModal = ({
     onOpenChange,
 }: {
     team: TTeam;
-    member: TTeamMember | null;
+    member: TTeamMemberSummary | null;
     open: boolean;
     onOpenChange: (open: boolean) => void;
 }) => {
