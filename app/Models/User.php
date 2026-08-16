@@ -3,9 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Data\TeamPermissions;
 use App\Data\UserTeam;
-use App\Enums\TeamPermission;
 use App\Enums\TeamRole;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -171,36 +169,15 @@ class User extends Authenticatable implements PasskeyUser
     }
 
     /**
-     * Get the standard permissions for a team as a TeamPermissions object.
+     * Determine if the user is an owner or admin of the given team.
      */
-    public function toTeamPermissions(Team $team): TeamPermissions
+    public function canManageTeam(Team $team): bool
     {
         $role = $team->teamMembers()
             ->where('user_id', $this->id)
             ->first()
             ?->role;
 
-        return new TeamPermissions(
-            canUpdateTeam: $role?->hasPermission(TeamPermission::UpdateTeam) ?? false,
-            canDeleteTeam: $role?->hasPermission(TeamPermission::DeleteTeam) ?? false,
-            canAddMember: $role?->hasPermission(TeamPermission::AddMember) ?? false,
-            canUpdateMember: $role?->hasPermission(TeamPermission::UpdateMember) ?? false,
-            canRemoveMember: $role?->hasPermission(TeamPermission::RemoveMember) ?? false,
-            canCreateInvitation: $role?->hasPermission(TeamPermission::CreateInvitation) ?? false,
-            canCancelInvitation: $role?->hasPermission(TeamPermission::CancelInvitation) ?? false,
-        );
-    }
-
-    /**
-     * Determine if the user has the given permission on the team.
-     */
-    public function hasTeamPermission(Team $team, TeamPermission $permission): bool
-    {
-        $role = $team->teamMembers()
-            ->where('user_id', $this->id)
-            ->first()
-            ?->role;
-
-        return $role?->hasPermission($permission) ?? false;
+        return in_array($role, [TeamRole::Owner, TeamRole::Admin], true);
     }
 }

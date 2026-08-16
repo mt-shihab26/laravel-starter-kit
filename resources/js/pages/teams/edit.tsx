@@ -34,27 +34,17 @@ import { SettingsLayout } from '@/components/layouts/settings-layout';
 import { RemoveMemberModal } from '@/components/screens/teams/remove-member-modal';
 import { CancelInvitationModal } from '@/components/screens/teams/cancel-invitation-modal';
 
-type TTeamPermissions = {
-    canUpdateTeam: boolean;
-    canDeleteTeam: boolean;
-    canAddMember: boolean;
-    canUpdateMember: boolean;
-    canRemoveMember: boolean;
-    canCreateInvitation: boolean;
-    canCancelInvitation: boolean;
-};
-
 const TeamEdit = ({
     team,
     members,
     invitations,
-    permissions,
+    canManageTeam,
     availableRoles,
 }: {
     team: TTeam;
     members: TTeamMember[];
     invitations: TTeamInvitation[];
-    permissions: TTeamPermissions;
+    canManageTeam: boolean;
     availableRoles: TTeamRoleOption[];
 }) => {
     const [inviteDialogOpen, setInviteDialogOpen] = useState(false);
@@ -69,11 +59,8 @@ const TeamEdit = ({
         useState<TTeamInvitation | null>(null);
 
     const pageTitle = useMemo(
-        () =>
-            permissions.canUpdateTeam
-                ? `Edit ${team.name}`
-                : `View ${team.name}`,
-        [permissions.canUpdateTeam, team.name],
+        () => (canManageTeam ? `Edit ${team.name}` : `View ${team.name}`),
+        [canManageTeam, team.name],
     );
 
     const updateMemberRole = (member: TTeamMember, newRole: string) => {
@@ -103,7 +90,7 @@ const TeamEdit = ({
 
             <div className="flex flex-col space-y-10">
                 <div className="space-y-6">
-                    {permissions.canUpdateTeam ? (
+                    {canManageTeam ? (
                         <>
                             <Heading
                                 variant="small"
@@ -158,13 +145,13 @@ const TeamEdit = ({
                             variant="small"
                             title="Team members"
                             description={
-                                permissions.canCreateInvitation
+                                canManageTeam
                                     ? 'Manage who belongs to this team'
                                     : ''
                             }
                         />
 
-                        {permissions.canCreateInvitation ? (
+                        {canManageTeam ? (
                             <Button
                                 data-test="invite-member-button"
                                 onClick={() => setInviteDialogOpen(true)}
@@ -204,8 +191,7 @@ const TeamEdit = ({
                                 </div>
 
                                 <div className="flex items-center gap-2">
-                                    {member.role !== 'owner' &&
-                                    permissions.canUpdateMember ? (
+                                    {member.role !== 'owner' && canManageTeam ? (
                                         <DropdownMenu>
                                             <DropdownMenuTrigger
                                                 render={
@@ -242,8 +228,7 @@ const TeamEdit = ({
                                         </Badge>
                                     )}
 
-                                    {member.role !== 'owner' &&
-                                    permissions.canRemoveMember ? (
+                                    {member.role !== 'owner' && canManageTeam ? (
                                         <TooltipProvider>
                                             <Tooltip>
                                                 <TooltipTrigger
@@ -303,7 +288,7 @@ const TeamEdit = ({
                                         </div>
                                     </div>
 
-                                    {permissions.canCancelInvitation ? (
+                                    {canManageTeam ? (
                                         <TooltipProvider>
                                             <Tooltip>
                                                 <TooltipTrigger
@@ -334,7 +319,7 @@ const TeamEdit = ({
                     </div>
                 ) : null}
 
-                {permissions.canDeleteTeam ? (
+                {canManageTeam ? (
                     <div className="space-y-6">
                         <Heading
                             variant="small"
@@ -361,7 +346,7 @@ const TeamEdit = ({
                 ) : null}
             </div>
 
-            {permissions.canCreateInvitation ? (
+            {canManageTeam ? (
                 <InviteMemberModal
                     team={team}
                     availableRoles={availableRoles}
@@ -384,7 +369,7 @@ const TeamEdit = ({
                 onOpenChange={setCancelInvitationDialogOpen}
             />
 
-            {permissions.canDeleteTeam ? (
+            {canManageTeam ? (
                 <DeleteTeamModal
                     team={team}
                     open={deleteDialogOpen}

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Teams;
 
-use App\Enums\TeamPermission;
 use App\Enums\TeamRole;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teams\CreateTeamInvitationRequest;
@@ -22,7 +21,7 @@ class TeamInvitationController extends Controller
      */
     public function store(CreateTeamInvitationRequest $request, Team $team): RedirectResponse
     {
-        abort_unless($request->user()->hasTeamPermission($team, TeamPermission::CreateInvitation), 403);
+        abort_unless($request->user()->canManageTeam($team), 403);
 
         $invitation = $team->invitations()->create([
             'email' => $request->validated('email'),
@@ -46,7 +45,7 @@ class TeamInvitationController extends Controller
     {
         abort_unless($invitation->team_id === $team->id, 404);
 
-        abort_unless($request->user()->hasTeamPermission($team, TeamPermission::CancelInvitation), 403);
+        abort_unless($request->user()->canManageTeam($team), 403);
 
         $invitation->delete();
 
