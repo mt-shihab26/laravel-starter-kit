@@ -48,7 +48,6 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $user,
                 'team' => fn () => $user?->getCurrentTeam(),
-                'teamMember' => fn () => $user?->getCurrentTeam()?->teamMemberFor($user),
                 'teams' => fn () => $user?->teams ?? [],
             ],
             'flash' => [

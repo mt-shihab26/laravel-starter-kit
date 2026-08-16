@@ -66,6 +66,7 @@ class User extends Authenticatable implements PasskeyUser
     public function teams(): BelongsToMany
     {
         return $this->belongsToMany(Team::class, 'team_members', 'user_id', 'team_id')
+            ->using(TeamMember::class)
             ->withPivot(['role'])
             ->withTimestamps();
     }
@@ -111,7 +112,9 @@ class User extends Authenticatable implements PasskeyUser
      */
     public function getCurrentTeam(): ?Team
     {
-        return $this->currentTeam ?? $this->getFallbackTeam();
+        $team = $this->currentTeam ?? $this->getFallbackTeam();
+
+        return $team?->setRelation('pivot', $team->teamMemberFor($this));
     }
 
     /**

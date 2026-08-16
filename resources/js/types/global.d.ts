@@ -18,9 +18,8 @@ declare module '@inertiajs/core' {
             open: boolean;
             auth: {
                 user: TUser | null;
-                team: TTeam | null;
-                teamMember: TTeamMember | null;
-                teams: TTeam[];
+                team: (TTeam & { pivot: TTeamMember | null }) | null;
+                teams: (TTeam & { pivot: TTeamMember | null })[];
             };
             flash: {
                 success: string | null;
