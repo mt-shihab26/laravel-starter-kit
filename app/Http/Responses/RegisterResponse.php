@@ -17,12 +17,12 @@ class RegisterResponse implements RegisterResponseContract
             return new JsonResponse(['two_factor' => false], 201);
         }
 
-        /** @var User $user */
+        /** @var User|null $user */
         $user = $request->user();
 
         abort_if(! $user, 403);
 
-        /** @var Team $team */
+        /** @var Team|null $team */
         $team = $user->getCurrentTeam();
 
         abort_if(! $team, 403);

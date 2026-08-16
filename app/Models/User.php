@@ -58,7 +58,7 @@ class User extends Authenticatable implements PasskeyUser
     /**
      * Get all of the teams the user belongs to.
      *
-     * @return BelongsToMany<Team, $this>
+     * @return BelongsToMany<Team, $this, TeamMember>
      */
     public function teams(): BelongsToMany
     {

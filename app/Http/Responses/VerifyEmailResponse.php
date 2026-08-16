@@ -17,12 +17,12 @@ class VerifyEmailResponse implements VerifyEmailResponseContract
             return new JsonResponse('', 204);
         }
 
-        /** @var User $user */
+        /** @var User|null $user */
         $user = $request->user();
 
         abort_if(! $user, 403);
 
-        /** @var Team $team */
+        /** @var Team|null $team */
         $team = $user->getCurrentTeam();
 
         abort_if(! $team, 403);

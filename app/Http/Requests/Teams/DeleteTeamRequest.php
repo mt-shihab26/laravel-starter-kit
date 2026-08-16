@@ -54,7 +54,11 @@ class DeleteTeamRequest extends FormRequest
         $team = $this->route('team');
 
         if (is_string($team)) {
-            $team = Team::find($team);
+            $team = Team::findOrFail($team);
+        }
+
+        if (! $team instanceof Team) {
+            abort(404);
         }
 
         return $team;
