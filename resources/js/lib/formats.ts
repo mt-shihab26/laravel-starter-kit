@@ -2,7 +2,11 @@ const getInitial = (name: string): string => {
     return Array.from(name)[0] ?? '';
 };
 
-export const formatInitials = (fullName: string): string => {
+export const formatInitials = (fullName: string | null | undefined): string => {
+    if (!fullName) {
+        return '';
+    }
+
     const names = fullName.trim().split(/\s+/u).filter(Boolean);
 
     if (names.length === 0) {

@@ -52,12 +52,10 @@ export const AppHeader = ({
 }: {
     breadcrumbs?: TBreadcrumb[];
 }) => {
-    const { user, team: currentTeam } = usePage().props.auth;
+    const { user, team } = usePage().props.auth;
     const { isCurrentUrl, whenCurrentUrl } = useCurrentUrl();
 
-    const dashboardUrl = currentTeam
-        ? route('dashboard', { team: currentTeam.id })
-        : '/';
+    const dashboardUrl = team ? route('dashboard', { team: team.id }) : '/';
 
     return (
         <>
@@ -90,22 +88,18 @@ export const AppHeader = ({
                                 <div className="flex h-full flex-1 flex-col space-y-4 p-4">
                                     <div className="flex h-full flex-col justify-between text-sm">
                                         <div className="flex flex-col space-y-4">
-                                            {mainNavItems(currentTeam).map(
-                                                (item) => (
-                                                    <Link
-                                                        key={item.title}
-                                                        href={item.href}
-                                                        className="flex items-center space-x-2 font-medium"
-                                                    >
-                                                        {item.icon && (
-                                                            <item.icon className="h-5 w-5" />
-                                                        )}
-                                                        <span>
-                                                            {item.title}
-                                                        </span>
-                                                    </Link>
-                                                ),
-                                            )}
+                                            {mainNavItems(team).map((item) => (
+                                                <Link
+                                                    key={item.title}
+                                                    href={item.href}
+                                                    className="flex items-center space-x-2 font-medium"
+                                                >
+                                                    {item.icon && (
+                                                        <item.icon className="h-5 w-5" />
+                                                    )}
+                                                    <span>{item.title}</span>
+                                                </Link>
+                                            ))}
                                         </div>
 
                                         <div className="flex flex-col space-y-4">
@@ -142,34 +136,32 @@ export const AppHeader = ({
                     <div className="ml-6 hidden h-full items-center space-x-6 lg:flex">
                         <NavigationMenu className="flex h-full items-stretch">
                             <NavigationMenuList className="flex h-full items-stretch space-x-2">
-                                {mainNavItems(currentTeam).map(
-                                    (item, index) => (
-                                        <NavigationMenuItem
-                                            key={index}
-                                            className="relative flex h-full items-center"
-                                        >
-                                            <Link
-                                                href={item.href}
-                                                className={cn(
-                                                    navigationMenuTriggerStyle(),
-                                                    whenCurrentUrl(
-                                                        item.href,
-                                                        activeItemStyles,
-                                                    ),
-                                                    'h-9 cursor-pointer px-3',
-                                                )}
-                                            >
-                                                {item.icon && (
-                                                    <item.icon className="mr-2 h-4 w-4" />
-                                                )}
-                                                {item.title}
-                                            </Link>
-                                            {isCurrentUrl(item.href) && (
-                                                <div className="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white"></div>
+                                {mainNavItems(team).map((item, index) => (
+                                    <NavigationMenuItem
+                                        key={index}
+                                        className="relative flex h-full items-center"
+                                    >
+                                        <Link
+                                            href={item.href}
+                                            className={cn(
+                                                navigationMenuTriggerStyle(),
+                                                whenCurrentUrl(
+                                                    item.href,
+                                                    activeItemStyles,
+                                                ),
+                                                'h-9 cursor-pointer px-3',
                                             )}
-                                        </NavigationMenuItem>
-                                    ),
-                                )}
+                                        >
+                                            {item.icon && (
+                                                <item.icon className="mr-2 h-4 w-4" />
+                                            )}
+                                            {item.title}
+                                        </Link>
+                                        {isCurrentUrl(item.href) && (
+                                            <div className="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white"></div>
+                                        )}
+                                    </NavigationMenuItem>
+                                ))}
                             </NavigationMenuList>
                         </NavigationMenu>
                     </div>
@@ -219,18 +211,18 @@ export const AppHeader = ({
                                     >
                                         <Avatar className="size-8 overflow-hidden rounded-full">
                                             <AvatarImage
-                                                src={user.avatar}
-                                                alt={user.name}
+                                                src={user?.avatar}
+                                                alt={user?.name}
                                             />
                                             <AvatarFallback className="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
-                                                {formatInitials(user.name)}
+                                                {formatInitials(user?.name)}
                                             </AvatarFallback>
                                         </Avatar>
                                     </Button>
                                 }
                             />
                             <DropdownMenuContent className="w-56" align="end">
-                                <UserMenuContent user={user} />
+                                <UserMenuContent user={user!} />
                             </DropdownMenuContent>
                         </DropdownMenu>
 

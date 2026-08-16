@@ -19,8 +19,9 @@ import { UserInfo } from '@/components/layouts/app-layout/user-info';
 import { UserMenuContent } from '@/components/layouts/app-layout/user-menu-content';
 
 export const NavUser = () => {
-    const { user, team: currentTeam } = usePage().props.auth;
+    const { user, team } = usePage().props.auth;
     const { state } = useSidebar();
+
     const isMobile = useIsMobile();
 
     return (
@@ -34,7 +35,7 @@ export const NavUser = () => {
                                 className="group text-sidebar-accent-foreground data-[state=open]:bg-sidebar-accent"
                                 data-test="sidebar-menu-button"
                             >
-                                <UserInfo user={user} team={currentTeam} />
+                                <UserInfo user={user!} team={team} />
                                 <ChevronsUpDown className="ml-auto size-4" />
                             </SidebarMenuButton>
                         }
@@ -50,7 +51,7 @@ export const NavUser = () => {
                                   : 'bottom'
                         }
                     >
-                        <UserMenuContent user={user} />
+                        <UserMenuContent user={user!} />
                     </DropdownMenuContent>
                 </DropdownMenu>
             </SidebarMenuItem>
