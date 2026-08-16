@@ -19,7 +19,7 @@ import { UserInfo } from '@/components/layouts/app-layout/user-info';
 import { UserMenuContent } from '@/components/layouts/app-layout/user-menu-content';
 
 export const NavUser = () => {
-    const { user, currentTeam } = usePage().props.auth;
+    const { user, team: currentTeam } = usePage().props.auth;
     const { state } = useSidebar();
     const isMobile = useIsMobile();
 

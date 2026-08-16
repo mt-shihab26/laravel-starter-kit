@@ -52,7 +52,7 @@ export const AppHeader = ({
 }: {
     breadcrumbs?: TBreadcrumb[];
 }) => {
-    const { user, currentTeam } = usePage().props.auth;
+    const { user, team: currentTeam } = usePage().props.auth;
     const { isCurrentUrl, whenCurrentUrl } = useCurrentUrl();
 
     const dashboardUrl = currentTeam

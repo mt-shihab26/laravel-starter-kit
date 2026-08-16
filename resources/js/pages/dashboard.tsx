@@ -12,7 +12,7 @@ const Dashboard = ({
 }: {
     pendingInvitations?: TDashboardInvitation[];
 }) => {
-    const { currentTeam } = usePage().props.auth;
+    const { team: currentTeam } = usePage().props.auth;
     const [showInvitations, setShowInvitations] = useState(
         pendingInvitations.length > 0,
     );

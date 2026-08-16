@@ -19,7 +19,7 @@ import { NavUser } from '@/components/layouts/app-layout/nav-user';
 import { TeamSwitcher } from '@/components/layouts/app-layout/team-switcher';
 
 export const AppSidebar = () => {
-    const { currentTeam } = usePage().props.auth;
+    const { team: currentTeam } = usePage().props.auth;
 
     const dashboardUrl = currentTeam
         ? route('dashboard', { team: currentTeam.id })

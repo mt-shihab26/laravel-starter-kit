@@ -5,7 +5,7 @@ import { LaravelArtwork } from '@/components/icons/laravel-artwork';
 import { LaravelWordmark } from '@/components/icons/laravel-wordmark';
 
 const Welcome = () => {
-    const { user, currentTeam } = usePage().props.auth;
+    const { user, team: currentTeam } = usePage().props.auth;
 
     const dashboardUrl = currentTeam
         ? route('dashboard', { team: currentTeam.id })

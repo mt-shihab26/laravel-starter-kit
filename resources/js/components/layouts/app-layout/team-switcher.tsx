@@ -19,7 +19,7 @@ import { Button } from '@/components/ui/button';
 export const TeamSwitcher = ({ inHeader = false }: { inHeader?: boolean }) => {
     const page = usePage();
     const isMobile = useIsMobile();
-    const currentTeam = page.props.auth.currentTeam;
+    const currentTeam = page.props.auth.team;
     const teams = page.props.auth.teams ?? [];
 
     const switchTeam = (team: TTeam) => {
