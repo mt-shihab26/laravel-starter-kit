@@ -149,6 +149,29 @@ test('team invitations cannot be created by members', function () {
     $response->assertForbidden();
 });
 
+test('team invitations cannot be created with owner role', function () {
+    Notification::fake();
+
+    $owner = User::factory()->create();
+    $team = Team::factory()->create();
+
+    $team->users()->attach($owner, ['role' => TeamRole::Owner->value]);
+
+    $response = $this
+        ->actingAs($owner)
+        ->post(route('teams.invitations.store', $team), [
+            'email' => 'invited@example.com',
+            'role' => TeamRole::Owner->value,
+        ]);
+
+    $response->assertSessionHasErrors('role');
+
+    $this->assertDatabaseMissing('team_invitations', [
+        'team_id' => $team->id,
+        'email' => 'invited@example.com',
+    ]);
+});
+
 test('team invitations can be cancelled by owners', function () {
     $owner = User::factory()->create();
     $team = Team::factory()->create();

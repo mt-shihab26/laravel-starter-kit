@@ -19,6 +19,8 @@ class TeamMemberController extends Controller
     {
         abort_unless($request->user()->canManageTeam($team), 403);
 
+        abort_if($team->owner()?->is($user), 403, __("The team owner's role cannot be changed."));
+
         $newRole = TeamRole::from($request->validated('role'));
 
         $team->teamMembers()
