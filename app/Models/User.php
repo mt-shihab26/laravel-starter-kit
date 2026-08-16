@@ -127,7 +127,9 @@ class User extends Authenticatable implements PasskeyUser
      */
     public function canManageTeam(Team $team): bool
     {
-        $role = $team->teamMembers()->where('user_id', $this->id)->first()?->role;
+        $role = $team->teamMembers()
+            ->where('user_id', $this->id)
+            ->first()?->role;
 
         return in_array($role, [TeamRole::Owner, TeamRole::Admin], true);
     }
@@ -137,7 +139,9 @@ class User extends Authenticatable implements PasskeyUser
      */
     public function isBelongsToTeam(Team $team): bool
     {
-        return $this->teams()->where('teams.id', $team->id)->exists();
+        return $this->teams()
+            ->where('teams.id', $team->id)
+            ->exists();
     }
 
     /**
@@ -147,8 +151,7 @@ class User extends Authenticatable implements PasskeyUser
     {
         $role = $team->teamMembers()
             ->where('user_id', $this->id)
-            ->first()
-            ?->role;
+            ->first()?->role;
 
         return $role === TeamRole::Owner;
     }
