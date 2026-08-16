@@ -3,15 +3,21 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Concerns\HasTeams;
+use App\Data\TeamPermissions;
+use App\Data\UserTeam;
+use App\Enums\TeamPermission;
+use App\Enums\TeamRole;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection as SupportCollection;
 use Laravel\Fortify\Contracts\PasskeyUser;
 use Laravel\Fortify\PasskeyAuthenticatable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -31,7 +37,6 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
  * @property Carbon|null $updated_at
  * @property-read Team|null $currentTeam
  * @property-read Collection<int, Team> $ownedTeams
- * @property-read Collection<int, Membership> $teamMemberships
  * @property-read Collection<int, Team> $teams
  */
 #[Fillable(['name', 'email', 'password', 'current_team_id'])]
@@ -39,7 +44,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 class User extends Authenticatable implements PasskeyUser
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, HasTeams, Notifiable, PasskeyAuthenticatable, TwoFactorAuthenticatable;
+    use HasFactory, Notifiable, PasskeyAuthenticatable, TwoFactorAuthenticatable;
 
     /**
      * Get the attributes that should be cast.
@@ -53,5 +58,149 @@ class User extends Authenticatable implements PasskeyUser
             'password' => 'hashed',
             'two_factor_confirmed_at' => 'datetime',
         ];
+    }
+
+    /**
+     * Get all of the teams the user belongs to.
+     *
+     * @return BelongsToMany<Team, $this>
+     */
+    public function teams(): BelongsToMany
+    {
+        return $this->belongsToMany(Team::class, 'team_members', 'user_id', 'team_id')
+            ->withPivot(['role'])
+            ->withTimestamps();
+    }
+
+    /**
+     * Get the user's current team.
+     *
+     * @return BelongsTo<Team, $this>
+     */
+    public function currentTeam(): BelongsTo
+    {
+        return $this->belongsTo(Team::class, 'current_team_id');
+    }
+
+    /**
+     * Determine if the given team is the user's current team.
+     */
+    public function isCurrentTeam(Team $team): bool
+    {
+        return $this->current_team_id === $team->id;
+    }
+
+    /**
+     * Get a fallback team for the user, optionally excluding a given team.
+     */
+    public function getFallbackTeam(?Team $excluding = null): ?Team
+    {
+        return $this->teams()
+            ->when($excluding, fn ($query) => $query->where('teams.id', '!=', $excluding->id))
+            ->orderByRaw('LOWER(teams.name)')
+            ->first();
+    }
+
+    /**
+     * Switch to the given team.
+     */
+    public function switchCurrentTeam(Team $team): bool
+    {
+        if (! $this->isBelongsToTeam($team)) {
+            return false;
+        }
+
+        $this->update(['current_team_id' => $team->id]);
+        $this->setRelation('currentTeam', $team);
+
+        return true;
+    }
+
+    /**
+     * Determine if the user belongs to the given team.
+     */
+    public function isBelongsToTeam(Team $team): bool
+    {
+        return $this->teams()->where('teams.id', $team->id)->exists();
+    }
+
+    /**
+     * Determine if the user is the owner of the given team.
+     */
+    public function isOwnsTeam(Team $team): bool
+    {
+        $role = $team->teamMembers()
+            ->where('user_id', $this->id)
+            ->first()
+            ?->role;
+
+        return $role === TeamRole::Owner;
+    }
+
+    /**
+     * Get the user's teams as a collection of UserTeam objects.
+     *
+     * @return SupportCollection<int, UserTeam>
+     */
+    public function toUserTeams(bool $includeCurrent = false): SupportCollection
+    {
+        return $this->teams()
+            ->get()
+            ->map(fn (Team $team) => ! $includeCurrent && $this->isCurrentTeam($team) ? null : $this->toUserTeam($team))
+            ->filter()
+            ->values();
+    }
+
+    /**
+     * Get the user's team as a UserTeam object.
+     */
+    public function toUserTeam(Team $team): UserTeam
+    {
+        $role = $team->teamMembers()
+            ->where('user_id', $this->id)
+            ->first()
+            ?->role;
+
+        return new UserTeam(
+            id: $team->id,
+            name: $team->name,
+            role: $role?->value,
+            roleLabel: $role?->label(),
+            isCurrent: $this->isCurrentTeam($team),
+        );
+    }
+
+    /**
+     * Get the standard permissions for a team as a TeamPermissions object.
+     */
+    public function toTeamPermissions(Team $team): TeamPermissions
+    {
+        $role = $team->teamMembers()
+            ->where('user_id', $this->id)
+            ->first()
+            ?->role;
+
+        return new TeamPermissions(
+            canUpdateTeam: $role?->hasPermission(TeamPermission::UpdateTeam) ?? false,
+            canDeleteTeam: $role?->hasPermission(TeamPermission::DeleteTeam) ?? false,
+            canAddMember: $role?->hasPermission(TeamPermission::AddMember) ?? false,
+            canUpdateMember: $role?->hasPermission(TeamPermission::UpdateMember) ?? false,
+            canRemoveMember: $role?->hasPermission(TeamPermission::RemoveMember) ?? false,
+            canCreateInvitation: $role?->hasPermission(TeamPermission::CreateInvitation) ?? false,
+            canCancelInvitation: $role?->hasPermission(TeamPermission::CancelInvitation) ?? false,
+        );
+    }
+
+    /**
+     * Determine if the user has the given permission on the team.
+     */
+    public function hasTeamPermission(Team $team, TeamPermission $permission): bool
+    {
+        $role = $team->teamMembers()
+            ->where('user_id', $this->id)
+            ->first()
+            ?->role;
+
+        return $role?->hasPermission($permission) ?? false;
     }
 }

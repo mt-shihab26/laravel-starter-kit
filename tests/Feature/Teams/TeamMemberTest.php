@@ -9,8 +9,8 @@ test('team member roles can be updated by owners', function () {
     $member = User::factory()->create();
     $team = Team::factory()->create();
 
-    $team->members()->attach($owner, ['role' => TeamRole::Owner->value]);
-    $team->members()->attach($member, ['role' => TeamRole::Member->value]);
+    $team->users()->attach($owner, ['role' => TeamRole::Owner->value]);
+    $team->users()->attach($member, ['role' => TeamRole::Member->value]);
 
     $response = $this
         ->actingAs($owner)
@@ -20,7 +20,7 @@ test('team member roles can be updated by owners', function () {
 
     $response->assertRedirect(route('teams.edit', $team));
 
-    expect($team->members()->where('user_id', $member->id)->first()->pivot->role->value)->toEqual(TeamRole::Admin->value);
+    expect($team->users()->where('user_id', $member->id)->first()->pivot->role->value)->toEqual(TeamRole::Admin->value);
 });
 
 test('team member roles cannot be updated by non owners', function () {
@@ -29,9 +29,9 @@ test('team member roles cannot be updated by non owners', function () {
     $member = User::factory()->create();
     $team = Team::factory()->create();
 
-    $team->members()->attach($owner, ['role' => TeamRole::Owner->value]);
-    $team->members()->attach($admin, ['role' => TeamRole::Admin->value]);
-    $team->members()->attach($member, ['role' => TeamRole::Member->value]);
+    $team->users()->attach($owner, ['role' => TeamRole::Owner->value]);
+    $team->users()->attach($admin, ['role' => TeamRole::Admin->value]);
+    $team->users()->attach($member, ['role' => TeamRole::Member->value]);
 
     $response = $this
         ->actingAs($admin)
@@ -47,8 +47,8 @@ test('team members can be removed by owners', function () {
     $member = User::factory()->create();
     $team = Team::factory()->create();
 
-    $team->members()->attach($owner, ['role' => TeamRole::Owner->value]);
-    $team->members()->attach($member, ['role' => TeamRole::Member->value]);
+    $team->users()->attach($owner, ['role' => TeamRole::Owner->value]);
+    $team->users()->attach($member, ['role' => TeamRole::Member->value]);
 
     $response = $this
         ->actingAs($owner)
@@ -56,7 +56,7 @@ test('team members can be removed by owners', function () {
 
     $response->assertRedirect(route('teams.edit', $team));
 
-    expect($member->fresh()->belongsToTeam($team))->toBeFalse();
+    expect($member->fresh()->isBelongsToTeam($team))->toBeFalse();
 });
 
 test('team members cannot be removed by non owners', function () {
@@ -65,9 +65,9 @@ test('team members cannot be removed by non owners', function () {
     $member = User::factory()->create();
     $team = Team::factory()->create();
 
-    $team->members()->attach($owner, ['role' => TeamRole::Owner->value]);
-    $team->members()->attach($admin, ['role' => TeamRole::Admin->value]);
-    $team->members()->attach($member, ['role' => TeamRole::Member->value]);
+    $team->users()->attach($owner, ['role' => TeamRole::Owner->value]);
+    $team->users()->attach($admin, ['role' => TeamRole::Admin->value]);
+    $team->users()->attach($member, ['role' => TeamRole::Member->value]);
 
     $response = $this
         ->actingAs($admin)
@@ -80,7 +80,7 @@ test('team owner cannot be removed', function () {
     $owner = User::factory()->create();
     $team = Team::factory()->create();
 
-    $team->members()->attach($owner, ['role' => TeamRole::Owner->value]);
+    $team->users()->attach($owner, ['role' => TeamRole::Owner->value]);
 
     $response = $this
         ->actingAs($owner)
@@ -88,7 +88,7 @@ test('team owner cannot be removed', function () {
 
     $response->assertForbidden();
 
-    expect($owner->fresh()->belongsToTeam($team))->toBeTrue();
+    expect($owner->fresh()->isBelongsToTeam($team))->toBeTrue();
 });
 
 test('team member role cannot be set to owner', function () {
@@ -96,8 +96,8 @@ test('team member role cannot be set to owner', function () {
     $member = User::factory()->create();
     $team = Team::factory()->create();
 
-    $team->members()->attach($owner, ['role' => TeamRole::Owner->value]);
-    $team->members()->attach($member, ['role' => TeamRole::Member->value]);
+    $team->users()->attach($owner, ['role' => TeamRole::Owner->value]);
+    $team->users()->attach($member, ['role' => TeamRole::Member->value]);
 
     $response = $this
         ->actingAs($owner)
@@ -107,17 +107,17 @@ test('team member role cannot be set to owner', function () {
 
     $response->assertSessionHasErrors('role');
 
-    expect($team->members()->where('user_id', $member->id)->first()->pivot->role->value)->toEqual(TeamRole::Member->value);
+    expect($team->users()->where('user_id', $member->id)->first()->pivot->role->value)->toEqual(TeamRole::Member->value);
 });
 
-test('removed member current team is set to personal team', function () {
+test('removed member current team is set to fallback team', function () {
     $owner = User::factory()->create();
     $member = User::factory()->create();
-    $personalTeam = $member->personalTeam();
     $team = Team::factory()->create();
+    $fallbackTeam = $member->getFallbackTeam($team);
 
-    $team->members()->attach($owner, ['role' => TeamRole::Owner->value]);
-    $team->members()->attach($member, ['role' => TeamRole::Member->value]);
+    $team->users()->attach($owner, ['role' => TeamRole::Owner->value]);
+    $team->users()->attach($member, ['role' => TeamRole::Member->value]);
 
     $member->update(['current_team_id' => $team->id]);
 
@@ -125,5 +125,5 @@ test('removed member current team is set to personal team', function () {
         ->actingAs($owner)
         ->delete(route('teams.members.destroy', [$team, $member]));
 
-    expect($member->fresh()->current_team_id)->toEqual($personalTeam->id);
+    expect($member->fresh()->current_team_id)->toEqual($fallbackTeam->id);
 });

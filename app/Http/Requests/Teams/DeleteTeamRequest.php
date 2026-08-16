@@ -19,7 +19,6 @@ class DeleteTeamRequest extends FormRequest
         $team = $this->route('team');
 
         return $team instanceof Team
-            && ! $team->is_personal
             && $this->user()->hasTeamPermission($team, TeamPermission::DeleteTeam);
     }
 

@@ -14,7 +14,6 @@ import { Eye, LogOut, Pencil, Plus } from 'lucide-react';
 import { CreateTeamModal } from '@/components/layouts/app-layout/create-team-modal';
 import { Heading } from '@/components/elements/heading';
 import { LeaveTeamModal } from '@/components/layouts/app-layout/leave-team-modal';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { SettingsLayout } from '@/components/layouts/settings-layout';
 
@@ -51,8 +50,7 @@ const TeamsIndex = ({ teams }: { teams: TTeam[] }) => {
 
                 <div className="space-y-3">
                     {teams.map((team) => {
-                        const canLeaveTeam =
-                            !team.isPersonal && team.role !== 'owner';
+                        const canLeaveTeam = team.role !== 'owner';
 
                         return (
                             <div
@@ -66,11 +64,6 @@ const TeamsIndex = ({ teams }: { teams: TTeam[] }) => {
                                             <span className="font-medium">
                                                 {team.name}
                                             </span>
-                                            {team.isPersonal ? (
-                                                <Badge variant="secondary">
-                                                    Personal
-                                                </Badge>
-                                            ) : null}
                                         </div>
                                         <span className="text-sm text-muted-foreground">
                                             {team.roleLabel}

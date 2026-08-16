@@ -65,18 +65,18 @@ class TeamInvitationController extends Controller
         DB::transaction(function () use ($user, $invitation) {
             $team = $invitation->team;
 
-            $team->memberships()->firstOrCreate(
+            $team->teamMembers()->firstOrCreate(
                 ['user_id' => $user->id],
                 ['role' => $invitation->role],
             );
 
             $invitation->update(['accepted_at' => now()]);
 
-            $user->switchTeam($team);
+            $user->switchCurrentTeam($team);
         });
 
         return redirect()
-            ->route('dashboard')
+            ->route('dashboard', ['team' => $invitation->team->id])
             ->with('success', __('Invitation accepted.'));
     }
 
@@ -87,8 +87,11 @@ class TeamInvitationController extends Controller
     {
         $invitation->delete();
 
+        $user = $request->user();
+        $redirectTeamId = $user?->currentTeam?->id ?? $user?->getFallbackTeam()?->id;
+
         return redirect()
-            ->route('dashboard')
+            ->route('dashboard', ['team' => $redirectTeamId])
             ->with('success', __('Invitation declined.'));
     }
 }

@@ -19,7 +19,7 @@ test('login screen can be rendered', function () {
 test('login screen includes team invitation context', function () {
     $owner = User::factory()->create();
     $team = Team::factory()->create(['name' => 'Laravel Team']);
-    $team->members()->attach($owner, ['role' => TeamRole::Owner->value]);
+    $team->users()->attach($owner, ['role' => TeamRole::Owner->value]);
 
     $invitation = TeamInvitation::factory()->create([
         'team_id' => $team->id,
@@ -46,7 +46,7 @@ test('users can authenticate using the login screen', function () {
     ]);
 
     $this->assertAuthenticated();
-    $response->assertRedirect(route('dashboard'));
+    $response->assertRedirect(route('dashboard', ['team' => $user->getFallbackTeam()->id]));
 });
 
 test('passkey login response redirects to the current team dashboard', function () {
@@ -60,7 +60,7 @@ test('passkey login response redirects to the current team dashboard', function 
 
     $jsonResponse = app(PasskeyLoginResponse::class)->toResponse($request);
 
-    expect($jsonResponse->getData()->redirect)->toBe(route('dashboard', ['current_team' => $user->personalTeam()->id]));
+    expect($jsonResponse->getData()->redirect)->toBe(route('dashboard', ['team' => $user->getFallbackTeam()->id]));
 });
 
 test('users with two factor enabled are redirected to two factor challenge', function () {

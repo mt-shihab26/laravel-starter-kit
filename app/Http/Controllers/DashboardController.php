@@ -8,7 +8,10 @@ use Inertia\Response;
 
 class DashboardController extends Controller
 {
-    public function __invoke(Request $request): Response
+    /**
+     * Display the dashboard with pending team invitations for the current user.
+     */
+    public function index(Request $request): Response
     {
         $email = strtolower($request->user()->email);
 

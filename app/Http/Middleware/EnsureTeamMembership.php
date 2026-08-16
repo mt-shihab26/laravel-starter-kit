@@ -20,12 +20,14 @@ class EnsureTeamMembership
     {
         [$user, $team] = [$request->user(), $this->team($request)];
 
-        abort_if(! $user || ! $team || ! $user->belongsToTeam($team), 403);
+        abort_if(! $user || ! $team || ! $user->isBelongsToTeam($team), 403);
 
         $this->ensureTeamMemberHasRequiredRole($user, $team, $minimumRole);
 
-        if ($request->route('current_team') && ! $user->isCurrentTeam($team)) {
-            $user->switchTeam($team);
+        $routeTeam = $request->route('team');
+
+        if ($routeTeam && ! $user->isCurrentTeam($team)) {
+            $user->switchCurrentTeam($team);
         }
 
         return $next($request);
@@ -40,7 +42,10 @@ class EnsureTeamMembership
             return;
         }
 
-        $role = $user->teamRole($team);
+        $role = $team->teamMembers()
+            ->where('user_id', $user->id)
+            ->first()
+            ?->role;
 
         $requiredRole = TeamRole::tryFrom($minimumRole);
 
@@ -57,7 +62,7 @@ class EnsureTeamMembership
      */
     protected function team(Request $request): ?Team
     {
-        $team = $request->route('current_team') ?? $request->route('team');
+        $team = $request->route('team');
 
         if (is_string($team)) {
             $team = Team::find($team);

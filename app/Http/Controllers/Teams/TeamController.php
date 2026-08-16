@@ -8,8 +8,8 @@ use App\Enums\TeamRole;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teams\DeleteTeamRequest;
 use App\Http\Requests\Teams\SaveTeamRequest;
-use App\Models\Membership;
 use App\Models\Team;
+use App\Models\TeamMember;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -53,10 +53,9 @@ class TeamController extends Controller
             'team' => [
                 'id' => $team->id,
                 'name' => $team->name,
-                'isPersonal' => $team->is_personal,
             ],
-            'members' => $team->members()->get()->map(function (User $member) {
-                /** @var Membership $membership */
+            'members' => $team->users()->get()->map(function (User $member) {
+                /** @var TeamMember $membership */
                 $membership = $member->getRelation('pivot');
 
                 return [
@@ -108,9 +107,9 @@ class TeamController extends Controller
      */
     public function switch(Request $request, Team $team): RedirectResponse
     {
-        abort_unless($request->user()->belongsToTeam($team), 403);
+        abort_unless($request->user()->isBelongsToTeam($team), 403);
 
-        $request->user()->switchTeam($team);
+        $request->user()->switchCurrentTeam($team);
 
         return back();
     }
@@ -122,18 +121,18 @@ class TeamController extends Controller
     {
         $user = $request->user();
 
-        abort_if($team->is_personal || ! $user->belongsToTeam($team) || $user->ownsTeam($team), 403);
+        abort_if(! $user->isBelongsToTeam($team) || $user->isOwnsTeam($team), 403);
 
         $fallbackTeam = $user->isCurrentTeam($team)
-            ? $user->fallbackTeam($team)
+            ? $user->getFallbackTeam($team)
             : null;
 
-        $team->memberships()
+        $team->teamMembers()
             ->where('user_id', $user->id)
             ->delete();
 
         if ($fallbackTeam) {
-            $user->switchTeam($fallbackTeam);
+            $user->switchCurrentTeam($fallbackTeam);
         }
 
         return redirect()
@@ -148,21 +147,21 @@ class TeamController extends Controller
     {
         $user = $request->user();
         $fallbackTeam = $user->isCurrentTeam($team)
-            ? $user->fallbackTeam($team)
+            ? $user->getFallbackTeam($team)
             : null;
 
         DB::transaction(function () use ($user, $team) {
             User::where('current_team_id', $team->id)
                 ->where('id', '!=', $user->id)
-                ->each(fn (User $affectedUser) => $affectedUser->switchTeam($affectedUser->personalTeam()));
+                ->each(fn (User $affectedUser) => $affectedUser->switchCurrentTeam($affectedUser->getFallbackTeam($team)));
 
             $team->invitations()->delete();
-            $team->memberships()->delete();
+            $team->teamMembers()->delete();
             $team->delete();
         });
 
         if ($fallbackTeam) {
-            $user->switchTeam($fallbackTeam);
+            $user->switchCurrentTeam($fallbackTeam);
         }
 
         return redirect()

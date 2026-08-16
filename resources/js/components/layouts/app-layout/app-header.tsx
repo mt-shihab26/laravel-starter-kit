@@ -55,7 +55,9 @@ export const AppHeader = ({
     const { user, currentTeam } = usePage().props.auth;
     const { isCurrentUrl, whenCurrentUrl } = useCurrentUrl();
 
-    const dashboardUrl = currentTeam ? route('dashboard', currentTeam) : '/';
+    const dashboardUrl = currentTeam
+        ? route('dashboard', { team: currentTeam.id })
+        : '/';
 
     return (
         <>

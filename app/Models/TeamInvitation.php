@@ -46,6 +46,28 @@ class TeamInvitation extends Model
     }
 
     /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'role' => TeamRole::class,
+            'expires_at' => 'datetime',
+            'accepted_at' => 'datetime',
+        ];
+    }
+
+    /**
+     * Get the route key for the model.
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'code';
+    }
+
+    /**
      * Get the team that the invitation belongs to.
      *
      * @return BelongsTo<Team, $this>
@@ -87,27 +109,5 @@ class TeamInvitation extends Model
     public function isExpired(): bool
     {
         return $this->expires_at !== null && $this->expires_at->isPast();
-    }
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'role' => TeamRole::class,
-            'expires_at' => 'datetime',
-            'accepted_at' => 'datetime',
-        ];
-    }
-
-    /**
-     * Get the route key for the model.
-     */
-    public function getRouteKeyName(): string
-    {
-        return 'code';
     }
 }

@@ -48,11 +48,11 @@ class UserFactory extends Factory
                 'name' => $user->name."'s Team",
             ]);
 
-            $team->members()->attach($user, [
+            $team->users()->attach($user, [
                 'role' => TeamRole::Owner->value,
             ]);
 
-            $user->switchTeam($team);
+            $user->switchCurrentTeam($team);
         });
     }
 

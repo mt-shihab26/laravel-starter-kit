@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/.well-known/passkey-endpoints', [HomeController::class, 'wellknown'])->name('well-known.passkeys');
 
-Route::prefix('/{current_team}')->middleware(['auth', 'verified', EnsureTeamMembership::class])->group(function () {
-    Route::get('/dashboard', DashboardController::class)->name('dashboard');
+Route::prefix('/{team:id}')->middleware(['auth', 'verified', EnsureTeamMembership::class])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
 Route::middleware(['auth'])->group(function () {

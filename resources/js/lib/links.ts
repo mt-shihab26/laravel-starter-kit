@@ -12,7 +12,9 @@ import type { TNavItem } from '@/types/utils';
 import type { TTeam } from '@/types/models';
 
 export const mainNavItems = (currentTeam: TTeam | null): TNavItem[] => {
-    const dashboardUrl = currentTeam ? route('dashboard', currentTeam) : '/';
+    const dashboardUrl = currentTeam
+        ? route('dashboard', { team: currentTeam.id })
+        : '/';
 
     return [
         {

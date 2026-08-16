@@ -14,7 +14,6 @@ export type TUser = {
 export type TTeam = {
     id: number;
     name: string;
-    isPersonal: boolean;
     role?: TTeamRole;
     roleLabel?: string;
     isCurrent?: boolean;
