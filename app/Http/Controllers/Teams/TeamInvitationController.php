@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Teams;
 
-use App\Enums\TeamPermission;
 use App\Enums\TeamRole;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teams\CreateTeamInvitationRequest;
@@ -22,7 +21,7 @@ class TeamInvitationController extends Controller
      */
     public function store(CreateTeamInvitationRequest $request, Team $team): RedirectResponse
     {
-        abort_unless($request->user()->hasTeamPermission($team, TeamPermission::CreateInvitation), 403);
+        abort_unless($request->user()->canManageTeam($team), 403);
 
         $invitation = $team->invitations()->create([
             'email' => $request->validated('email'),
@@ -46,7 +45,7 @@ class TeamInvitationController extends Controller
     {
         abort_unless($invitation->team_id === $team->id, 404);
 
-        abort_unless($request->user()->hasTeamPermission($team, TeamPermission::CancelInvitation), 403);
+        abort_unless($request->user()->canManageTeam($team), 403);
 
         $invitation->delete();
 
@@ -65,18 +64,18 @@ class TeamInvitationController extends Controller
         DB::transaction(function () use ($user, $invitation) {
             $team = $invitation->team;
 
-            $team->memberships()->firstOrCreate(
+            $team->teamMembers()->firstOrCreate(
                 ['user_id' => $user->id],
                 ['role' => $invitation->role],
             );
 
             $invitation->update(['accepted_at' => now()]);
 
-            $user->switchTeam($team);
+            $user->switchCurrentTeam($team);
         });
 
         return redirect()
-            ->route('dashboard')
+            ->route('dashboard', ['team' => $invitation->team->id])
             ->with('success', __('Invitation accepted.'));
     }
 
@@ -87,8 +86,11 @@ class TeamInvitationController extends Controller
     {
         $invitation->delete();
 
+        $user = $request->user();
+        $redirectTeamId = $user?->getCurrentTeam()?->id;
+
         return redirect()
-            ->route('dashboard')
+            ->route('dashboard', ['team' => $redirectTeamId])
             ->with('success', __('Invitation declined.'));
     }
 }

@@ -8,7 +8,7 @@ import {
     DialogTitle,
 } from '@/components/ui/dialog';
 
-import type { TTeam, TTeamMember } from '@/types/models';
+import type { TTeam, TUser } from '@/types/models';
 
 import { router } from '@inertiajs/react';
 import { useState } from 'react';
@@ -22,7 +22,7 @@ export const RemoveMemberModal = ({
     onOpenChange,
 }: {
     team: TTeam;
-    member: TTeamMember | null;
+    member: TUser | null;
     open: boolean;
     onOpenChange: (open: boolean) => void;
 }) => {

@@ -58,8 +58,6 @@ class SecurityController extends Controller
             'password' => $request->password,
         ]);
 
-        return redirect()
-            ->back()
-            ->with('success', __('Password updated.'));
+        return redirect()->back()->with('success', __('Password updated.'));
     }
 }

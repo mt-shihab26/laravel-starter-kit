@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
@@ -36,6 +37,7 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        /** @var ?User $user */
         $user = $request->user();
 
         return [
@@ -45,8 +47,9 @@ class HandleInertiaRequests extends Middleware
             'open' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
             'auth' => [
                 'user' => $user,
-                'currentTeam' => fn () => $user?->currentTeam ? $user->toUserTeam($user->currentTeam) : null,
-                'teams' => fn () => $user?->toUserTeams(includeCurrent: true) ?? [],
+                'team' => fn () => $user?->getCurrentTeam(),
+                'teams' => fn () => $user ? $user->teams : [],
+                'canManageTeam' => fn () => $user?->canManageTeam($user->getCurrentTeam()) ?? false,
             ],
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),

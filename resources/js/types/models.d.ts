@@ -9,30 +9,38 @@ export type TUser = {
     two_factor_enabled?: boolean;
     created_at: string;
     updated_at: string;
+
+    pivot?: TTeamMember | null;
 };
 
 export type TTeam = {
     id: number;
     name: string;
-    isPersonal: boolean;
-    role?: TTeamRole;
-    roleLabel?: string;
-    isCurrent?: boolean;
-};
-
-export type TTeamInvitation = {
-    code: string;
-    email: string;
-    role: TTeamRole;
-    role_label: string;
     created_at: string;
+    updated_at: string;
+    deleted_at: string | null;
+
+    pivot?: TTeamMember | null;
 };
 
 export type TTeamMember = {
     id: number;
-    name: string;
-    email: string;
-    avatar?: string | null;
+    team_id: number;
+    user_id: number;
     role: TTeamRole;
-    role_label: string;
+    created_at: string;
+    updated_at: string;
+};
+
+export type TTeamInvitation = {
+    id: number;
+    code: string;
+    team_id: number;
+    email: string;
+    role: TTeamRole;
+    invited_by: number;
+    expires_at: string | null;
+    accepted_at: string | null;
+    created_at: string;
+    updated_at: string;
 };

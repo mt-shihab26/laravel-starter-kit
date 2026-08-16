@@ -19,21 +19,9 @@ use Illuminate\Support\Carbon;
  * @property-read User $user
  */
 #[Fillable(['team_id', 'user_id', 'role'])]
-class Membership extends Pivot
+class TeamMember extends Pivot
 {
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
     protected $table = 'team_members';
-
-    /**
-     * Indicates if the IDs are auto-incrementing.
-     *
-     * @var bool
-     */
-    public $incrementing = true;
 
     /**
      * Get the team that the membership belongs to.

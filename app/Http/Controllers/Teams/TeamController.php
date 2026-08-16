@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Teams;
 
 use App\Actions\Teams\CreateTeam;
-use App\Enums\TeamPermission;
 use App\Enums\TeamRole;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teams\DeleteTeamRequest;
 use App\Http\Requests\Teams\SaveTeamRequest;
-use App\Models\Membership;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -26,7 +24,7 @@ class TeamController extends Controller
         $user = $request->user();
 
         return inertia('teams/index', [
-            'teams' => $user->toUserTeams(includeCurrent: true),
+            'teams' => $user->teams()->get(),
         ]);
     }
 
@@ -45,40 +43,12 @@ class TeamController extends Controller
     /**
      * Show the team edit page.
      */
-    public function edit(Request $request, Team $team): Response
+    public function edit(Team $team): Response
     {
-        $user = $request->user();
-
         return inertia('teams/edit', [
-            'team' => [
-                'id' => $team->id,
-                'name' => $team->name,
-                'isPersonal' => $team->is_personal,
-            ],
-            'members' => $team->members()->get()->map(function (User $member) {
-                /** @var Membership $membership */
-                $membership = $member->getRelation('pivot');
-
-                return [
-                    'id' => $member->id,
-                    'name' => $member->name,
-                    'email' => $member->email,
-                    'avatar' => $member->avatar ?? null,
-                    'role' => $membership->role->value,
-                    'role_label' => $membership->role->label(),
-                ];
-            }),
-            'invitations' => $team->invitations()
-                ->whereNull('accepted_at')
-                ->get()
-                ->map(fn ($invitation) => [
-                    'code' => $invitation->code,
-                    'email' => $invitation->email,
-                    'role' => $invitation->role->value,
-                    'role_label' => $invitation->role->label(),
-                    'created_at' => $invitation->created_at->toISOString(),
-                ]),
-            'permissions' => $user->toTeamPermissions($team),
+            'team' => $team,
+            'users' => $team->users()->get(),
+            'invitations' => $team->invitations()->whereNull('accepted_at')->get(),
             'availableRoles' => TeamRole::assignable(),
         ]);
     }
@@ -88,7 +58,7 @@ class TeamController extends Controller
      */
     public function update(SaveTeamRequest $request, Team $team): RedirectResponse
     {
-        abort_unless($request->user()->hasTeamPermission($team, TeamPermission::UpdateTeam), 403);
+        abort_unless($request->user()->canManageTeam($team), 403);
 
         $team = DB::transaction(function () use ($request, $team) {
             $team = Team::whereKey($team->id)->lockForUpdate()->firstOrFail();
@@ -108,9 +78,9 @@ class TeamController extends Controller
      */
     public function switch(Request $request, Team $team): RedirectResponse
     {
-        abort_unless($request->user()->belongsToTeam($team), 403);
+        abort_unless($request->user()->isBelongsToTeam($team), 403);
 
-        $request->user()->switchTeam($team);
+        $request->user()->switchCurrentTeam($team);
 
         return back();
     }
@@ -122,18 +92,16 @@ class TeamController extends Controller
     {
         $user = $request->user();
 
-        abort_if($team->is_personal || ! $user->belongsToTeam($team) || $user->ownsTeam($team), 403);
+        abort_if(! $user->isBelongsToTeam($team) || $user->isOwnsTeam($team), 403);
 
-        $fallbackTeam = $user->isCurrentTeam($team)
-            ? $user->fallbackTeam($team)
-            : null;
+        $fallbackTeam = $user->getResolveFallbackTeam($team);
 
-        $team->memberships()
+        $team->teamMembers()
             ->where('user_id', $user->id)
             ->delete();
 
         if ($fallbackTeam) {
-            $user->switchTeam($fallbackTeam);
+            $user->switchCurrentTeam($fallbackTeam);
         }
 
         return redirect()
@@ -146,23 +114,27 @@ class TeamController extends Controller
      */
     public function destroy(DeleteTeamRequest $request, Team $team): RedirectResponse
     {
+        abort_unless($request->user()->canManageTeam($team), 403);
+
         $user = $request->user();
-        $fallbackTeam = $user->isCurrentTeam($team)
-            ? $user->fallbackTeam($team)
-            : null;
+        $fallbackTeam = $user->getResolveFallbackTeam($team);
 
         DB::transaction(function () use ($user, $team) {
             User::where('current_team_id', $team->id)
                 ->where('id', '!=', $user->id)
-                ->each(fn (User $affectedUser) => $affectedUser->switchTeam($affectedUser->personalTeam()));
+                ->each(function (User $affectedUser) use ($team) {
+                    if ($fallbackTeam = $affectedUser->getFallbackTeam($team)) {
+                        $affectedUser->switchCurrentTeam($fallbackTeam);
+                    }
+                });
 
             $team->invitations()->delete();
-            $team->memberships()->delete();
+            $team->teamMembers()->delete();
             $team->delete();
         });
 
         if ($fallbackTeam) {
-            $user->switchTeam($fallbackTeam);
+            $user->switchCurrentTeam($fallbackTeam);
         }
 
         return redirect()

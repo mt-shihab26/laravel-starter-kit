@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Teams;
 
-use App\Enums\TeamPermission;
 use App\Models\Team;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -16,11 +15,7 @@ class DeleteTeamRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $team = $this->route('team');
-
-        return $team instanceof Team
-            && ! $team->is_personal
-            && $this->user()->hasTeamPermission($team, TeamPermission::DeleteTeam);
+        return true;
     }
 
     /**
@@ -58,7 +53,13 @@ class DeleteTeamRequest extends FormRequest
     {
         $team = $this->route('team');
 
-        abort_if(! $team instanceof Team, 404);
+        if (is_string($team)) {
+            $team = Team::findOrFail($team);
+        }
+
+        if (! $team instanceof Team) {
+            abort(404);
+        }
 
         return $team;
     }

@@ -8,12 +8,10 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 
-import type { TNavItem } from '@/types/utils';
-
 import { usePage } from '@inertiajs/react';
+import { mainNavItems, secondaryNavItems } from '@/lib/links';
 
 import { Link } from '@inertiajs/react';
-import { BookOpen, FolderGit2, LayoutGrid } from 'lucide-react';
 import { AppLogo } from '@/components/layouts/app-layout/app-logo';
 import { NavFooter } from '@/components/layouts/app-layout/nav-footer';
 import { NavMain } from '@/components/layouts/app-layout/nav-main';
@@ -21,34 +19,14 @@ import { NavUser } from '@/components/layouts/app-layout/nav-user';
 import { TeamSwitcher } from '@/components/layouts/app-layout/team-switcher';
 
 export const AppSidebar = () => {
-    const page = usePage();
-    const dashboardUrl = page.props.auth.currentTeam
-        ? route('dashboard', page.props.auth.currentTeam.id)
+    const { team: currentTeam } = usePage().props.auth;
+
+    const dashboardUrl = currentTeam
+        ? route('dashboard', { team: currentTeam.id })
         : '/';
 
-    const mainNavItems: TNavItem[] = [
-        {
-            title: 'Dashboard',
-            href: dashboardUrl,
-            icon: LayoutGrid,
-        },
-    ];
-
-    const footerNavItems: TNavItem[] = [
-        {
-            title: 'Repository',
-            href: 'https://github.com/laravel/react-starter-kit',
-            icon: FolderGit2,
-        },
-        {
-            title: 'Documentation',
-            href: 'https://laravel.com/docs/starter-kits#react',
-            icon: BookOpen,
-        },
-    ];
-
     return (
-        <Sidebar collapsible="icon" variant="inset">
+        <Sidebar collapsible="icon" variant="floating">
             <SidebarHeader>
                 <SidebarMenu>
                     <SidebarMenuItem>
@@ -70,11 +48,11 @@ export const AppSidebar = () => {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                <NavMain items={mainNavItems(currentTeam)} />
             </SidebarContent>
 
             <SidebarFooter>
-                <NavFooter items={footerNavItems} className="mt-auto" />
+                <NavFooter items={secondaryNavItems} className="mt-auto" />
                 <NavUser />
             </SidebarFooter>
         </Sidebar>

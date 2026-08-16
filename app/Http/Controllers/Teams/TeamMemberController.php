@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Teams;
 
-use App\Enums\TeamPermission;
 use App\Enums\TeamRole;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teams\UpdateTeamMemberRequest;
@@ -18,11 +17,13 @@ class TeamMemberController extends Controller
      */
     public function update(UpdateTeamMemberRequest $request, Team $team, User $user): RedirectResponse
     {
-        abort_unless($request->user()->hasTeamPermission($team, TeamPermission::UpdateMember), 403);
+        abort_unless($request->user()->canManageTeam($team), 403);
+
+        abort_if($team->owner()?->is($user), 403, __("The team owner's role cannot be changed."));
 
         $newRole = TeamRole::from($request->validated('role'));
 
-        $team->memberships()
+        $team->teamMembers()
             ->where('user_id', $user->id)
             ->firstOrFail()
             ->update(['role' => $newRole]);
@@ -37,16 +38,16 @@ class TeamMemberController extends Controller
      */
     public function destroy(Request $request, Team $team, User $user): RedirectResponse
     {
-        abort_unless($request->user()->hasTeamPermission($team, TeamPermission::RemoveMember), 403);
+        abort_unless($request->user()->canManageTeam($team), 403);
 
         abort_if($team->owner()?->is($user), 403, __('The team owner cannot be removed.'));
 
-        $team->memberships()
+        $team->teamMembers()
             ->where('user_id', $user->id)
             ->delete();
 
-        if ($user->isCurrentTeam($team)) {
-            $user->switchTeam($user->personalTeam());
+        if ($fallbackTeam = $user->getResolveFallbackTeam($team)) {
+            $user->switchCurrentTeam($fallbackTeam);
         }
 
         return redirect()

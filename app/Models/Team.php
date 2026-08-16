@@ -16,51 +16,40 @@ use Illuminate\Support\Carbon;
 /**
  * @property int $id
  * @property string $name
- * @property bool $is_personal
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  * @property-read Collection<int, TeamInvitation> $invitations
- * @property-read Collection<int, Membership> $memberships
- * @property-read Collection<int, User> $members
+ * @property-read Collection<int, TeamMember> $teamMembers
+ * @property-read Collection<int, User> $users
  */
-#[Fillable(['name', 'is_personal'])]
+#[Fillable(['name'])]
 class Team extends Model
 {
     /** @use HasFactory<TeamFactory> */
     use HasFactory, SoftDeletes;
 
     /**
-     * Get the team owner.
+     * Get all team members for this team.
+     *
+     * @return HasMany<TeamMember, $this>
      */
-    public function owner(): ?Model
+    public function teamMembers(): HasMany
     {
-        return $this->members()
-            ->wherePivot('role', TeamRole::Owner->value)
-            ->first();
+        return $this->hasMany(TeamMember::class);
     }
 
     /**
-     * Get all members of this team.
+     * Get all users on this team.
      *
-     * @return BelongsToMany<User, $this, Membership, 'pivot'>
+     * @return BelongsToMany<User, $this, TeamMember, 'pivot'>
      */
-    public function members(): BelongsToMany
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'team_members', 'team_id', 'user_id')
-            ->using(Membership::class)
+            ->using(TeamMember::class)
             ->withPivot(['role'])
             ->withTimestamps();
-    }
-
-    /**
-     * Get all memberships for this team.
-     *
-     * @return HasMany<Membership, $this>
-     */
-    public function memberships(): HasMany
-    {
-        return $this->hasMany(Membership::class);
     }
 
     /**
@@ -74,14 +63,28 @@ class Team extends Model
     }
 
     /**
-     * Get the attributes that should be cast.
+     * Get the team owner.
      *
-     * @return array<string, string>
+     * @return User|null
      */
-    protected function casts(): array
+    public function owner(): ?Model
     {
-        return [
-            'is_personal' => 'boolean',
-        ];
+        return $this->users()
+            ->wherePivot('role', TeamRole::Owner->value)
+            ->first();
+    }
+
+    /**
+     * Get the team member record for the given user.
+     */
+    public function teamMemberFor(?User $user): ?TeamMember
+    {
+        if (! $user) {
+            return null;
+        }
+
+        return $this->teamMembers()
+            ->where('user_id', $user->id)
+            ->first();
     }
 }

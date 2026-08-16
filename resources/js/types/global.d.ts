@@ -1,5 +1,5 @@
-import type { TTeam } from '@/types/teams';
 import type { route as routeFn } from 'ziggy-js';
+import type { TTeam, TUser } from './models';
 
 declare module 'react' {
     interface InputHTMLAttributes<T> {
@@ -17,9 +17,10 @@ declare module '@inertiajs/core' {
             name: string;
             open: boolean;
             auth: {
-                user: TUser;
-                currentTeam: TTeam | null;
+                user: TUser | null;
+                team: TTeam | null;
                 teams: TTeam[];
+                canManageTeam: boolean;
             };
             flash: {
                 success: string | null;

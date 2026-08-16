@@ -33,16 +33,12 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
         ];
 
-        Validator::make($input, $rules)->validate();
+        $validated = Validator::make($input, $rules)->validate();
 
-        return DB::transaction(function () use ($input) {
-            $user = User::create([
-                'name' => $input['name'],
-                'email' => $input['email'],
-                'password' => $input['password'],
-            ]);
+        return DB::transaction(function () use ($validated) {
+            $user = User::create($validated);
 
-            $this->createTeam->handle($user, $user->name."'s Team", isPersonal: true);
+            $this->createTeam->handle($user, $user->name."'s Team");
 
             return $user;
         });

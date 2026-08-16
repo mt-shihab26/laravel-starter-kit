@@ -48,6 +48,7 @@ const ConfirmPassword = () => {
 
                         <div className="flex items-center">
                             <Button
+                                type="submit"
                                 className="w-full"
                                 disabled={processing}
                                 data-test="confirm-password-button"

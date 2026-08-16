@@ -26,7 +26,7 @@ class UniqueTeamInvitation implements ValidationRule
     {
         $email = strtolower($value);
 
-        $isMember = $this->team->members()
+        $isMember = $this->team->users()
             ->whereRaw('LOWER(email) = ?', [$email])
             ->exists();
 

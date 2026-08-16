@@ -13,11 +13,11 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 import type { TTeamRoleOption } from '@/components/screens/teams/invite-member-modal';
-import type { TTeam, TTeamInvitation, TTeamMember } from '@/types/models';
+import type { TTeam, TTeamInvitation, TUser } from '@/types/models';
 
-import { router } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import { useMemo, useState } from 'react';
-import { formatInitials } from '@/lib/formats';
+import { formatInitials, formatRoleLabel } from '@/lib/formats';
 
 import { Form } from '@inertiajs/react';
 import { ChevronDown, Mail, UserPlus, X } from 'lucide-react';
@@ -34,49 +34,34 @@ import { SettingsLayout } from '@/components/layouts/settings-layout';
 import { RemoveMemberModal } from '@/components/screens/teams/remove-member-modal';
 import { CancelInvitationModal } from '@/components/screens/teams/cancel-invitation-modal';
 
-type TTeamPermissions = {
-    canUpdateTeam: boolean;
-    canDeleteTeam: boolean;
-    canAddMember: boolean;
-    canUpdateMember: boolean;
-    canRemoveMember: boolean;
-    canCreateInvitation: boolean;
-    canCancelInvitation: boolean;
-};
-
 const TeamEdit = ({
     team,
-    members,
+    users,
     invitations,
-    permissions,
     availableRoles,
 }: {
     team: TTeam;
-    members: TTeamMember[];
+    users: TUser[];
     invitations: TTeamInvitation[];
-    permissions: TTeamPermissions;
     availableRoles: TTeamRoleOption[];
 }) => {
+    const { canManageTeam } = usePage().props.auth;
+
     const [inviteDialogOpen, setInviteDialogOpen] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [removeMemberDialogOpen, setRemoveMemberDialogOpen] = useState(false);
-    const [memberToRemove, setMemberToRemove] = useState<TTeamMember | null>(
-        null,
-    );
+    const [memberToRemove, setMemberToRemove] = useState<TUser | null>(null);
     const [cancelInvitationDialogOpen, setCancelInvitationDialogOpen] =
         useState(false);
     const [invitationToCancel, setInvitationToCancel] =
         useState<TTeamInvitation | null>(null);
 
     const pageTitle = useMemo(
-        () =>
-            permissions.canUpdateTeam
-                ? `Edit ${team.name}`
-                : `View ${team.name}`,
-        [permissions.canUpdateTeam, team.name],
+        () => (canManageTeam ? `Edit ${team.name}` : `View ${team.name}`),
+        [canManageTeam, team.name],
     );
 
-    const updateMemberRole = (member: TTeamMember, newRole: string) => {
+    const updateMemberRole = (member: TUser, newRole: string) => {
         router.visit(route('teams.members.update', [team.id, member.id]), {
             method: 'patch',
             data: { role: newRole },
@@ -84,7 +69,7 @@ const TeamEdit = ({
         });
     };
 
-    const confirmRemoveMember = (member: TTeamMember) => {
+    const confirmRemoveMember = (member: TUser) => {
         setMemberToRemove(member);
         setRemoveMemberDialogOpen(true);
     };
@@ -103,7 +88,7 @@ const TeamEdit = ({
 
             <div className="flex flex-col space-y-10">
                 <div className="space-y-6">
-                    {permissions.canUpdateTeam ? (
+                    {canManageTeam ? (
                         <>
                             <Heading
                                 variant="small"
@@ -158,13 +143,13 @@ const TeamEdit = ({
                             variant="small"
                             title="Team members"
                             description={
-                                permissions.canCreateInvitation
+                                canManageTeam
                                     ? 'Manage who belongs to this team'
                                     : ''
                             }
                         />
 
-                        {permissions.canCreateInvitation ? (
+                        {canManageTeam ? (
                             <Button
                                 data-test="invite-member-button"
                                 onClick={() => setInviteDialogOpen(true)}
@@ -175,102 +160,110 @@ const TeamEdit = ({
                     </div>
 
                     <div className="space-y-3">
-                        {members.map((member) => (
-                            <div
-                                key={member.id}
-                                data-test="member-row"
-                                className="flex items-center justify-between rounded-lg border p-4"
-                            >
-                                <div className="flex items-center gap-4">
-                                    <Avatar className="h-10 w-10">
-                                        {member.avatar ? (
-                                            <AvatarImage
-                                                src={member.avatar}
-                                                alt={member.name}
-                                            />
-                                        ) : null}
-                                        <AvatarFallback>
-                                            {formatInitials(member.name)}
-                                        </AvatarFallback>
-                                    </Avatar>
-                                    <div>
-                                        <div className="font-medium">
-                                            {member.name}
-                                        </div>
-                                        <div className="text-sm text-muted-foreground">
-                                            {member.email}
+                        {users.map((user) => {
+                            const role = user.pivot?.role;
+
+                            return (
+                                <div
+                                    key={user.id}
+                                    data-test="member-row"
+                                    className="flex items-center justify-between rounded-lg border p-4"
+                                >
+                                    <div className="flex items-center gap-4">
+                                        <Avatar className="h-10 w-10">
+                                            {user.avatar ? (
+                                                <AvatarImage
+                                                    src={user.avatar}
+                                                    alt={user.name}
+                                                />
+                                            ) : null}
+                                            <AvatarFallback>
+                                                {formatInitials(user.name)}
+                                            </AvatarFallback>
+                                        </Avatar>
+                                        <div>
+                                            <div className="font-medium">
+                                                {user.name}
+                                            </div>
+                                            <div className="text-sm text-muted-foreground">
+                                                {user.email}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div className="flex items-center gap-2">
-                                    {member.role !== 'owner' &&
-                                    permissions.canUpdateMember ? (
-                                        <DropdownMenu>
-                                            <DropdownMenuTrigger
-                                                render={
-                                                    <Button
-                                                        variant="outline"
-                                                        size="sm"
-                                                        data-test="member-role-trigger"
-                                                    >
-                                                        {member.role_label}
-                                                        <ChevronDown className="ml-2 h-4 w-4 opacity-50" />
-                                                    </Button>
-                                                }
-                                            />
-                                            <DropdownMenuContent>
-                                                {availableRoles.map((role) => (
-                                                    <DropdownMenuItem
-                                                        key={role.value}
-                                                        data-test="member-role-option"
-                                                        onSelect={() =>
-                                                            updateMemberRole(
-                                                                member,
-                                                                role.value,
-                                                            )
-                                                        }
-                                                    >
-                                                        {role.label}
-                                                    </DropdownMenuItem>
-                                                ))}
-                                            </DropdownMenuContent>
-                                        </DropdownMenu>
-                                    ) : (
-                                        <Badge variant="secondary">
-                                            {member.role_label}
-                                        </Badge>
-                                    )}
-
-                                    {member.role !== 'owner' &&
-                                    permissions.canRemoveMember ? (
-                                        <TooltipProvider>
-                                            <Tooltip>
-                                                <TooltipTrigger
+                                    <div className="flex items-center gap-2">
+                                        {role !== 'owner' && canManageTeam ? (
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger
                                                     render={
                                                         <Button
-                                                            variant="ghost"
+                                                            variant="outline"
                                                             size="sm"
-                                                            data-test="member-remove-button"
-                                                            onClick={() =>
-                                                                confirmRemoveMember(
-                                                                    member,
-                                                                )
-                                                            }
+                                                            data-test="member-role-trigger"
                                                         >
-                                                            <X className="h-4 w-4" />
+                                                            {formatRoleLabel(
+                                                                role,
+                                                            )}
+                                                            <ChevronDown className="ml-2 h-4 w-4 opacity-50" />
                                                         </Button>
                                                     }
                                                 />
-                                                <TooltipContent>
-                                                    <p>Remove member</p>
-                                                </TooltipContent>
-                                            </Tooltip>
-                                        </TooltipProvider>
-                                    ) : null}
+                                                <DropdownMenuContent>
+                                                    {availableRoles.map(
+                                                        (option) => (
+                                                            <DropdownMenuItem
+                                                                key={
+                                                                    option.value
+                                                                }
+                                                                data-test="member-role-option"
+                                                                onSelect={() =>
+                                                                    updateMemberRole(
+                                                                        user,
+                                                                        option.value,
+                                                                    )
+                                                                }
+                                                            >
+                                                                {option.label}
+                                                            </DropdownMenuItem>
+                                                        ),
+                                                    )}
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
+                                        ) : (
+                                            <Badge variant="secondary">
+                                                {formatRoleLabel(role)}
+                                            </Badge>
+                                        )}
+
+                                        {role !== 'owner' && canManageTeam ? (
+                                            <TooltipProvider>
+                                                <Tooltip>
+                                                    <TooltipTrigger
+                                                        render={
+                                                            <Button
+                                                                variant="ghost"
+                                                                size="sm"
+                                                                data-test="member-remove-button"
+                                                                onClick={() =>
+                                                                    confirmRemoveMember(
+                                                                        user,
+                                                                    )
+                                                                }
+                                                            >
+                                                                <X className="h-4 w-4" />
+                                                            </Button>
+                                                        }
+                                                    />
+                                                    <TooltipContent>
+                                                        <p>Remove member</p>
+                                                    </TooltipContent>
+                                                </Tooltip>
+                                            </TooltipProvider>
+                                        ) : null}
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 </div>
 
@@ -298,12 +291,14 @@ const TeamEdit = ({
                                                 {invitation.email}
                                             </div>
                                             <div className="text-sm text-muted-foreground">
-                                                {invitation.role_label}
+                                                {formatRoleLabel(
+                                                    invitation.role,
+                                                )}
                                             </div>
                                         </div>
                                     </div>
 
-                                    {permissions.canCancelInvitation ? (
+                                    {canManageTeam ? (
                                         <TooltipProvider>
                                             <Tooltip>
                                                 <TooltipTrigger
@@ -334,7 +329,7 @@ const TeamEdit = ({
                     </div>
                 ) : null}
 
-                {permissions.canDeleteTeam && !team.isPersonal ? (
+                {canManageTeam ? (
                     <div className="space-y-6">
                         <Heading
                             variant="small"
@@ -361,7 +356,7 @@ const TeamEdit = ({
                 ) : null}
             </div>
 
-            {permissions.canCreateInvitation ? (
+            {canManageTeam ? (
                 <InviteMemberModal
                     team={team}
                     availableRoles={availableRoles}
@@ -384,7 +379,7 @@ const TeamEdit = ({
                 onOpenChange={setCancelInvitationDialogOpen}
             />
 
-            {permissions.canDeleteTeam && !team.isPersonal ? (
+            {canManageTeam ? (
                 <DeleteTeamModal
                     team={team}
                     open={deleteDialogOpen}
