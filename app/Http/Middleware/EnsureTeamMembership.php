@@ -42,10 +42,7 @@ class EnsureTeamMembership
             return;
         }
 
-        $role = $team->teamMembers()
-            ->where('user_id', $user->id)
-            ->first()
-            ?->role;
+        $role = $team->teamMemberFor($user)?->role;
 
         $requiredRole = TeamRole::tryFrom($minimumRole);
 
