@@ -20,6 +20,7 @@ declare module '@inertiajs/core' {
                 user: TUser | null;
                 team: TTeam | null;
                 teams: TTeam[];
+                canManageTeam: boolean;
             };
             flash: {
                 success: string | null;

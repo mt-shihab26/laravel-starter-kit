@@ -126,8 +126,12 @@ class User extends Authenticatable implements PasskeyUser
     /**
      * Determine if the user is an owner or admin of the given team.
      */
-    public function canManageTeam(Team $team): bool
+    public function canManageTeam(?Team $team): bool
     {
+        if (! $team) {
+            return false;
+        }
+
         $role = $team->teamMembers()
             ->where('user_id', $this->id)
             ->first()?->role;
@@ -156,5 +160,4 @@ class User extends Authenticatable implements PasskeyUser
 
         return $role === TeamRole::Owner;
     }
-
 }

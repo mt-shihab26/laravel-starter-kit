@@ -43,15 +43,12 @@ class TeamController extends Controller
     /**
      * Show the team edit page.
      */
-    public function edit(Request $request, Team $team): Response
+    public function edit(Team $team): Response
     {
-        $user = $request->user();
-
         return inertia('teams/edit', [
             'team' => $team,
             'users' => $team->users()->get(),
             'invitations' => $team->invitations()->whereNull('accepted_at')->get(),
-            'canManageTeam' => $user->canManageTeam($team),
             'availableRoles' => TeamRole::assignable(),
         ]);
     }

@@ -68,7 +68,7 @@ const TeamsIndex = ({ teams }: { teams: TTeam[] }) => {
                                             </span>
                                         </div>
                                         <span className="text-sm text-muted-foreground">
-                                            {role ? formatRoleLabel(role) : null}
+                                            {formatRoleLabel(role)}
                                         </span>
                                     </div>
                                 </div>

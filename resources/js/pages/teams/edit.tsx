@@ -15,7 +15,7 @@ import {
 import type { TTeamRoleOption } from '@/components/screens/teams/invite-member-modal';
 import type { TTeam, TTeamInvitation, TUser } from '@/types/models';
 
-import { router } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import { useMemo, useState } from 'react';
 import { formatInitials, formatRoleLabel } from '@/lib/formats';
 
@@ -38,15 +38,15 @@ const TeamEdit = ({
     team,
     users,
     invitations,
-    canManageTeam,
     availableRoles,
 }: {
     team: TTeam;
     users: TUser[];
     invitations: TTeamInvitation[];
-    canManageTeam: boolean;
     availableRoles: TTeamRoleOption[];
 }) => {
+    const { canManageTeam } = usePage().props.auth;
+
     const [inviteDialogOpen, setInviteDialogOpen] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [removeMemberDialogOpen, setRemoveMemberDialogOpen] = useState(false);
@@ -200,9 +200,10 @@ const TeamEdit = ({
                                                             variant="outline"
                                                             size="sm"
                                                             data-test="member-role-trigger"
-                                                            className="capitalize"
                                                         >
-                                                            {role}
+                                                            {formatRoleLabel(
+                                                                role,
+                                                            )}
                                                             <ChevronDown className="ml-2 h-4 w-4 opacity-50" />
                                                         </Button>
                                                     }
@@ -230,9 +231,7 @@ const TeamEdit = ({
                                             </DropdownMenu>
                                         ) : (
                                             <Badge variant="secondary">
-                                                {role
-                                                    ? formatRoleLabel(role)
-                                                    : null}
+                                                {formatRoleLabel(role)}
                                             </Badge>
                                         )}
 
