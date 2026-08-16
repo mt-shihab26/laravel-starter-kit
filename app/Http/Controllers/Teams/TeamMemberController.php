@@ -44,8 +44,8 @@ class TeamMemberController extends Controller
             ->where('user_id', $user->id)
             ->delete();
 
-        if ($user->isCurrentTeam($team)) {
-            $user->switchCurrentTeam($user->getFallbackTeam($team));
+        if ($fallbackTeam = $user->getResolveFallbackTeam($team)) {
+            $user->switchCurrentTeam($fallbackTeam);
         }
 
         return redirect()

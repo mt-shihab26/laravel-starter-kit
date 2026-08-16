@@ -94,9 +94,7 @@ class TeamController extends Controller
 
         abort_if(! $user->isBelongsToTeam($team) || $user->isOwnsTeam($team), 403);
 
-        $fallbackTeam = $user->isCurrentTeam($team)
-            ? $user->getFallbackTeam($team)
-            : null;
+        $fallbackTeam = $user->getResolveFallbackTeam($team);
 
         $team->teamMembers()
             ->where('user_id', $user->id)
@@ -119,9 +117,7 @@ class TeamController extends Controller
         abort_unless($request->user()->canManageTeam($team), 403);
 
         $user = $request->user();
-        $fallbackTeam = $user->isCurrentTeam($team)
-            ? $user->getFallbackTeam($team)
-            : null;
+        $fallbackTeam = $user->getResolveFallbackTeam($team);
 
         DB::transaction(function () use ($user, $team) {
             User::where('current_team_id', $team->id)

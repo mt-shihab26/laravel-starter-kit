@@ -106,6 +106,14 @@ class User extends Authenticatable implements PasskeyUser
     }
 
     /**
+     * Resolve the team the user should switch to if the given team is their current team.
+     */
+    public function getResolveFallbackTeam(Team $team): ?Team
+    {
+        return $this->isCurrentTeam($team) ? $this->getFallbackTeam($team) : null;
+    }
+
+    /**
      * Get the user's current team, falling back to another team if unset.
      */
     public function getCurrentTeam(): ?Team
