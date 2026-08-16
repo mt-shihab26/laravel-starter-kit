@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Teams\DeleteTeamRequest;
 use App\Http\Requests\Teams\SaveTeamRequest;
 use App\Models\Team;
-use App\Models\TeamMember;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -49,23 +48,8 @@ class TeamController extends Controller
         $user = $request->user();
 
         return inertia('teams/edit', [
-            'team' => [
-                'id' => $team->id,
-                'name' => $team->name,
-            ],
-            'members' => $team->users()->get()->map(function (User $member) {
-                /** @var TeamMember $membership */
-                $membership = $member->getRelation('pivot');
-
-                return [
-                    'id' => $member->id,
-                    'name' => $member->name,
-                    'email' => $member->email,
-                    'avatar' => $member->avatar ?? null,
-                    'role' => $membership->role->value,
-                    'role_label' => $membership->role->label(),
-                ];
-            }),
+            'team' => $team,
+            'users' => $team->users()->get(),
             'invitations' => $team->invitations()
                 ->whereNull('accepted_at')
                 ->get()

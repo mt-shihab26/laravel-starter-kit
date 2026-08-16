@@ -13,13 +13,12 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 import type { TTeamRoleOption } from '@/components/screens/teams/invite-member-modal';
-import type { TTeamMemberSummary } from '@/components/screens/teams/remove-member-modal';
 import type { TTeamInvitationSummary } from '@/components/screens/teams/cancel-invitation-modal';
-import type { TTeam } from '@/types/models';
+import type { TTeam, TUser } from '@/types/models';
 
 import { router } from '@inertiajs/react';
 import { useMemo, useState } from 'react';
-import { formatInitials } from '@/lib/formats';
+import { formatInitials, formatRoleLabel } from '@/lib/formats';
 
 import { Form } from '@inertiajs/react';
 import { ChevronDown, Mail, UserPlus, X } from 'lucide-react';
@@ -38,13 +37,13 @@ import { CancelInvitationModal } from '@/components/screens/teams/cancel-invitat
 
 const TeamEdit = ({
     team,
-    members,
+    users,
     invitations,
     canManageTeam,
     availableRoles,
 }: {
     team: TTeam;
-    members: TTeamMemberSummary[];
+    users: TUser[];
     invitations: TTeamInvitationSummary[];
     canManageTeam: boolean;
     availableRoles: TTeamRoleOption[];
@@ -52,8 +51,7 @@ const TeamEdit = ({
     const [inviteDialogOpen, setInviteDialogOpen] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [removeMemberDialogOpen, setRemoveMemberDialogOpen] = useState(false);
-    const [memberToRemove, setMemberToRemove] =
-        useState<TTeamMemberSummary | null>(null);
+    const [memberToRemove, setMemberToRemove] = useState<TUser | null>(null);
     const [cancelInvitationDialogOpen, setCancelInvitationDialogOpen] =
         useState(false);
     const [invitationToCancel, setInvitationToCancel] =
@@ -64,7 +62,7 @@ const TeamEdit = ({
         [canManageTeam, team.name],
     );
 
-    const updateMemberRole = (member: TTeamMemberSummary, newRole: string) => {
+    const updateMemberRole = (member: TUser, newRole: string) => {
         router.visit(route('teams.members.update', [team.id, member.id]), {
             method: 'patch',
             data: { role: newRole },
@@ -72,7 +70,7 @@ const TeamEdit = ({
         });
     };
 
-    const confirmRemoveMember = (member: TTeamMemberSummary) => {
+    const confirmRemoveMember = (member: TUser) => {
         setMemberToRemove(member);
         setRemoveMemberDialogOpen(true);
     };
@@ -163,102 +161,111 @@ const TeamEdit = ({
                     </div>
 
                     <div className="space-y-3">
-                        {members.map((member) => (
-                            <div
-                                key={member.id}
-                                data-test="member-row"
-                                className="flex items-center justify-between rounded-lg border p-4"
-                            >
-                                <div className="flex items-center gap-4">
-                                    <Avatar className="h-10 w-10">
-                                        {member.avatar ? (
-                                            <AvatarImage
-                                                src={member.avatar}
-                                                alt={member.name}
-                                            />
-                                        ) : null}
-                                        <AvatarFallback>
-                                            {formatInitials(member.name)}
-                                        </AvatarFallback>
-                                    </Avatar>
-                                    <div>
-                                        <div className="font-medium">
-                                            {member.name}
-                                        </div>
-                                        <div className="text-sm text-muted-foreground">
-                                            {member.email}
+                        {users.map((user) => {
+                            const role = user.pivot?.role;
+
+                            return (
+                                <div
+                                    key={user.id}
+                                    data-test="member-row"
+                                    className="flex items-center justify-between rounded-lg border p-4"
+                                >
+                                    <div className="flex items-center gap-4">
+                                        <Avatar className="h-10 w-10">
+                                            {user.avatar ? (
+                                                <AvatarImage
+                                                    src={user.avatar}
+                                                    alt={user.name}
+                                                />
+                                            ) : null}
+                                            <AvatarFallback>
+                                                {formatInitials(user.name)}
+                                            </AvatarFallback>
+                                        </Avatar>
+                                        <div>
+                                            <div className="font-medium">
+                                                {user.name}
+                                            </div>
+                                            <div className="text-sm text-muted-foreground">
+                                                {user.email}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div className="flex items-center gap-2">
-                                    {member.role !== 'owner' &&
-                                    canManageTeam ? (
-                                        <DropdownMenu>
-                                            <DropdownMenuTrigger
-                                                render={
-                                                    <Button
-                                                        variant="outline"
-                                                        size="sm"
-                                                        data-test="member-role-trigger"
-                                                    >
-                                                        {member.role_label}
-                                                        <ChevronDown className="ml-2 h-4 w-4 opacity-50" />
-                                                    </Button>
-                                                }
-                                            />
-                                            <DropdownMenuContent>
-                                                {availableRoles.map((role) => (
-                                                    <DropdownMenuItem
-                                                        key={role.value}
-                                                        data-test="member-role-option"
-                                                        onSelect={() =>
-                                                            updateMemberRole(
-                                                                member,
-                                                                role.value,
-                                                            )
-                                                        }
-                                                    >
-                                                        {role.label}
-                                                    </DropdownMenuItem>
-                                                ))}
-                                            </DropdownMenuContent>
-                                        </DropdownMenu>
-                                    ) : (
-                                        <Badge variant="secondary">
-                                            {member.role_label}
-                                        </Badge>
-                                    )}
-
-                                    {member.role !== 'owner' &&
-                                    canManageTeam ? (
-                                        <TooltipProvider>
-                                            <Tooltip>
-                                                <TooltipTrigger
+                                    <div className="flex items-center gap-2">
+                                        {role !== 'owner' && canManageTeam ? (
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger
                                                     render={
                                                         <Button
-                                                            variant="ghost"
+                                                            variant="outline"
                                                             size="sm"
-                                                            data-test="member-remove-button"
-                                                            onClick={() =>
-                                                                confirmRemoveMember(
-                                                                    member,
-                                                                )
-                                                            }
+                                                            data-test="member-role-trigger"
+                                                            className="capitalize"
                                                         >
-                                                            <X className="h-4 w-4" />
+                                                            {role}
+                                                            <ChevronDown className="ml-2 h-4 w-4 opacity-50" />
                                                         </Button>
                                                     }
                                                 />
-                                                <TooltipContent>
-                                                    <p>Remove member</p>
-                                                </TooltipContent>
-                                            </Tooltip>
-                                        </TooltipProvider>
-                                    ) : null}
+                                                <DropdownMenuContent>
+                                                    {availableRoles.map(
+                                                        (option) => (
+                                                            <DropdownMenuItem
+                                                                key={
+                                                                    option.value
+                                                                }
+                                                                data-test="member-role-option"
+                                                                onSelect={() =>
+                                                                    updateMemberRole(
+                                                                        user,
+                                                                        option.value,
+                                                                    )
+                                                                }
+                                                            >
+                                                                {option.label}
+                                                            </DropdownMenuItem>
+                                                        ),
+                                                    )}
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
+                                        ) : (
+                                            <Badge variant="secondary">
+                                                {role
+                                                    ? formatRoleLabel(role)
+                                                    : null}
+                                            </Badge>
+                                        )}
+
+                                        {role !== 'owner' && canManageTeam ? (
+                                            <TooltipProvider>
+                                                <Tooltip>
+                                                    <TooltipTrigger
+                                                        render={
+                                                            <Button
+                                                                variant="ghost"
+                                                                size="sm"
+                                                                data-test="member-remove-button"
+                                                                onClick={() =>
+                                                                    confirmRemoveMember(
+                                                                        user,
+                                                                    )
+                                                                }
+                                                            >
+                                                                <X className="h-4 w-4" />
+                                                            </Button>
+                                                        }
+                                                    />
+                                                    <TooltipContent>
+                                                        <p>Remove member</p>
+                                                    </TooltipContent>
+                                                </Tooltip>
+                                            </TooltipProvider>
+                                        ) : null}
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 </div>
 

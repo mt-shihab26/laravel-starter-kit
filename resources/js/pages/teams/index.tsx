@@ -5,7 +5,7 @@ import {
     TooltipTrigger,
 } from '@/components/ui/tooltip';
 
-import type { TTeam, TTeamMember } from '@/types/models';
+import type { TTeam } from '@/types/models';
 
 import { useState } from 'react';
 import { formatRoleLabel } from '@/lib/formats';
@@ -18,13 +18,11 @@ import { LeaveTeamModal } from '@/components/layouts/app-layout/leave-team-modal
 import { Button } from '@/components/ui/button';
 import { SettingsLayout } from '@/components/layouts/settings-layout';
 
-type TUserTeam = TTeam & { pivot: TTeamMember | null };
-
-const TeamsIndex = ({ teams }: { teams: TUserTeam[] }) => {
+const TeamsIndex = ({ teams }: { teams: TTeam[] }) => {
     const [leaveTeamDialogOpen, setLeaveTeamDialogOpen] = useState(false);
-    const [teamLeaving, setTeamLeaving] = useState<TUserTeam | null>(null);
+    const [teamLeaving, setTeamLeaving] = useState<TTeam | null>(null);
 
-    const openLeaveTeamDialog = (team: TUserTeam) => {
+    const openLeaveTeamDialog = (team: TTeam) => {
         setTeamLeaving(team);
         setLeaveTeamDialogOpen(true);
     };

@@ -1,5 +1,5 @@
 import type { route as routeFn } from 'ziggy-js';
-import type { TTeam, TTeamMember, TUser } from './models';
+import type { TTeam, TUser } from './models';
 
 declare module 'react' {
     interface InputHTMLAttributes<T> {
@@ -18,8 +18,8 @@ declare module '@inertiajs/core' {
             open: boolean;
             auth: {
                 user: TUser | null;
-                team: (TTeam & { pivot: TTeamMember | null }) | null;
-                teams: (TTeam & { pivot: TTeamMember | null })[];
+                team: TTeam | null;
+                teams: TTeam[];
             };
             flash: {
                 success: string | null;

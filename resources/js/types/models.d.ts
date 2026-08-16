@@ -9,6 +9,8 @@ export type TUser = {
     two_factor_enabled?: boolean;
     created_at: string;
     updated_at: string;
+
+    pivot?: TTeamMember | null;
 };
 
 export type TTeam = {
@@ -17,6 +19,8 @@ export type TTeam = {
     created_at: string;
     updated_at: string;
     deleted_at: string | null;
+
+    pivot?: TTeamMember | null;
 };
 
 export type TTeamMember = {
