@@ -32,7 +32,6 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Team|null $currentTeam
- * @property-read Collection<int, Team> $ownedTeams
  * @property-read Collection<int, Team> $teams
  */
 #[Fillable(['name', 'email', 'password', 'current_team_id'])]

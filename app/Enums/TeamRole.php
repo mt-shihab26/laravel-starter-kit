@@ -20,7 +20,7 @@ enum TeamRole: string
      * Get the hierarchy level for this role.
      * Higher numbers indicate higher privileges.
      */
-    public function level(): int
+    private function level(): int
     {
         return match ($this) {
             self::Owner => 3,
